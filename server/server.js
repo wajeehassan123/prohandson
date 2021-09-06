@@ -2,7 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 var multer = require('multer');
 const cors = require('cors')
-
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
 
 
 var storage = multer.diskStorage({
@@ -23,7 +27,7 @@ const logger = require("morgan");
 const db=require('./config/config').get(process.env.NODE_ENV);
 
 const routes = require('./routes/user');
-
+const routes1 = require('./routes/courses');
 const User=require('./models/user');
 const {auth} =require('./middleware/auth');
 
@@ -33,7 +37,7 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cors());
+app.use(cors(corsOptions));
 mongoose.Promise = global.Promise;
 mongoose.connect(
   db.DATABASE,
@@ -48,7 +52,7 @@ mongoose.connect(
 
 //app.use(require("./routes/api.js"));
 app.use(routes);
-
+app.use(routes1);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

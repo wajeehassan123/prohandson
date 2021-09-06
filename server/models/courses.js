@@ -11,7 +11,7 @@ const CoursesSchema=mongoose.Schema({
     price:{
         type:Number
     },
-    Description:{
+    description:{
         type:String
     },
     rating:{
@@ -19,6 +19,9 @@ const CoursesSchema=mongoose.Schema({
     },
     title:{
         type:String
+    },
+    category:{
+type:String
     },
     img:
     {
