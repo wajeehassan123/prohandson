@@ -101,6 +101,28 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
   })
 
 
+  
+  router.get("/api/course/getCourse/:id",(req,res)=>{
+
+    Course.findById(req.params.id,(err,obj)=>{
+        if(err) {console.log(err);
+             return res.status(400).json({message:"cannot find Course" ,success : false});}
+            
+        console.log(obj);
+        res.status(200).json({
+                    succes:true,
+                    message :"Course get successfully!",
+                    data : obj
+                });
+        
+    
+    })
+      })
+    
+      
+
+
+
   router.get("/api/tutor/getCourseByCategory/:id",(req,res)=>{
 
     Course.find({category:req.params.id},(err,obj)=>{
