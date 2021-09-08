@@ -1,0 +1,25 @@
+.EditProfile_top{
+    justify-content: space-between;
+    margin: auto 50px;
+    align-items: center;
+
+    button{
+        border: none;
+        padding: 10px 40px;
+        border-radius: 10px;
+    }
+}
+.editProfile_form{
+    margin: auto 500px !important;
+}
+.EditProfile_left{
+    display: flex;
+
+    h4{
+        a{
+            text-decoration: none;
+        }
+    }
+}
+
+

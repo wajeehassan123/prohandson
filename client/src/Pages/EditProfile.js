@@ -125,20 +125,24 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         return (
             <div>
             <TutorHeader></TutorHeader>
-            <div className="EditProfile_top d-flex">
-                <h4>My Profile</h4>
-                <h4> .. </h4>
+            <div className="EditProfile_top d-flex mt-4">
+                <div className="EditProfile_left">
+                <h4>
+                   <a href="/tutorPanel"> My Profile </a>
+                </h4>
+                <h4> &#62; </h4>
                 <h4>Edit Profile</h4>
+                </div>
 
-                <button className="editProfile_save">
-                    Save
+                <button  onClick={this.handleSubmit} className="editProfile_save bg-primary text-white">
+                    Update
                 </button>
             </div>
 
 
 
 
-            <form id="main-form">
+            <form id="main-form" className="editProfile_form">
             <div className="eachCouseBannerRight">
                     <img className="bannerTutorPic" src={this.state.imageStr+this.state.img} alt="coursepic" />
                 </div>
@@ -149,8 +153,8 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                     <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" />
                     <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" />
                     <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" />
-                    <input className="formInput" value={this.state.password} onChange={this.handlePassword} placeholder="Password" id ="password" type="password" htmlFor="password" />
-                    <input className="formInput" value={this.state.password2} onChange={this.handlePassword2} placeholder="Confirm Password"  type="password" id ="confirmPassword" htmlFor="password" />
+                    {/* <input className="formInput" value={this.state.password} onChange={this.handlePassword} placeholder="Password" id ="password" type="password" htmlFor="password" />
+                    <input className="formInput" value={this.state.password2} onChange={this.handlePassword2} placeholder="Confirm Password"  type="password" id ="confirmPassword" htmlFor="password" /> */}
                     <input className="formInput" value={this.state.country} onChange={this.handleCountry} placeholder="Country"  id ="country" htmlFor="country" />
                     <input className="formInput" placeholder="City" value={this.state.city} onChange={this.handleCity}  id ="city" htmlFor="city" />
                     <Form.Select value={this.state.selectValue} onChange={this.handleSelect}  aria-label="Default select example" className="my-2">
