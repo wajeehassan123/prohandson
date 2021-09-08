@@ -84,10 +84,10 @@ export class SignupTutor extends React.Component {
                   if(data.success){
                   alert(data.message+"\nPlease Login to continue.");
                   //localStorage.setItem("token",data.token);
-                  window.location.href="/login";
+                  window.location.href="/logintutor";
                   }
                   else{
-                      alert(data.message);
+                      alert("error occured");
                   }
               });
 

@@ -33,9 +33,9 @@ export class LoginPage extends React.Component{
                 if(data.success){
                 alert(data.message);
                 localStorage.setItem("token",data.token);
-                localStorage.setItem("tutor_id",data.msg._id);
+                localStorage.setItem("student_id",data.msg._id);
                 var name=data.msg.first_name+" "+data.msg.last_name;
-                localStorage.setItem("tutor_name",name);
+                localStorage.setItem("student_name",name);
                 this.setState({tutorName:name});
                 window.location.href="/";
 

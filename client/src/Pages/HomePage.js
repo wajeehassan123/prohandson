@@ -130,7 +130,7 @@ EachCoursePage(id){
             <div className="homePageCards" >
             {this.state.courses.map(eachCourse=>{
                 return (
-                 <div className="card_body col-lg-2 col-md-4 col-sm-12"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
+                 <div className="card_body col-lg-2 col-md-4 col-sm-12 mrg"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
                 <Card key={eachCourse._id} {...eachCourse} />
                 </div>
                 )

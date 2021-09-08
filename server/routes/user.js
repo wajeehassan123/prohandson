@@ -188,7 +188,7 @@ router.post("/api/student/login", (req, res, next) => {
             email: getUser.email,
             userId: getUser._id
         }, "longer-secret-is-better", {
-            expiresIn: "100h"
+            expiresIn: "1h"
         });
         res.status(200).json({
             token: jwtToken,

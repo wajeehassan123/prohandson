@@ -96,7 +96,7 @@ console.log(data);
 
     GotoLogin(event){
         event.preventDefault();
-        window.location.href="/login";
+        window.location.href="/loginstudent";
     }
 
 

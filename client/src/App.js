@@ -74,7 +74,7 @@ jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
         <AddCourse data={isloggedin}/>
       </Route>
       <Route path="/eachcourse">
-        <EachCourse />
+        <EachCourse data={isloggedin}/>
       </Route>
       <Route path="/editprofile">
         <EditProfile data={isloggedin}/>
