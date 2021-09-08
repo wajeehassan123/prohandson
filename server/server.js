@@ -11,7 +11,7 @@ const corsOptions ={
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, './../client/public/uploads')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -36,7 +36,7 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./../client/public"));
 app.use(cors(corsOptions));
 mongoose.Promise = global.Promise;
 mongoose.connect(

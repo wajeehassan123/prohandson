@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const express = require("express");
 const Tutor=require('./../models/tutors');
 const Student=require('./../models/students');
 
@@ -6,9 +7,35 @@ var imgModel = require('./../models/profile');
 const auth =require('./../middleware/auth');
 
 
-var multer = require('multer');
 
-const upload = multer({ dest: 'uploads/' })
+var multer = require('multer');
+router.use(express.static(__dirname+"./../client/public"))
+
+var multer = require('multer');
+const imageFilter = function(req, file, cb) {
+    // Accept images only
+    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        req.fileValidationError = 'Only image files are allowed!';
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './../client/public/uploads/profiles/');
+    },
+    // By default, multer removes file extensions so let's add them back
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+
+
+const upload = multer({ storage: storage ,fileFilter:imageFilter});
+
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -252,6 +279,71 @@ router.get("/api/student/getAll", ({}, res) => {
         res.status(400).json(err);
     });
   });
+
+
+
+  router.get("/api/tutor/:id",(req,res)=>{
+    Tutor.findOne({_id:req.params.id},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"Failed to get " ,success : false});}
+     
+            
+    console.log(obj);
+    res.status(200).json({
+                success:true,
+                data : obj
+            });
+    })
+});
+
+router.get("/api/student/:id",(req,res)=>{
+    Student.findOne({_id:req.params.id},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"Failed to get " ,success : false});}
+     
+            
+    console.log(obj);
+    res.status(200).json({
+                success:true,
+                data : obj
+            });
+    })
+});
+
+router.put("/api/tutorUpdate/:id",upload.single('file'),(req,res)=>{
+    Tutor.findOneAndUpdate({_id:req.params.id},{ first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        city:req.body.city,
+        country:req.body.country,
+       img:req.file.filename},{new: true},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"Failed to update " ,success : false});}
+     
+            res.status(200).json({
+                success:true,
+                message :"Profile updated successfully!",
+                data : obj
+            })
+
+    })
+})
+
+
+
+router.put("/api/StudentUpdate/:id",(req,res)=>{
+    Student.findOneAndUpdate({_id:req.params.id},req.body,{new: true},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"Failed to update " ,success : false});}
+     
+            res.status(200).json({
+                success:true,
+                message :"Profile updated successfully!",
+                data : obj
+            })
+
+    })
+})
 
 
 

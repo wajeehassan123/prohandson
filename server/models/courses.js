@@ -25,8 +25,7 @@ type:String
     },
     img:
     {
-        data: Buffer,
-        contentType: String
+        type: String
     },
     is_active:{
         type:Boolean

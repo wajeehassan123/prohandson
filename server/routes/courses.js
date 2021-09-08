@@ -1,3 +1,4 @@
+const express = require("express");
 const router = require('express').Router();
 const Tutor=require('./../models/tutors');
 const Student=require('./../models/students');
@@ -11,6 +12,7 @@ const Course=require('./../models/courses');
 var imgModel = require('./../models/profile');
 const auth =require('./../middleware/auth');
 
+router.use(express.static(__dirname+"./../client/public"))
 
 var multer = require('multer');
 const imageFilter = function(req, file, cb) {
@@ -24,10 +26,9 @@ const imageFilter = function(req, file, cb) {
 
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads/');
+    destination: function (req, file, cb) {
+        cb(null, './../client/public/uploads/');
     },
-
     // By default, multer removes file extensions so let's add them back
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -50,8 +51,7 @@ router.post("/api/tutor/addCourse",upload.single('file'),(req,res)=>{
     newqt.price=req.body.price;
     newqt.description=req.body.description;
     newqt.category=req.body.category;
-    newqt.img.data = fs.readFileSync(req.file.path);
-    newqt.img.contentType = 'image/png';
+    newqt.img = req.file.filename;
     newqt.tutor_id=req.body.tutor_id;
     newqt.name=req.body.name;
 

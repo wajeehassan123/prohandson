@@ -1,0 +1,158 @@
+import React from 'react'
+import {Row, Form} from 'react-bootstrap';
+// import './../css/HomePage.css'
+
+import { Navbar } from './Navbar'
+import { Card } from '../components/Card'
+import { Cards } from '../components/Cards'
+import { Header } from './Header';
+import { TutorHeader } from './TutorHeader';
+
+export class HomePage extends React.Component {
+
+    constructor(prop){
+        super(prop);
+      this.state={courses:[],img:'',isLoggedIn:false}
+      this.getCourses=this.getCourses.bind(this);
+      this.getCourses();
+      this.HandleCategories=this.HandleCategories.bind(this);
+      
+      this.fun();
+}
+
+componentWillMount() {
+    this.fun=this.fun.bind(this);
+}
+
+arrayBufferToBase64(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    return window.btoa(binary);
+};
+
+getCourses(){
+fetch(`/api/courses/getAll`)
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+    this.setState({ courses:data});
+    var base64Flag = 'data:image/png/jpg;base64,';
+    
+    this.setState({courses:data});
+    console.log(this.state);
+}
+    )
+}
+
+
+HandleCategories(event){
+    //this.setState({courses:undefined})
+    console.log(event.target.innerText);
+
+    fetch(`/api/tutor/getCourseByCategory/${event.target.innerText}`)
+    .then(response => response.json())
+    .then(data=>{
+        console.log(data);
+        this.setState({courses:data.data});
+    })
+}
+
+fun(){
+    
+    if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
+        this.setState({isLoggedIn:true});
+        return true;
+    }
+}
+
+EachCoursePage(id){
+   
+    localStorage.setItem("course_id",id);
+    window.location.href="/eachcourse";
+}
+
+
+    // if(localStorage.getItem("token")){
+        render(){
+            const isLogin = this.state.isLoggedIn;
+            const IsLogged=()=>{
+                if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
+                   return <TutorHeader></TutorHeader>
+                }
+                else{
+                   return <Header></Header>
+                }
+            }
+            
+    return (
+       
+        <>
+          
+{IsLogged()}
+    {/* {
+        isLogin?(
+            <TutorHeader></TutorHeader>
+        ): (
+            <Header></Header>
+        )
+    } */}
+           {/* HEADER1 */}
+           <div className="HomeHeader1">
+                <div className="innerHomeHeader1 ">
+                    <div className="innerHomeHeader1Left col-lg-8 col-sm-12 fw-bolder">
+                        <div className="innerHomeHeader1Top m-2 p-2 bg-light">Professional Hands On</div>
+                        <div className="text-white">Your Best Guided Learning Experience</div>
+                    </div>
+                    <div className="innerHomeHeader1Right ">
+                        <img src={'/banner.jpg'} alt="pic" />
+                    </div>
+                </div>
+            </div>
+
+            {/* HEADER2 */}
+          <div className="HomeHeader2 py-3 bg-light">
+                <div className="HomeHeader2Text ">
+                    Build Professional Relationship while guiding practical Hand-son skills live
+                </div>
+            </div>
+
+            {/* CATEGORY BUTTONS */}
+            <div className="CategoryBtns d-flex">
+                
+            <button onClick={this.getCourses} className="btn text-white ">Popular</button>
+                <button onClick={this.HandleCategories} className="btn text-white">Music</button>
+                <button onClick={this.HandleCategories} className="btn text-white">IT</button>
+                <button onClick={this.HandleCategories} className="btn text-white">Sports</button>
+                <button onClick={this.HandleCategories} className="btn text-white">Dance</button>
+                <button onClick={this.HandleCategories} className="btn text-white">Animal Care</button>
+            </div>
+            <div className="homePageCards" >
+            {this.state.courses.map(eachCourse=>{
+                return (
+                 <div className="card_body col-lg-2 col-md-4 col-sm-12"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
+                <Card key={eachCourse._id} {...eachCourse} />
+                </div>
+                )
+            })}
+            </div>
+            <div className="HomeHeader3 bg-light my-3">
+                <div className="fw-bolder">Why Use ProHandson</div>
+                <div className="">
+                    Industry Leading experts guideance will take you from zero skills to excellence.
+                    <br/>
+                    Step by Step Guidance tailored to your calendar and other requirements.
+                    <br/>
+                    Our premier Screen Sharing application faciliate Monitoring your progress as you are practicing Hands-on.
+                    <br/>
+                    Whether you are comfortable with third party sharing device or in-built screen sharing tools.
+                </div>
+            </div>
+        </>
+    )
+    // }
+    // else{
+    //     window.location.href="/login";
+    // }
+        }
+}

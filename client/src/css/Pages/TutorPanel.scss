@@ -1,0 +1,39 @@
+.tutorMain{
+    margin: auto ;
+
+    h3{
+        margin-left: 100px;
+        text-align: left;
+    }
+}
+
+.tutorCourses{
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin: 10px 100px;
+}
+
+.addCourseBtn{
+    height: 200px;
+    width: 200px;
+    margin-top: 10px;
+    border: none;
+    background-color: rgb(50, 148, 240);
+    font-size: 90px;
+    text-align: center;
+    font-weight: bolder;
+    a{
+        text-decoration: none;
+        display: block;
+        // height: 200px;
+        // width: 200px;
+    }
+}
+
+@media (max-width:450px) {
+    .tutorCourses{
+        margin: 10px 10px;
+        justify-content: center;
+    }
+}

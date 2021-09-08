@@ -56,8 +56,7 @@ const tutorSchema=mongoose.Schema({
     },
     img:
     {
-        data: Buffer,
-        contentType: String
+        type:String
     },
     type:{
 type:String
