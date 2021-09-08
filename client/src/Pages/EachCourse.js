@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { TutorHeader } from './TutorHeader'
 
 export class EachCourse extends React.Component {
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
+        if(!props.data){
+            window.location.href="/logintutor";
+        }
         this.state={course:{},imageStr:'./uploads/'};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.LoadCourse();
@@ -11,7 +14,10 @@ export class EachCourse extends React.Component {
     }
     LoadCourse(){
         var id=localStorage.getItem("course_id");
-        fetch(`/api/course/getCourse/${id}`)
+        
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+        fetch(`/api/course/getCourse/${id}`,{headers:myHeaders})
 .then(response => response.json())
 .then(data => {
     console.log(data);

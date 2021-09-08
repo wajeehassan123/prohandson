@@ -44,7 +44,7 @@ const bcrypt = require("bcrypt");
 
 
 
-router.post("/api/tutor/addCourse",upload.single('file'),(req,res)=>{
+router.post("/api/tutor/addCourse",upload.single('file'),auth,(req,res)=>{
 
     const newqt=new Course();
     newqt.title=req.body.title;
@@ -83,7 +83,7 @@ router.get("/api/courses/getAll", ({}, res) => {
   });
 
 
-  router.get("/api/tutor/getCourse/:id",(req,res)=>{
+  router.get("/api/tutor/getCourse/:id",auth,(req,res)=>{
 
 Course.find({tutor_id:req.params.id},(err,obj)=>{
     if(err) {console.log(err);
@@ -102,7 +102,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
 
 
   
-  router.get("/api/course/getCourse/:id",(req,res)=>{
+  router.get("/api/course/getCourse/:id",auth,(req,res)=>{
 
     Course.findById(req.params.id,(err,obj)=>{
         if(err) {console.log(err);
@@ -123,7 +123,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
 
 
 
-  router.get("/api/tutor/getCourseByCategory/:id",(req,res)=>{
+  router.get("/api/tutor/getCourseByCategory/:id",auth,(req,res)=>{
 
     Course.find({category:req.params.id},(err,obj)=>{
         if(err) {console.log(err);
@@ -141,7 +141,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
       })
 
 
-      router.get("/api/tutor/getCourseByTitle/:id",(req,res)=>{
+      router.get("/api/tutor/getCourseByTitle/:id",auth,(req,res)=>{
 
         Course.find({title:{ $regex: req.params.id, $options: 'i' }},{img:0},(err,obj)=>{
             if(err) {console.log(err);

@@ -10,6 +10,9 @@ export class AddCourse extends React.Component {
         super(props);
         this.state={title:'',price:'',description:'',category:'',file:null,img:''};
 
+        if(!props.data){
+            window.location.href="/logintutor";
+        }
 
         this.handleTitle=this.handleTitle.bind(this);
         this.handlePrice=this.handlePrice.bind(this);
@@ -60,8 +63,13 @@ formData.append("name",localStorage.getItem("tutor_name"));
 //     category:this.state.category,
     
 // });
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+
 const requestOptions = {
   method: 'POST',
+  headers:myHeaders,
   body: formData
 };
 fetch('/api/tutor/addCourse',requestOptions)

@@ -27,8 +27,23 @@ import { LoginContainer } from "./Pages/LoginContainer";
 import { LoginTutor } from "./Pages/LoginTutor";
 // import { EditProfile } from "./Pages/EditProfile";
 import { EditProfile } from "./Pages/EditProfile"; 
+import jwt from 'jsonwebtoken';
 
 function App() {
+var isloggedin=false;
+  if(localStorage.token){
+
+jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
+  if(err){
+    isloggedin=false;
+    localStorage.clear();
+  }
+  else{
+    isloggedin=true;
+  }
+})
+
+  }
 
   return (
 
@@ -53,16 +68,16 @@ function App() {
         <SignupTutor></SignupTutor>
       </Route>
       <Route path="/tutorPanel">
-        <TutorPanel/>
+        <TutorPanel data={isloggedin}/>
       </Route>
       <Route path="/addcourse">
-        <AddCourse/>
+        <AddCourse data={isloggedin}/>
       </Route>
       <Route path="/eachcourse">
-        <EachCourse/>
+        <EachCourse />
       </Route>
       <Route path="/editprofile">
-        <EditProfile/>
+        <EditProfile data={isloggedin}/>
       </Route>
 
       

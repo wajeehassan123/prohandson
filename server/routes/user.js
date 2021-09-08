@@ -63,11 +63,13 @@ router.post('/api/tutor/signup',function(req,res){
             country:req.body.country,
             password: hash,
             type:req.body.type,
+            is_active:0,
+            is_admin:0,
 
         });
         user1.save((err,doc)=>{
           if(err) {console.log(err);
-              return res.status(400).json({ success : false});}
+              return res.status(400).json({ success : false,error:err});}
           res.status(200).json({
               success:true,
               message :"Tutor created successfully!",
@@ -142,7 +144,7 @@ router.post("/api/tutor/login", (req, res, next) => {
           email: getUser.email,
           userId: getUser._id
       }, "longer-secret-is-better", {
-          expiresIn: "100h"
+          expiresIn: "1h"
       });
       res.status(200).json({
           token: jwtToken,
@@ -263,7 +265,7 @@ router.get("/api/getAllImages/:id",(req,res)=>{
 //})
 
 
-router.get("/api/tutor/getAll", ({}, res) => {
+router.get("/api/tutor/getAll",auth, ({}, res) => {
   Tutor.find({}).then((users) => {
       res.json(users);
   }).catch(err => {
@@ -272,7 +274,7 @@ router.get("/api/tutor/getAll", ({}, res) => {
 });
 
 
-router.get("/api/student/getAll", ({}, res) => {
+router.get("/api/student/getAll",auth, ({}, res) => {
     Student.find({}).then((users) => {
         res.json(users);
     }).catch(err => {
@@ -282,7 +284,7 @@ router.get("/api/student/getAll", ({}, res) => {
 
 
 
-  router.get("/api/tutor/:id",(req,res)=>{
+  router.get("/api/tutor/:id",auth,(req,res)=>{
     Tutor.findOne({_id:req.params.id},(err,obj)=>{
         if(err) {console.log(err);
             return res.status(400).json({message:"Failed to get " ,success : false});}
@@ -296,7 +298,7 @@ router.get("/api/student/getAll", ({}, res) => {
     })
 });
 
-router.get("/api/student/:id",(req,res)=>{
+router.get("/api/student/:id",auth,(req,res)=>{
     Student.findOne({_id:req.params.id},(err,obj)=>{
         if(err) {console.log(err);
             return res.status(400).json({message:"Failed to get " ,success : false});}
@@ -310,7 +312,7 @@ router.get("/api/student/:id",(req,res)=>{
     })
 });
 
-router.put("/api/tutorUpdate/:id",upload.single('file'),(req,res)=>{
+router.put("/api/tutorUpdate/:id",upload.single('file'),auth,(req,res)=>{
     Tutor.findOneAndUpdate({_id:req.params.id},{ first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,

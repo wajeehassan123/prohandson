@@ -13,6 +13,8 @@ export class Header extends React.Component {
         this.eachCourse=this.eachCourse.bind(this);
     }
     handleSearch(event){
+
+        
         
         fetch(`/api/tutor/getCourseByTitle/${event.target.value}`)
         .then(response => response.json())

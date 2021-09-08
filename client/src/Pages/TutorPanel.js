@@ -5,10 +5,14 @@ import { TutorHeader } from './TutorHeader'
 
 export class TutorPanel extends React.Component {
 
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
+        console.log(props);
       this.state={courses:[],img:'./uploads/'}
       this.getCourses=this.getCourses.bind(this);
+      if(!props.data){
+          window.location.href="/logintutor";
+      }
       this.getCourses();
 }
 
@@ -16,7 +20,10 @@ export class TutorPanel extends React.Component {
 
 getCourses(){
     const id=localStorage.getItem("tutor_id");
-fetch(`/api/tutor/getCourse/${id}`)
+    
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+fetch(`/api/tutor/getCourse/${id}`,{headers:myHeaders})
 .then(response => response.json())
 .then(data => {
     console.log(data);
@@ -38,7 +45,7 @@ AddCourse(){
 }
 
     render(){
-        if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
+       // if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
         
         
     return (
@@ -72,10 +79,10 @@ AddCourse(){
             </div>
         </div>
     )
-        }
-        else{
-            window.location.href="/";
+        // }
+        // else{
+        //     window.location.href="/";
 
-        }
+        // }
     }
 }

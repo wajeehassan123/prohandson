@@ -4,8 +4,11 @@ import { TutorHeader } from './TutorHeader'
 
 export class EditProfile extends React.Component {
 
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
+        if(!props.data){
+            window.location.href="/logintutor";
+        }
         this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
         email:'',country:'',city:'',
         selectValue:'',imageStr:'./uploads/profiles/',img:''
@@ -27,9 +30,11 @@ export class EditProfile extends React.Component {
     }
     getUser(){
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         var tutor_id=localStorage.getItem("tutor_id");
         if(tutor_id){
-        fetch(`/api/tutor/${tutor_id}`)
+        fetch(`/api/tutor/${tutor_id}`,{headers:myHeaders})
         .then(response => response.json())
         .then(data=>{
 this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img})
@@ -89,9 +94,12 @@ formData.append("email",this.state.email);
 formData.append("city",this.state.city);
 formData.append("country",this.state.country);
      
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         
       const requestOptions = {
           method: 'PUT',
+          headers:myHeaders,
           body: formData
       };
       fetch(`/api/tutorUpdate/${tutor_id}`, requestOptions)
