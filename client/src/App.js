@@ -28,6 +28,7 @@ import { LoginTutor } from "./Pages/LoginTutor";
 // import { EditProfile } from "./Pages/EditProfile";
 import { EditProfile } from "./Pages/EditProfile"; 
 import jwt from 'jsonwebtoken';
+import { ChangePassword } from "./Pages/ChangePassword";
 
 function App() {
 var isloggedin=false;
@@ -79,6 +80,10 @@ jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
       <Route path="/editprofile">
         <EditProfile data={isloggedin}/>
       </Route>
+      <Route path="/changepassword">
+        <ChangePassword data={isloggedin}/>
+      </Route>
+
 
       
     </Switch>
