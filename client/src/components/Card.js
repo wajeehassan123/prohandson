@@ -16,7 +16,7 @@ export const Card = (props) => {
         <div >
           
             <div className="card_img">
-                <img src={imageStr || 'dp.jpg'} alt="card-pic"/>
+                <img src={imageStr ? imageStr : 'dp.jpg'} alt="card-pic"/>
             </div>
             <div className="card_heading">
                 <h5>{props.title}</h5>

@@ -22,6 +22,14 @@
     }
 }
 
+.eachCouseBannerRight{
+    img{
+        max-height: 300px !important;
+        max-width: 300px !important;
+        border-radius: 50%;
+    }
+}
+
 
 @media (max-width:1250px) {
     .editProfile_form{
