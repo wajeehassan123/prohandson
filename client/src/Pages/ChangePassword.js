@@ -9,11 +9,11 @@ export class ChangePassword extends React.Component {
         if(!props.data){
             window.location.href="/logintutor";
         }
-        this.state = {password:'',password2:'' };
+        this.state = {password:'',password2:'',oldpassword:'' };
 
         this.handlePassword = this.handlePassword.bind(this);
         this.handlePassword2=this.handlePassword2.bind(this);
-
+this.handleOldPassword=this.handleOldPassword.bind(this);
     }   
 
     handlePassword(event){
@@ -24,6 +24,31 @@ export class ChangePassword extends React.Component {
       handlePassword2(event){
         this.setState({password2:event.target.value});
       
+      }
+
+      handleOldPassword(event){
+        this.setState({oldpassword:event.target.value});
+      }
+
+      handleSubmit(){
+        
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+const requestOptions = {
+    method: 'POST',
+    headers:myHeaders,
+    body: JSON.stringify({oldpassword:this.state.oldpassword,password:this.state.password,password2:this.state.password2})
+  };
+          fetch(`/api//changePassword/${localStorage.getItem("tutor_id")}`,requestOptions)
+          .then(response => response.json())
+          .then(data => 
+              {
+                  if(data.success){
+alert(data.message);
+window.location.href="/tutorpanel"
+                  }
+                  alert(data.message);
+              })
       }
 
     render() {
@@ -59,6 +84,8 @@ export class ChangePassword extends React.Component {
                     {/* <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" />
                     <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" />
                     <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" /> */}
+                    <input className="formInput" value={this.state.oldpassword} onChange={this.handleOldPassword} placeholder="Old Password" id ="opassword" type="password" htmlFor="opassword" />
+                    
                     <input className="formInput" value={this.state.password} onChange={this.handlePassword} placeholder="Password" id ="password" type="password" htmlFor="password" />
                     <input className="formInput" value={this.state.password2} onChange={this.handlePassword2} placeholder="Confirm Password"  type="password" id ="confirmPassword" htmlFor="password" />
                     {/* <input className="formInput" value={this.state.country} onChange={this.handleCountry} placeholder="Country"  id ="country" htmlFor="country" />

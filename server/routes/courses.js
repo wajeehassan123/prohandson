@@ -9,7 +9,6 @@ var fs = require('fs');
 var path = require('path');
 const Course=require('./../models/courses');
 
-var imgModel = require('./../models/profile');
 const auth =require('./../middleware/auth');
 
 router.use(express.static(__dirname+"./../client/public"))
@@ -69,7 +68,7 @@ router.post("/api/tutor/addCourse",upload.single('file'),auth,(req,res)=>{
 
 
 router.get("/api/courses/getAll", ({}, res) => {
-    Course.find({}).then((users) => {
+    Course.find({}).populate("tutor_id").then((users) => {
         //console.log(users[0].img)
         
         // const b64 = Buffer.from(users[0].img.data.buffer).toString('base64');

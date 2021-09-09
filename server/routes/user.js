@@ -347,6 +347,57 @@ router.put("/api/StudentUpdate/:id",(req,res)=>{
     })
 })
 
+router.post("/api/changePassword/:id",auth, (req, res, next) => {
+    let getUser;
+    Tutor.findOne({_id:req.params.id})
+    .then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "User not found",
+                success:false
+            });
+        }
+        getUser = user;
+        return bcrypt.compare(req.body.oldpassword, user.password);
+    }).then(response => {
+        if (!response) {
+            return res.status(401).json({
+                message: "Old password is not correct",
+                success:false
+            });
+        }
+        if(req.body.password!=req.body.password2)return res.status(400).json({message: "password not match"});
+ 
+        bcrypt.hash(req.body.password, 10).then((hash) => {
+            console.log(getUser);
+            getUser.password=hash;
+getUser.save((err,doc)=>{
+    if(err) {console.log(err);
+        return res.status(400).json({ success : false});}
+    res.status(200).json({
+        success:true,
+        message :"password updated successfully!",
+        user : doc
+    });
+
+        })
+
+    })
+       
+    }).catch(err => {
+        return res.status(401).json({
+            message: "Authentication failed",
+            success:false
+        });
+    })
+
+
+})
+
+
+
+
+
 
 
 module.exports = router;

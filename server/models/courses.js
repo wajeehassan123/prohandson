@@ -1,6 +1,8 @@
 var mongoose=require('mongoose');
 const confiq=require('../config/config').get(process.env.NODE_ENV);
 
+const Tutor=require('./tutors');
+
 const CoursesSchema=mongoose.Schema({
     name:{
         type:String,

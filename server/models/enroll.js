@@ -1,13 +1,17 @@
 var mongoose=require('mongoose');
+const Student=require('./students');
+const Tutor=require('./tutors');
+const Course=require('./courses');
+
 const confiq=require('../config/config').get(process.env.NODE_ENV);
 
-const StudentCourseSchema=mongoose.Schema({
-    tutor_id:{
+const EnrollSchema=mongoose.Schema({
+    // tutor_id:{
         
-        type: mongoose.Schema.Types.ObjectId,
+    //     type: mongoose.Schema.Types.ObjectId,
     
-        ref: 'Tutor'
-    },
+    //     ref: 'Tutor'
+    // },
     student_id:{
         type: mongoose.Schema.Types.ObjectId,
     
@@ -25,4 +29,4 @@ const StudentCourseSchema=mongoose.Schema({
 });
 
 
-module.exports=mongoose.model('StudentCourse',StudentCourseSchema);
+module.exports=mongoose.model('Enroll',EnrollSchema);
