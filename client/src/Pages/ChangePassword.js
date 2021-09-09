@@ -39,9 +39,9 @@ export class ChangePassword extends React.Component {
                 <h4>Change Password</h4>
                 </div>
 
-                <button  onClick={this.handleSubmit} className="editProfile_save bg-primary text-white">
+                {/* <button  onClick={this.handleSubmit} className="editProfile_save bg-primary text-white">
                     Update Password
-                </button>
+                </button> */}
             </div>
 
 
@@ -70,10 +70,10 @@ export class ChangePassword extends React.Component {
                         <option value="Sports">Sports</option>
                         <option value="Dance">Dance</option>
                         <option value="Animal Care">Animal Care</option>
-                    </Form.Select>
+                    </Form.Select> */}
                     <div className="btn-r text-center ">
                         <button onClick={this.handleSubmit} id="btn">Update</button>
-                    </div> */}
+                    </div>
             </form>
         </div>
         )
