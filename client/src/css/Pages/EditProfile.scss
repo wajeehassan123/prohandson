@@ -22,4 +22,35 @@
     }
 }
 
+.eachCouseBannerRight{
+    img{
+        max-height: 300px !important;
+        max-width: 300px !important;
+        border-radius: 50%;
+    }
+}
 
+
+@media (max-width:1250px) {
+    .editProfile_form{
+        margin: auto 350px !important;
+    }
+}
+
+@media (max-width:950px) {
+    .editProfile_form{
+        margin: auto 150px !important;
+    }
+}
+
+@media (max-width:600px) {
+    .editProfile_form{
+        margin: auto 50px !important;
+    }
+}
+
+@media (max-width:400px) {
+    .editProfile_form{
+        margin: auto 20px !important;
+    }
+}

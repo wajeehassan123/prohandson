@@ -44,6 +44,9 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
 
 
         }
+
+        console.log(this.state.imageStr);
+        console.log(this.state.img);
     }
 
     handleEmail(event) {
@@ -118,6 +121,7 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 
 
 //alert(this.state.username+ "hello"+ this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.password2);
+            
     }
 
     
@@ -134,9 +138,9 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                 <h4>Edit Profile</h4>
                 </div>
 
-                <button  onClick={this.handleSubmit} className="editProfile_save bg-primary text-white">
+                {/* <button  onClick={this.handleSubmit} className="editProfile_save bg-primary text-white">
                     Update
-                </button>
+                </button> */}
             </div>
 
 
@@ -144,7 +148,7 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 
             <form id="main-form" className="editProfile_form">
             <div className="eachCouseBannerRight">
-                    <img className="bannerTutorPic" src={this.state.imageStr+this.state.img} alt="coursepic" />
+                    <img className="bannerTutorPic" src={this.state.img ? this.state.imageStr+this.state.img : 'dp.jpg'} alt="coursepic" />
                 </div>
             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Choose The Profile Picture</Form.Label>
