@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+
+const router = require('express').Router();
 var multer = require('multer');
 const cors = require('cors')
 const corsOptions ={
@@ -25,6 +27,7 @@ var path = require('path');
 const logger = require("morgan");
 //const url = "mongodb://localhost/workout";
 const db=require('./config/config').get(process.env.NODE_ENV);
+const bodyParser = require('body-parser')
 
 const routes = require('./routes/user');
 const routes1 = require('./routes/courses');
@@ -40,6 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./../client/public"));
 app.use(cors(corsOptions));
+
 mongoose.Promise = global.Promise;
 mongoose.connect(
   db.DATABASE,

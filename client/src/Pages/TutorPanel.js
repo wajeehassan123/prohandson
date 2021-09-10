@@ -8,12 +8,15 @@ export class TutorPanel extends React.Component {
     constructor(props){
         super(props);
         console.log(props);
-      this.state={courses:[],img:'./uploads/'}
+      this.state={courses:[],students:[],img:'./uploads/'}
       this.getCourses=this.getCourses.bind(this);
+      
+      this.getStudentCourse=this.getStudentCourse.bind(this);
       if(!props.data){
           window.location.href="/logintutor";
       }
       this.getCourses();
+      this.getStudentCourse();
 }
 
 
@@ -28,13 +31,30 @@ fetch(`/api/tutor/getCourse/${id}`,{headers:myHeaders})
 .then(data => {
     console.log(data);
     this.setState({ courses:data.data});
-    var base64Flag = 'data:image/png/jpg;base64,';
     
-    this.setState({courses:data.data});
     console.log(this.state);
 }
     )
 }
+
+getStudentCourse(){
+    const id=localStorage.getItem("tutor_id");
+    
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+    fetch(`/api/tutor/getEnrolled/${id}`,{headers:myHeaders})
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+       this.setState({ students:data});
+        
+       
+        console.log(this.state);
+    }
+        )
+
+}
+
 EachCoursePage(id){
     localStorage.setItem("course_id",id);
     window.location.href="/eachcourse";

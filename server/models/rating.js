@@ -2,21 +2,18 @@ var mongoose=require('mongoose');
 const Student=require('./students');
 const Tutor=require('./tutors');
 const Course=require('./courses');
-
+const Enroll=require('./rating');
 const confiq=require('../config/config').get(process.env.NODE_ENV);
 
-const EnrollSchema=mongoose.Schema({
-    tutor_id:{
-        
-        type: mongoose.Schema.Types.ObjectId,
-    
-        ref: 'Tutor'
-    },
+const RatingSchema=mongoose.Schema({
+
+    message:{type:String},
+    rate:{type:Number},
+    date:{type:Date},
     student_id:{
         type: mongoose.Schema.Types.ObjectId,
     
         ref: 'Student'
-
     },
     course_id:{
         type: mongoose.Schema.Types.ObjectId,
@@ -24,9 +21,9 @@ const EnrollSchema=mongoose.Schema({
         ref: 'Courses'
     }
 
-
-
 });
 
 
-module.exports=mongoose.model('Enroll',EnrollSchema);
+
+module.exports=mongoose.model('Rating',RatingSchema);
+

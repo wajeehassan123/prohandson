@@ -4,28 +4,63 @@ import { TutorHeader } from './TutorHeader'
 export class EachCourse extends React.Component {
     constructor(props){
         super(props);
-        if(!props.data){
-            window.location.href="/logintutor";
-        }
-        this.state={course:{},imageStr:'./uploads/'};
+        // if(!props.data){
+        //     window.location.href="/logintutor";
+        // }
+        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/'};
         this.LoadCourse=this.LoadCourse.bind(this);
+        this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
         
     }
     LoadCourse(){
         var id=localStorage.getItem("course_id");
         
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
-        fetch(`/api/course/getCourse/${id}`,{headers:myHeaders})
+        fetch(`/api/course/getCourse/${id}`)
 .then(response => response.json())
 .then(data => {
     console.log(data);
     this.setState({course:data.data});
+    console.log(this.state.course);
+    console.log(this.state.course.tutor_id);
  
     })
 }
 
+handleEnroll(id){
+    if(this.props.data){
+
+    var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+myHeaders.append("Content-Type", "application/json");
+const formData=new FormData();
+formData.append("course_id",id);
+formData.append("student_id",localStorage.getItem("student_id"));
+
+const requestOptions = {
+  method: 'POST',
+  contentType:'application/json',
+  headers:myHeaders,
+  body: JSON.stringify({course_id:id,student_id:localStorage.getItem("student_id"),tutor_id:this.state.course.tutor_id._id})
+};
+    fetch('/api/student/enroll',requestOptions)
+    .then(response => response.json())
+  .then(data => 
+      {
+          if(data.succes)
+          {
+              alert(data.message);
+              window.location.href="/";
+          }
+          else
+          alert(data.message);
+
+      })
+    }
+    else{
+        alert("please login to continue")
+    }
+}
     
 
   
@@ -43,10 +78,19 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                     {this.state.course.description}
                     </h3>
                     <p className="bannerTutorDetail my-3">
-                        <span ><img src={'/card_pic.jpg'} alt="logo" /></span>
+                        <span >
+                        {
+                        this.state.course.tutor_id?(
+                            <img src={this.state.profileImg+this.state.course.tutor_id.img} alt="tutor pic" />
+                   
+        ): (
+            <img src={this.state.profileImg+this.state.course.img} alt="tutor pic" />
+                   
+        )
+                    }</span>
                         <span>{this.state.course.name}</span>
                     </p>
-                    <button className="eachCourseEnroll mt-3">
+                    <button onClick={()=>this.handleEnroll(this.state.course._id)} className="eachCourseEnroll mt-3">
                         Enroll Now
                     </button>
                 </div>
@@ -68,7 +112,15 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
             <div className="eachCourseTutor">
                 <h3 className="mb-3">Tutor</h3>
                 <div className="eachCourseTutorInner d-flex">
-                    <img src={'peter.jpg'} alt="tutor pic" />
+                    {
+                        this.state.course.tutor_id?(
+                            <img src={this.state.profileImg+this.state.course.tutor_id.img} alt="tutor pic" />
+                   
+        ): (
+            <img src={this.state.profileImg+this.state.course.img} alt="tutor pic" />
+                   
+        )
+                    }
                     <div>
                         <h3>{this.state.course.name}</h3>
                         <h5>{this.state.course.category}</h5>

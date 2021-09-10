@@ -101,7 +101,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
 
 
   
-  router.get("/api/course/getCourse/:id",auth,(req,res)=>{
+  router.get("/api/course/getCourse/:id",(req,res)=>{
 
     Course.findById(req.params.id,(err,obj)=>{
         if(err) {console.log(err);
@@ -115,7 +115,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
                 });
         
     
-    })
+    }).populate("tutor_id")
       })
     
       
