@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Card } from '../components/Card'
+import { HeaderLogginIn } from './HeaderLoggedIn';
 import { TutorHeader } from './TutorHeader'
 
 export class TutorPanel extends React.Component {
@@ -70,7 +71,8 @@ AddCourse(){
         
     return (
         <div>
-            <TutorHeader></TutorHeader>
+            
+            <TutorHeader/>
             <div className="tutorHeading mt-3">
                 <h1>Welcome Tutor</h1>
             </div>

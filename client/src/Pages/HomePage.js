@@ -8,21 +8,23 @@ import { Cards } from '../components/Cards'
 import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
+import { HeaderLogginIn } from './HeaderLoggedIn';
 
 export class HomePage extends React.Component {
 
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
       this.state={courses:[],img:'',isLoggedIn:false}
       this.getCourses=this.getCourses.bind(this);
       this.getCourses();
       this.HandleCategories=this.HandleCategories.bind(this);
       
-      this.fun();
+      {console.log(this.props)}
+    //   this.fun();
 }
 
 componentWillMount() {
-    this.fun=this.fun.bind(this);
+    // this.fun=this.fun.bind(this);
 }
 
 arrayBufferToBase64(buffer) {
@@ -59,13 +61,13 @@ HandleCategories(event){
     })
 }
 
-fun(){
+// fun(){
     
-    if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
-        this.setState({isLoggedIn:true});
-        return true;
-    }
-}
+//     if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
+//         this.setState({isLoggedIn:true});
+//         return true;
+//     }
+// }
 
 EachCoursePage(id){
    
@@ -76,28 +78,29 @@ EachCoursePage(id){
 
     // if(localStorage.getItem("token")){
         render(){
-            const isLogin = this.state.isLoggedIn;
-            const IsLogged=()=>{
-                if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
-                   return <TutorHeader></TutorHeader>
-                }
-                else{
-                   return <Header></Header>
-                }
-            }
+            // const isLogin = this.state.isLoggedIn;
+            // const IsLogged=()=>{
+            //     if(localStorage.getItem("token") && localStorage.getItem("tutor_id")){
+            //        return <HeaderLogginIn/>
+            //     }
+            //     else{
+            //        return <Header></Header>
+            //     }
+            // }
             
     return (
        
         <>
           
-{IsLogged()}
-    {/* {
-        isLogin?(
-            <TutorHeader></TutorHeader>
+{/* {IsLogged()} */}
+
+    {
+        this.props.studentLoginVal&&this.props.data?(
+            <HeaderLogginIn/>
         ): (
             <Header></Header>
         )
-    } */}
+    }
            {/* HEADER1 */}
            <div className="HomeHeader1">
                 <div className="innerHomeHeader1 ">
@@ -118,11 +121,18 @@ EachCoursePage(id){
                 </div>
             </div>
 
-            <div className="Home_MyCourses">
-                <h2 className="">Your Courses</h2>
-                <MyCourseCard></MyCourseCard>
-                <MyCourseCard></MyCourseCard>
-            </div>
+            
+            {console.log(this.props.studentLoginVal)}
+            {console.log(this.props.data)}
+            {this.props.studentLoginVal&&this.props.data?(
+                        <div className="Home_MyCourses">
+                        <h2 className="">Your Courses</h2>
+                        <MyCourseCard></MyCourseCard>
+                        <MyCourseCard></MyCourseCard>
+                    </div>
+            ):(
+                <div></div>
+            )}
 
             {/* CATEGORY BUTTONS */}
             <h2 className="fw-left">Choose Courses</h2>

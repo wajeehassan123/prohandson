@@ -31,27 +31,31 @@ import jwt from 'jsonwebtoken';
 import { ChangePassword } from "./Pages/ChangePassword";
 
 function App() {
-var isloggedin=false;
-  if(localStorage.token){
-
-jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
-  if(err){
-    isloggedin=false;
-    localStorage.clear();
-  }
-  else{
-    isloggedin=true;
-  }
-})
-
-  }
+  var isloggedin=false;
+  var studentLogin=false;
+    if(localStorage.token){
+  
+  jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
+    if(err){
+      isloggedin=false;
+      localStorage.clear();
+    }
+    else{
+      if(localStorage.student_id){
+        studentLogin=true;
+      }
+      isloggedin=true;
+    }
+  })
+  
+    }
 
   return (
 
    <>
     <Switch>
       <Route exact path="/">
-        <HomePage />
+        <HomePage studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/loginStudent">
         <LoginPage />
