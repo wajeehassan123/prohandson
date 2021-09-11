@@ -18,8 +18,8 @@ export const Card = (props) => {
             <div className="card_img">
                 <img src={imageStr ? imageStr : 'dp.jpg'} alt="card-pic"/>
             </div>
-            <div className="card_heading">
-                <h5>{props.title}</h5>
+            <div className="card_heading mb-3">
+                {/* <h5>{props.title}</h5> */}
             </div>
            
             <div className="card_author fw-bold">

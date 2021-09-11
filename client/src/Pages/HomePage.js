@@ -7,6 +7,7 @@ import { Card } from '../components/Card'
 import { Cards } from '../components/Cards'
 import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
+import { MyCourseCard } from '../components/MyCourseCard';
 
 export class HomePage extends React.Component {
 
@@ -105,7 +106,7 @@ EachCoursePage(id){
                         <div className="text-white">Your Best Guided Learning Experience</div>
                     </div>
                     <div className="innerHomeHeader1Right ">
-                        <img src={'/banner.jpg'} alt="pic" />
+                        <img src={'/banner_top.jpg'} alt="pic" />
                     </div>
                 </div>
             </div>
@@ -117,7 +118,14 @@ EachCoursePage(id){
                 </div>
             </div>
 
+            <div className="Home_MyCourses">
+                <h2 className="">Your Courses</h2>
+                <MyCourseCard></MyCourseCard>
+                <MyCourseCard></MyCourseCard>
+            </div>
+
             {/* CATEGORY BUTTONS */}
+            <h2 className="fw-left">Choose Courses</h2>
             <div className="CategoryBtns d-flex">
                 
             <button onClick={this.getCourses} className="btn text-white ">Popular</button>

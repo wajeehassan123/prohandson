@@ -1,6 +1,7 @@
 import React from 'react'
 // import { Dropdown } from 'bootstrap'
 import {Dropdown, Form} from 'react-bootstrap';
+import { Header } from './Header';
 
 
 export class SignupPage extends React.Component {
@@ -81,7 +82,7 @@ export class SignupPage extends React.Component {
                   if(data.success){
                   alert(data.message+"\nPlease Login to continue.");
                   //localStorage.setItem("token",data.token);
-                  window.location.href="/login";
+                  window.location.href="/loginstudent";
                   }
                   else{
                       alert(data.message);
@@ -139,8 +140,10 @@ console.log(data);
             
 //         </div>
 
+            <>
+            <Header></Header>
             <div id="main-login">
-                <h3 id="form-heading">Sign Up to ProHandson</h3>
+                <h3 id="form-heading">Sign Up as Student</h3>
                 <form id="main-form">
                 <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" />
                         <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" />
@@ -152,12 +155,13 @@ console.log(data);
                             <div className="btn-r text-center ">
             <button onClick={this.handleSubmit} id="btn">Sign up</button>
                 
-            <p className="my-2">Already have an account? <span><a href="/Login">Log In</a></span></p>              
+            <p className="my-2">Already have an account? <span><a href="/Loginstudent">Log In</a></span></p>              
             </div>
 
 
                 </form>
             </div>
+            </>
     )
     }
 }

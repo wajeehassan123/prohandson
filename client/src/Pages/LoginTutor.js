@@ -77,6 +77,7 @@ export class LoginTutor extends React.Component{
           //         </div>
         
         <>
+        <Header></Header>
         <div id="main-login">
           <h2 id="form-heading">Log In as Tutor</h2>
           <form id="main-form">
@@ -84,7 +85,7 @@ export class LoginTutor extends React.Component{
           <input className="formInput" type="password" value={this.state.password} onChange={this.handlePassword}  placeholder="Password" id ="password" htmlFor="password" />
           <div className="btn-r text-center">
             <button type="submit" onClick={this.handleSubmit}  id="btn" >Log In</button>
-            <p>or <span><a href="#">Forgot Password</a></span></p>              
+            {/* <p>or <span><a href="#">Forgot Password</a></span></p>               */}
             <p>Don't have an account? <span><a href="/Signuptutor">Sign up</a></span></p>              
           </div>
               

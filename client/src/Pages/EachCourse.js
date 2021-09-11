@@ -71,12 +71,12 @@ const requestOptions = {
            <TutorHeader></TutorHeader>
            <div className="container-fluid eachCourseBanner text-white d-flex ">
                 <div className="eachCouseBannerLeft col-lg-6">
-                    <h4 className="eachCourseCategory fw-bolder mb-3">
+                    <h3 className="eachCourseCategory fw-bolder mb-3">
                         {this.state.course.title}
-                    </h4>
-                    <h3 className="eachCourseName  my-4">
-                    {this.state.course.description}
                     </h3>
+                    <h5 className="eachCourseName  my-4">
+                    {this.state.course.description}
+                    </h5>
                     <p className="bannerTutorDetail my-3">
                         <span >
                         {
@@ -95,7 +95,7 @@ const requestOptions = {
                     </button>
                 </div>
 
-                <div className="eachCouseBannerRight">
+                <div className="eachCouseBannerRightt">
                     <img className="bannerTutorPic" src={this.state.imageStr+this.state.course.img} alt="coursepic" />
                 </div>
             </div>

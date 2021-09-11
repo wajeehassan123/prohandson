@@ -21,7 +21,7 @@ export const TutorHeader = () => {
             
             <div className="nav_btns mt-lg-0 d-flex justify-content-center mx-5">
             <Dropdown >
-                <Dropdown.Toggle variant="success" id="dropdown-basic" className="px-4 ">
+                <Dropdown.Toggle variant="primary" id="dropdown-basic" className="px-4 ">
                    Profile
                 </Dropdown.Toggle>
 

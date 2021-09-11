@@ -1,6 +1,8 @@
 import React from 'react'
+
 // import { Dropdown } from 'bootstrap'
 import {Dropdown, Form} from 'react-bootstrap';
+import { Header } from './Header';
 
 
 export class SignupTutor extends React.Component {
@@ -142,6 +144,8 @@ console.log(data);
             
 //         </div>
 
+        <>
+            <Header></Header>
             <div id="main-login">
             <h3 id="form-heading">Sign Up as a Tutor</h3>
                 <form id="main-form">
@@ -166,11 +170,12 @@ console.log(data);
                         </Form.Select>
                         <div className="btn-r text-center ">
                             <button onClick={this.handleSubmit} id="btn">Sign up</button>
-                            <p className="my-2">Already have an account? <span><a href="/Login">Log In</a></span></p>              
+                            <p className="my-2">Already have an account? <span><a href="/Logintutor">Log In</a></span></p>              
                         </div>
                 </form>
 
             </div>
+        </>
     )
     }
 }

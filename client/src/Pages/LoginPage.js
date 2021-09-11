@@ -1,4 +1,5 @@
 import React from 'react'
+import { Header } from './Header';
 //export const LoginPage = () => {
 export class LoginPage extends React.Component{
   constructor(props) {
@@ -74,6 +75,13 @@ export class LoginPage extends React.Component{
           //           </form>
                       
           //         </div>
+        
+
+        <>
+
+
+        <Header></Header>
+
 
         <div id="main-login">
           <h2 id="form-heading">Login to your Account</h2>
@@ -82,13 +90,15 @@ export class LoginPage extends React.Component{
           <input className="formInput" value={this.state.password} onChange={this.handlePassword} type="password"  placeholder="Password" id ="password" htmlFor="password" />
           <div className="btn-r text-center">
             <button type="submit" onClick={this.handleSubmit}  id="btn" >Log In</button>
-            <p>or <span><a href="#">Forgot Password</a></span></p>              
+            {/* <p>or <span><a href="#">Forgot Password</a></span></p>               */}
             <p>Don't have an account? <span><a href="/Signup">Sign up</a></span></p>              
           </div>
               
           </form>
             
         </div>
+        </>
+    
 
 
 

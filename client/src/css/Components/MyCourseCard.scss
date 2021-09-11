@@ -1,0 +1,32 @@
+.Home_MyCourses{
+    h2{
+        text-align: left;
+        // margin: 0xp 100px !important;
+        margin-left: 100px !important;
+    }
+}
+
+
+.myCourseCard{
+    background-color: #fff;
+    margin: 10px 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    box-shadow:0px 1px 4px rgba(49, 49, 49, 0.24);
+    border:1px solid #EAEAEA;
+}
+
+.fw-left{
+    text-align: left;
+    // margin: 0xp 100px !important;
+    margin-left: 100px !important;
+    margin-top: 40px;
+}
+
+.myCourseCard_pic{
+    img{
+        max-height: 150px;
+        max-width: 150px;
+    }
+}
