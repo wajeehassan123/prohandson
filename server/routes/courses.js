@@ -122,7 +122,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
 
 
 
-  router.get("/api/tutor/getCourseByCategory/:id",auth,(req,res)=>{
+  router.get("/api/tutor/getCourseByCategory/:id",(req,res)=>{
 
     Course.find({category:req.params.id},(err,obj)=>{
         if(err) {console.log(err);
@@ -140,7 +140,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
       })
 
 
-      router.get("/api/tutor/getCourseByTitle/:id",auth,(req,res)=>{
+      router.get("/api/tutor/getCourseByTitle/:id",(req,res)=>{
 
         Course.find({title:{ $regex: req.params.id, $options: 'i' }},{img:0},(err,obj)=>{
             if(err) {console.log(err);

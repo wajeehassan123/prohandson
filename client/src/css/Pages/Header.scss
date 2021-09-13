@@ -1,0 +1,17 @@
+.search_inputfield{
+    width: 40vw;
+}
+
+
+@media (max-width:1050px){
+    .search_inputfield{
+        width: 30vw;
+    }
+}
+
+@media (max-width:992px){
+    .search_inputfield{
+        width: 80vw;
+        margin: auto;
+    }
+}

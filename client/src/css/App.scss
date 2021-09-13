@@ -3,6 +3,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './Pages/HomePage.scss';
 @import './Pages/Navbar.scss';
+@import './Pages/Header.scss';
 @import './Components/Cards.scss';
 @import './Components/Card.scss';
 @import './Pages/LoginPage.scss';
@@ -12,4 +13,5 @@
 @import './Pages/LoginContainer.scss';
 @import './Pages/EachCourse.scss';
 @import './Pages/EditProfile.scss';
-@import './Components/MyCourseCard.scss'
+@import './Components/MyCourseCard.scss';
+@import './Pages/SearchResults.scss';

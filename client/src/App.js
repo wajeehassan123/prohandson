@@ -30,9 +30,13 @@ import { EditProfile } from "./Pages/EditProfile";
 import jwt from 'jsonwebtoken';
 import { ChangePassword } from "./Pages/ChangePassword";
 
+import {SearchResults} from "./Pages/SearchResults";
+
 function App() {
   var isloggedin=false;
   var studentLogin=false;
+  let mycourses=[];
+  var isEnrolled=false;
     if(localStorage.token){
   
   jwt.verify(localStorage.token,'longer-secret-is-better',(err,res)=>{
@@ -42,7 +46,9 @@ function App() {
     }
     else{
       if(localStorage.student_id){
+        getStudentCourse()
         studentLogin=true;
+
       }
       isloggedin=true;
     }
@@ -50,12 +56,36 @@ function App() {
   
     }
 
+    function getStudentCourse(){
+      const id=localStorage.getItem("student_id");
+      
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+      fetch(`/api/course/getEnrolled/${id}`,{headers:myHeaders})
+      .then(response => response.json())
+      .then(data => {
+          //console.log(data);
+          data.map(eachData=>{
+            if(eachData.student_id && eachData.course_id)
+            {
+              isEnrolled=true;
+            }
+          })
+          mycourses=data; 
+          console.log(mycourses);
+          
+         
+      }
+          )
+  
+  }
+
   return (
 
    <>
     <Switch>
       <Route exact path="/">
-        <HomePage studentLoginVal={studentLogin} data={isloggedin}/>
+        <HomePage studentLoginVal={studentLogin} data={isloggedin} studentCourses={mycourses}/>
       </Route>
       <Route path="/loginStudent">
         <LoginPage />
@@ -74,6 +104,9 @@ function App() {
       </Route>
       <Route path="/tutorPanel">
         <TutorPanel data={isloggedin}/>
+      </Route>
+      <Route path="/searchresults">
+        <SearchResults data={isloggedin}/>
       </Route>
       <Route path="/addcourse">
         <AddCourse data={isloggedin}/>

@@ -14,12 +14,16 @@ export class HomePage extends React.Component {
 
     constructor(props){
         super(props);
-      this.state={courses:[],img:'',isLoggedIn:false}
+      this.state={courses:[],img:'',isLoggedIn:false,mycourses:[]}
       this.getCourses=this.getCourses.bind(this);
       this.getCourses();
       this.HandleCategories=this.HandleCategories.bind(this);
+      //this.getStudentCourse=this.getStudentCourse.bind(this);
+      if(props.studentLoginVal && props.data){
+          this.getStudentCourse()
+      }
       
-      {console.log(this.props)}
+      console.log(props)
     //   this.fun();
 }
 
@@ -38,12 +42,9 @@ getCourses(){
 fetch(`/api/courses/getAll`)
 .then(response => response.json())
 .then(data => {
-    console.log(data);
     this.setState({ courses:data});
-    var base64Flag = 'data:image/png/jpg;base64,';
     
-    this.setState({courses:data});
-    console.log(this.state);
+    
 }
     )
 }
@@ -51,8 +52,7 @@ fetch(`/api/courses/getAll`)
 
 HandleCategories(event){
     //this.setState({courses:undefined})
-    console.log(event.target.innerText);
-
+    
     fetch(`/api/tutor/getCourseByCategory/${event.target.innerText}`)
     .then(response => response.json())
     .then(data=>{
@@ -76,6 +76,24 @@ EachCoursePage(id){
 }
 
 
+getStudentCourse(){
+    const id=localStorage.getItem("student_id");
+    
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+    fetch(`/api/course/getEnrolled/${id}`,{headers:myHeaders})
+    .then(response => response.json())
+    .then(data => {
+       this.setState({ mycourses:data});
+        
+       
+        console.log(this.state);
+    }
+        )
+
+}
+
+
     // if(localStorage.getItem("token")){
         render(){
             // const isLogin = this.state.isLoggedIn;
@@ -96,6 +114,7 @@ EachCoursePage(id){
 
     {
         this.props.studentLoginVal&&this.props.data?(
+            
             <HeaderLogginIn/>
         ): (
             <Header></Header>
@@ -125,10 +144,15 @@ EachCoursePage(id){
             {console.log(this.props.studentLoginVal)}
             {console.log(this.props.data)}
             {this.props.studentLoginVal&&this.props.data?(
-                        <div className="Home_MyCourses">
+            
+            <div className="Home_MyCourses">
                         <h2 className="">Your Courses</h2>
-                        <MyCourseCard></MyCourseCard>
-                        <MyCourseCard></MyCourseCard>
+                        
+                        {this.state.mycourses.map(eachCourse=>{
+                return (
+
+                    <MyCourseCard key={eachCourse._id} {...eachCourse}></MyCourseCard>
+                )})}
                     </div>
             ):(
                 <div></div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button,Navbar,Nav , Dropdown} from 'react-bootstrap'
+import { Button,Navbar,Nav , Dropdown,Form, FormControl} from 'react-bootstrap'
 
 export const HeaderLogginIn = () => {
 
@@ -19,6 +19,24 @@ export const HeaderLogginIn = () => {
             >
             </Nav>
             
+            <Form className="d-flex mb">
+            <div>
+                <FormControl
+                // onChange={this.handleSearch}
+                    type="search"
+                    placeholder="Search Courses"
+                    className="mr-2 search_inputfield"
+                    aria-label="Search"
+                />
+                <div id="search-result" className="search_results_con">
+                 {/* {this.createSearchDiv()} */}
+                </div>
+            </div>
+            
+            <Button className="mx-1" variant="outline-primary">Search</Button>
+            {/* <Button className="">Start Coaching</Button> */}
+            </Form>
+
             <div className="nav_btns mt-lg-0 d-flex justify-content-center mx-5">
             <Dropdown >
                 <Dropdown.Toggle variant="primary" id="dropdown-basic" className="px-4 ">

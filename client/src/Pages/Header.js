@@ -7,34 +7,32 @@ export class Header extends React.Component {
 
     constructor(props){
         super(props);
-        this.state={data:[]}
+        this.state={data:[],search:''}
         this.handleSearch=this.handleSearch.bind(this);
         this.createSearchDiv=this.createSearchDiv.bind(this);
         this.eachCourse=this.eachCourse.bind(this);
     }
+
+
     handleSearch(event){
+this.setState({search:event.target.value});
+    }
+
+    SubmitSearch(){
 
         
         
-        fetch(`/api/tutor/getCourseByTitle/${event.target.value}`)
+        fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
         .then(response => response.json())
         .then(data=>{
             console.log(data);
             this.setState({data:data.data});
 
-            this.state.data.map(searchData=>{
-                $("#search-result").append('<div className="search_results d-flex" style="position: relative;padding: 20px;border: 1px solid black;background-color: white;"><a onClick="'+this.eachCourse(searchData._id)+'"><div><h4>'+searchData.title+'</h4><p>'+searchData.name+'</p></div></a></div>')
-            //     <div>
-            //                  <h4>
-            //                      {searchData.title}
-            //                  </h4>
-            //                  <h5>
-            //                      {searchData.name}
-            //                  </h5>
-            //              </div>
+        //     this.state.data.map(searchData=>{
+               
             
         
-        })
+        // })
 
         })
     }
@@ -77,26 +75,20 @@ export class Header extends React.Component {
             </Nav>
             <Form className="d-flex mb">
             <div>
-
-            <FormControl
-            onChange={this.handleSearch}
-                type="search"
-                placeholder="Search Courses"
-                className="mr-2"
-                aria-label="Search"
-            />
-
-
-            <div id="search-result" className="search_results_con">
-               {this.createSearchDiv()}
-                
-            
-           
-            
-       </div>
+                <FormControl
+                onChange={this.handleSearch}
+                value={this.state.search}
+                    type="search"
+                    placeholder="Search Courses"
+                    className="mr-2 search_inputfield"
+                    aria-label="Search"
+                />
+                <div id="search-result" className="search_results_con">
+                 
+                </div>
             </div>
             
-            <Button className="mx-1" variant="outline-primary">Search</Button>
+            <Button className="mx-1" variant="outline-primary" onClick={this.SubmitSearch}>Search</Button>
             {/* <Button className="">Start Coaching</Button> */}
             </Form>
             <div className="nav_btns mt-lg-0 d-flex float-right justify-content-center">
