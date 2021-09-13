@@ -123,12 +123,12 @@ getStudentCourse(){
            {/* HEADER1 */}
            <div className="HomeHeader1">
                 <div className="innerHomeHeader1 ">
-                    <div className="innerHomeHeader1Left col-lg-8 col-sm-12 fw-bolder">
+                    {/* <div className="innerHomeHeader1Left col-lg-8 col-sm-12 fw-bolder">
                         <div className="innerHomeHeader1Top m-2 p-2 bg-light">Professional Hands On</div>
                         <div className="text-white">Your Best Guided Learning Experience</div>
-                    </div>
+                    </div> */}
                     <div className="innerHomeHeader1Right ">
-                        <img src={'/banner_top.jpg'} alt="pic" />
+                        <img src={'/homepage_banner.jpg'} alt="pic" />
                     </div>
                 </div>
             </div>
