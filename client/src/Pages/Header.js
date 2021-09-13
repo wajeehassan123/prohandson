@@ -1,62 +1,63 @@
 import React from 'react'
 import { Button,Navbar,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
 import $ from 'jquery';
+import SearchInput from '../components/SearchInput';
 
 
 export class Header extends React.Component {
 
-    constructor(props){
-        super(props);
-        this.state={data:[],search:''}
-        this.handleSearch=this.handleSearch.bind(this);
-        this.createSearchDiv=this.createSearchDiv.bind(this);
-        this.eachCourse=this.eachCourse.bind(this);
-    }
+//     constructor(props){
+//         super(props);
+//         this.state={data:[],search:''}
+//         this.handleSearch=this.handleSearch.bind(this);
+//         this.createSearchDiv=this.createSearchDiv.bind(this);
+//         this.eachCourse=this.eachCourse.bind(this);
+//     }
 
 
-    handleSearch(event){
-this.setState({search:event.target.value});
-    }
+//     handleSearch(event){
+// this.setState({search:event.target.value});
+//     }
 
-    SubmitSearch(){
+//     SubmitSearch(){
 
         
         
-        fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
-        .then(response => response.json())
-        .then(data=>{
-            console.log(data);
-            this.setState({data:data.data});
+//         fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
+//         .then(response => response.json())
+//         .then(data=>{
+//             console.log(data);
+//             this.setState({data:data.data});
 
-        //     this.state.data.map(searchData=>{
+//         //     this.state.data.map(searchData=>{
                
             
         
-        // })
+//         // })
 
-        })
-    }
+//         })
+//     }
 
     eachCourse(id){
         alert(id);
     }
 
-    createSearchDiv(){
-       return this.state.data.map(searchData=>{
+//     createSearchDiv(){
+//        return this.state.data.map(searchData=>{
            
-       <div className="search_results d-flex">
-<div>
-             <h4>
-                 {searchData.title}
-             </h4>
-             <h5>
-                 {searchData.name}
-             </h5>
-         </div>
-         </div>
-        })
+//        <div className="search_results d-flex">
+// <div>
+//              <h4>
+//                  {searchData.title}
+//              </h4>
+//              <h5>
+//                  {searchData.name}
+//              </h5>
+//          </div>
+//          </div>
+//         })
 
-    }
+//     }
 
     render(){
 
@@ -73,24 +74,8 @@ this.setState({search:event.target.value});
             >
            
             </Nav>
-            <Form className="d-flex mb">
-            <div>
-                <FormControl
-                onChange={this.handleSearch}
-                value={this.state.search}
-                    type="search"
-                    placeholder="Search Courses"
-                    className="mr-2 search_inputfield"
-                    aria-label="Search"
-                />
-                <div id="search-result" className="search_results_con">
-                 
-                </div>
-            </div>
-            
-            <Button className="mx-1" variant="outline-primary" onClick={this.SubmitSearch}>Search</Button>
-            {/* <Button className="">Start Coaching</Button> */}
-            </Form>
+            {/* Search Component */}
+                <SearchInput/>
             <div className="nav_btns mt-lg-0 d-flex float-right justify-content-center">
                 
                                 <a href="/Signuptutor" className="btn btn-primary px-4">Start Coaching</a>
