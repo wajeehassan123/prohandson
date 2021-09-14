@@ -30,3 +30,24 @@
         max-width: 150px;
     }
 }
+
+@media (max-width:992px){
+    .myCourseCard{
+
+        margin: 20px;
+    }
+}
+
+@media (max-width:650px){
+    .myCourseCard{
+
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .Home_MyCourses{
+        h2{
+            text-align: center;
+        }
+    }
+}

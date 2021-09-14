@@ -40,6 +40,9 @@ type:String
         type: mongoose.Schema.Types.ObjectId,
     
         ref: 'Tutor'
+    },
+    is_active:{
+        type:Boolean
     }
 
 })

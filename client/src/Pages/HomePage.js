@@ -10,6 +10,9 @@ import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
 import { HeaderLogginIn } from './HeaderLoggedIn';
 
+
+const MyContext=React.createContext();
+
 export class HomePage extends React.Component {
 
     constructor(props){
@@ -123,12 +126,12 @@ getStudentCourse(){
            {/* HEADER1 */}
            <div className="HomeHeader1">
                 <div className="innerHomeHeader1 ">
-                    <div className="innerHomeHeader1Left col-lg-8 col-sm-12 fw-bolder">
+                    {/* <div className="innerHomeHeader1Left col-lg-8 col-sm-12 fw-bolder">
                         <div className="innerHomeHeader1Top m-2 p-2 bg-light">Professional Hands On</div>
                         <div className="text-white">Your Best Guided Learning Experience</div>
-                    </div>
+                    </div> */}
                     <div className="innerHomeHeader1Right ">
-                        <img src={'/banner_top.jpg'} alt="pic" />
+                        <img src={'/homepage_banner.jpg'} alt="pic" />
                     </div>
                 </div>
             </div>
@@ -146,7 +149,7 @@ getStudentCourse(){
             {this.props.studentLoginVal&&this.props.data?(
             
             <div className="Home_MyCourses">
-                        <h2 className="">Your Courses</h2>
+                        <h2 className="your_courses">Your Courses</h2>
                         
                         {this.state.mycourses.map(eachCourse=>{
                 return (
@@ -160,7 +163,7 @@ getStudentCourse(){
 
             {/* CATEGORY BUTTONS */}
             <h2 className="fw-left">Choose Courses</h2>
-            <div className="CategoryBtns d-flex">
+            <div className="CategoryBtns ">
                 
             <button onClick={this.getCourses} className="btn text-white ">Popular</button>
                 <button onClick={this.HandleCategories} className="btn text-white">Music</button>
@@ -172,11 +175,13 @@ getStudentCourse(){
             <div className="homePageCards" >
             {this.state.courses.map(eachCourse=>{
                 return (
-                 <div className="card_body col-lg-2 col-md-4 col-sm-12 mrg"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
+                 <div className="card_body  mrg"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
                 <Card key={eachCourse._id} {...eachCourse} />
                 </div>
                 )
             })}
+
+{/* col-lg-2 col-md-4 col-sm-12 */}
             </div>
             <div className="HomeHeader3 bg-light my-3">
                 <div className="fw-bolder">Why Use ProHandson</div>

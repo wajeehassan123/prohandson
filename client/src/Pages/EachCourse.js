@@ -7,7 +7,7 @@ export class EachCourse extends React.Component {
         // if(!props.data){
         //     window.location.href="/logintutor";
         // }
-        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/'};
+        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
@@ -19,12 +19,27 @@ export class EachCourse extends React.Component {
         fetch(`/api/course/getCourse/${id}`)
 .then(response => response.json())
 .then(data => {
-    console.log(data);
+    //console.log(data);
     this.setState({course:data.data});
-    console.log(this.state.course);
-    console.log(this.state.course.tutor_id);
+    
+if(this.props.data){
+    
+    var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+    fetch(`/api/enroll/getStudentCourse/${localStorage.student_id}/${id}`,{headers:myHeaders})
+    .then(response1=>response1.json())
+    .then(allEnrolled=>{
+        if(allEnrolled){
+            this.setState({isEnroll:true});
+        console.log(allEnrolled);
+        console.log(data);
+        }
+    })
+
+}
  
     })
+
 }
 
 handleEnroll(id){
@@ -36,12 +51,13 @@ myHeaders.append("Content-Type", "application/json");
 const formData=new FormData();
 formData.append("course_id",id);
 formData.append("student_id",localStorage.getItem("student_id"));
+formData.append("is_active",false);
 
 const requestOptions = {
   method: 'POST',
   contentType:'application/json',
   headers:myHeaders,
-  body: JSON.stringify({course_id:id,student_id:localStorage.getItem("student_id"),tutor_id:this.state.course.tutor_id._id})
+  body: JSON.stringify({course_id:id,student_id:localStorage.getItem("student_id"),tutor_id:this.state.course.tutor_id._id,is_active:false})
 };
     fetch('/api/student/enroll',requestOptions)
     .then(response => response.json())
@@ -58,11 +74,31 @@ const requestOptions = {
       })
     }
     else{
-        alert("please login to continue")
+        alert("please login to continue");
+        window.location.href="/loginstudent";
     }
 }
     
 
+
+MarkAsComplete(id){
+    
+    var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+    fetch(`/api/enroll/markAsComplete/${localStorage.student_id}/${id}`,{headers:myHeaders,method:'PUT'})
+    .then(response => response.json())
+  .then(data => 
+      {
+          if(data.success)
+          {
+              alert(data.message);
+          }
+          else
+          alert(data.message);
+
+      })
+
+}
   
 
     render() {
@@ -90,9 +126,23 @@ const requestOptions = {
                     }</span>
                         <span>{this.state.course.name}</span>
                     </p>
-                    <button onClick={()=>this.handleEnroll(this.state.course._id)} className="eachCourseEnroll mt-3">
+                    {
+                        this.state.isEnroll?(
+                            <div>
+<button disabled className="eachCourseEnroll mt-3">
+                        Enrolled
+                    </button>
+                    <button onClick={()=>this.MarkAsComplete(this.state.course._id)} className="eachCourseEnroll mt-3">
+                        Mark as Complete
+                    </button>
+                    </div>
+                        ):(
+<button onClick={()=>this.handleEnroll(this.state.course._id)} className="eachCourseEnroll mt-3">
                         Enroll Now
                     </button>
+                        )
+                    }
+                    
                 </div>
 
                 <div className="eachCouseBannerRightt">

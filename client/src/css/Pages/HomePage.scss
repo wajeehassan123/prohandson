@@ -31,15 +31,8 @@ body{
 
 .HomeHeader1{
     margin: 5px 100px;
-    background-color: #1C1D1F;
-    background-color: #619DD9;
 
     .innerHomeHeader1{
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap-reverse;
-        justify-content: space-between;
-        
         
     }
 }
@@ -50,8 +43,12 @@ body{
 
 
 .innerHomeHeader1Right{
+    position: relative;
     img{
-        max-height: 250px;
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+        object-position: 0px 80%;
     }
 }
 .HomeHeader2{
@@ -63,26 +60,58 @@ body{
 
 .CategoryBtns{
     margin: 0px 100px;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    // justify-content: space-between;
+    // flex-wrap: wrap;
+    white-space: nowrap;
+    overflow-x: scroll;
 
     button{
         width: 200px;
         text-align: center;
         margin-bottom: 5px;
+        margin-right: 5px;
         background-color: #619DD9;  
     }
 }
+
+.CategoryBtns::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.CategoryBtns {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
 .homePageCards{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 40px;
     flex-wrap: wrap;
     margin: 20px 100px;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .HomeHeader3{
     text-align: left;
     margin: auto 100px
 }
+
+
+
+
+@media (max-width:1250px) {
+
+.homePageCards{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    }
+}
+
 
 @media (max-width:992px) {
     .HomeHeader1{
@@ -99,11 +128,9 @@ body{
 
     .CategoryBtns{
         margin: 0px 20px;
-        // justify-content: space-between;
-        // flex-wrap: wrap;
     
         button{
-            width: 100px;
+            width: 150px;
             text-align: center;
             margin-bottom: 5px;
     
@@ -111,10 +138,11 @@ body{
     }
 
     .homePageCards{
-        display: flex;
-        flex-wrap: wrap;
-        margin: 20px 20px;
-    }
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+        margin: 20px;
+        }
 
     .HomeHeader3{
         margin: 20px;
@@ -124,4 +152,22 @@ body{
 .mrg{
     margin: 15px;
   cursor: pointer;
+}
+
+
+@media (max-width:668px){
+    .homePageCards{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+        margin: 20px ;
+        }
+}
+
+@media (max-width:556px){
+    .homePageCards{
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        justify-items: center;
+        }
 }

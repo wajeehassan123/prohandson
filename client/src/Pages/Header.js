@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button,Navbar,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
 import $ from 'jquery';
+import SearchInput from '../components/SearchInput';
 
 
 export class Header extends React.Component {
@@ -78,25 +79,8 @@ this.setState({search:event.target.value});
             >
            
             </Nav>
-            <Form className="d-flex mb">
-            <div>
-                <FormControl
-                onChange={this.handleSearch}
+<SearchInput/>
 
-                value={this.state.search}
-                    type="search"
-                    placeholder="Search Courses"
-                    className="mr-2 search_inputfield"
-                    aria-label="Search"
-                />
-                <div id="search-result" className="search_results_con">
-                 
-                </div>
-            </div>
-            
-            <Button className="mx-1" variant="outline-primary" onClick={this.SubmitSearch}>Search</Button>
-            {/* <Button className="">Start Coaching</Button> */}
-            </Form>
             <div className="nav_btns mt-lg-0 d-flex float-right justify-content-center">
                 
                                 <a href="/Signuptutor" className="btn btn-primary px-4">Start Coaching</a>

@@ -22,6 +22,9 @@ const EnrollSchema=mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
     
         ref: 'Courses'
+    },
+    is_active:{
+        type:Boolean
     }
 
 

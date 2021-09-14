@@ -53,6 +53,7 @@ router.post("/api/tutor/addCourse",upload.single('file'),auth,(req,res)=>{
     newqt.img = req.file.filename;
     newqt.tutor_id=req.body.tutor_id;
     newqt.name=req.body.name;
+    newqt.is_active=0;
 
     newqt.save((err,doc)=>{
         if(err) {console.log(err);
@@ -68,7 +69,7 @@ router.post("/api/tutor/addCourse",upload.single('file'),auth,(req,res)=>{
 
 
 router.get("/api/courses/getAll", ({}, res) => {
-    Course.find({}).populate("tutor_id").then((users) => {
+    Course.find({is_active:false}).populate("tutor_id").then((users) => {
         //console.log(users[0].img)
         
         // const b64 = Buffer.from(users[0].img.data.buffer).toString('base64');

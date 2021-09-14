@@ -36,7 +36,7 @@ router.post("/api/student/enroll",auth,(req,res)=>{
 })
 
 router.get("/api/course/getEnrolled/:id",auth,(req,res)=>{
-    Enroll.find({student_id:req.params.id})
+    Enroll.find({student_id:req.params.id,is_active:false})
     .populate("course_id")
     .populate("student_id")
     .populate("tutor_id")
@@ -49,6 +49,25 @@ res.json(dbProduct);
       });
             
 })
+
+
+
+router.get("/api/enroll/getStudentCourse/:id/:course_id",auth,(req,res)=>{
+//    console.log(req.params);
+    Enroll.findOne({student_id:req.params.id,course_id:req.params.course_id})
+    .populate("course_id")
+    .populate("student_id")
+    .populate("tutor_id")
+    .then(function(dbProduct) {
+
+res.json(dbProduct);
+    })
+    .catch(function(err) {
+        res.json(err);
+      });
+            
+})
+
 
 
 router.get("/api/tutor/getEnrolled/:id",auth,(req,res)=>{
@@ -64,6 +83,20 @@ res.json(dbProduct);
         res.json(err);
       });
             
+})
+
+router.put("/api/enroll/markAsComplete/:id/:course_id",auth,(req,res)=>{
+    Enroll.findOneAndUpdate({student_id:req.params.id,course_id:req.params.course_id},{is_active:true},{new:true,useFindAndModify: false},(err,doc)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"Cannot mark as completed " ,success : false});}
+     
+            res.status(200).json({
+                success:true,
+                message :"Course completed successfully!",
+                data : doc
+            })
+
+    })
 })
 
 
