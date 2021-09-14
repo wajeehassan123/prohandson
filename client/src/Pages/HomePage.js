@@ -117,7 +117,7 @@ getStudentCourse(){
             
             <HeaderLogginIn/>
         ): (
-            <Header></Header>
+            <Header parentCallback = {this.handleCallback}></Header>
         )
     }
            {/* HEADER1 */}

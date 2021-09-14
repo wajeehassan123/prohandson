@@ -9,6 +9,8 @@ export class Header extends React.Component {
         super(props);
         this.state={data:[],search:''}
         this.handleSearch=this.handleSearch.bind(this);
+        
+        this.SubmitSearch=this.SubmitSearch.bind(this);
         this.createSearchDiv=this.createSearchDiv.bind(this);
         this.eachCourse=this.eachCourse.bind(this);
     }
@@ -18,15 +20,18 @@ export class Header extends React.Component {
 this.setState({search:event.target.value});
     }
 
-    SubmitSearch(){
+    SubmitSearch(event){
 
+        this.props.parentCallback(this.state.search);
+        event.preventDefault();
         
         
-        fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
-        .then(response => response.json())
-        .then(data=>{
-            console.log(data);
-            this.setState({data:data.data});
+        // fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
+        // .then(response => response.json())
+        // .then(data=>{
+        //     console.log(data);
+        //     this.setState({data:data.data});
+        //     window.location.href="/searchresults"
 
         //     this.state.data.map(searchData=>{
                
@@ -34,7 +39,7 @@ this.setState({search:event.target.value});
         
         // })
 
-        })
+        // })
     }
 
     eachCourse(id){
@@ -77,6 +82,7 @@ this.setState({search:event.target.value});
             <div>
                 <FormControl
                 onChange={this.handleSearch}
+
                 value={this.state.search}
                     type="search"
                     placeholder="Search Courses"
