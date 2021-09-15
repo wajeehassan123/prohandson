@@ -33,6 +33,8 @@ const routes = require('./routes/user');
 const routes1 = require('./routes/courses');
 
 const routes2 = require('./routes/enroll');
+
+const routes3 = require('./routes/rating');
 const User=require('./models/user');
 const {auth} =require('./middleware/auth');
 
@@ -60,6 +62,8 @@ mongoose.connect(
 app.use(routes);
 app.use(routes1);
 app.use(routes2);
+
+app.use(routes3);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

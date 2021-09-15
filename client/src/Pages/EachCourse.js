@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Reviews from '../components/Reviews';
 import { TutorHeader } from './TutorHeader'
 
 export class EachCourse extends React.Component {
@@ -7,7 +8,7 @@ export class EachCourse extends React.Component {
         // if(!props.data){
         //     window.location.href="/logintutor";
         // }
-        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false};
+        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false,completed:false};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
@@ -31,6 +32,12 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     .then(allEnrolled=>{
         if(allEnrolled){
             this.setState({isEnroll:true});
+            
+            if(allEnrolled.is_active){
+                
+            this.setState({isEnroll:false});
+            this.setState({completed:true});
+            }
         console.log(allEnrolled);
         console.log(data);
         }
@@ -149,7 +156,13 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                     <img className="bannerTutorPic" src={this.state.imageStr+this.state.course.img} alt="coursepic" />
                 </div>
             </div>
-
+{
+    this.state.completed?(
+<Reviews/>
+    ):(
+<div></div>
+    )
+}
             <div className="eachCourseDetails">
                 <h4 className="eachCourseDetailsHeading">
                     What you'll learn

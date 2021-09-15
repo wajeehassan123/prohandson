@@ -17,14 +17,16 @@ class SearchInput extends Component {
     }
 
     SubmitSearch(){
-        fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
-        .then(response => response.json())
-        .then(data=>{
-            console.log(data);
-            this.setState({data:data.data});
-            window.location.href="/searchresults";
+        // fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
+        // .then(response => response.json())
+        // .then(data=>{
+        //     console.log(data);
+        //     this.setState({data:data.data});
+        //     window.location.href="/searchresults";
 
-        })
+        // })
+        alert(this.state.search);
+        this.props.Searchtext(this.state.search)
     }
 
 
@@ -45,7 +47,7 @@ class SearchInput extends Component {
                 </div>
             </div>
             
-            <Button className="mx-1" variant="outline-primary" onClick={this.SubmitSearch}>Search</Button>
+            <Button className="mx-1" variant="outline-primary" onClick={()=>this.props.Searchtext(this.state.search)}>Search</Button>
             </Form>
         );
     }

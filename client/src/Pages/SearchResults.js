@@ -21,17 +21,18 @@ export class SearchResults extends React.Component {
         fetch(`/api/tutor/getCourseByTitle/${childData}`)
         .then(response => response.json())
         .then(data=>{
-            console.log(data);
             this.setState({courses:data.data});
             //window.location.href="/searchresults"
 
         //     this.state.data.map(searchData=>{
                
             
+            console.log(this.state.courses);
         
         // })
 
         })
+
 
 
     }
@@ -39,7 +40,7 @@ export class SearchResults extends React.Component {
     
 
     render() {
-        const {data} = this.state.data;
+        const {data} = this.state.courses;
         return (
             <>
                 <Header parentCallback = {this.handleCallback}/>

@@ -33,6 +33,18 @@ router.use(bodyParser.urlencoded({
 
   })
 
+  router.get("/api/courses/getReviews/:id",(req,res)=>{
+    Rating.findOne({course_id:req.params.id})
+    .populate("student_id")
+    .then(function(dbProduct) {
+
+      res.json(dbProduct);
+          })
+          .catch(function(err) {
+              res.json(err);
+            });
+  })
+
 
   
 

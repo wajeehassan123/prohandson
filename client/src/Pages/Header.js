@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { Button,Navbar,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
 import $ from 'jquery';
 import SearchInput from '../components/SearchInput';
@@ -10,38 +10,23 @@ export class Header extends React.Component {
         super(props);
         this.state={data:[],search:''}
         this.handleSearch=this.handleSearch.bind(this);
-        
+        //const [input, setInput] = useState('');
         this.SubmitSearch=this.SubmitSearch.bind(this);
         this.createSearchDiv=this.createSearchDiv.bind(this);
         this.eachCourse=this.eachCourse.bind(this);
     }
+
+    
 
 
     handleSearch(event){
 this.setState({search:event.target.value});
     }
 
-    SubmitSearch(event){
+    SubmitSearch(childData){
 
-        this.props.parentCallback(this.state.search);
-        event.preventDefault();
-        
-        
-        // fetch(`/api/tutor/getCourseByTitle/${this.state.search}`)
-        // .then(response => response.json())
-        // .then(data=>{
-        //     console.log(data);
-        //     this.setState({data:data.data});
-        //     window.location.href="/searchresults"
-
-        //     this.state.data.map(searchData=>{
-               
-            
-        
-        // })
-
-        // })
-    }
+        this.props.parentCallback(childData);
+        }
 
     eachCourse(id){
         alert(id);
@@ -79,7 +64,7 @@ this.setState({search:event.target.value});
             >
            
             </Nav>
-<SearchInput/>
+<SearchInput Searchtext={this.SubmitSearch}/>
 
             <div className="nav_btns mt-lg-0 d-flex float-right justify-content-center">
                 
