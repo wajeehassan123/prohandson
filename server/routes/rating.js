@@ -34,7 +34,7 @@ router.use(bodyParser.urlencoded({
   })
 
   router.get("/api/courses/getReviews/:id",(req,res)=>{
-    Rating.findOne({course_id:req.params.id})
+    Rating.find({course_id:req.params.id})
     .populate("student_id")
     .then(function(dbProduct) {
 

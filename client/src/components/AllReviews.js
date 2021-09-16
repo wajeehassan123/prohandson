@@ -6,72 +6,68 @@ class AllReviews extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activePage: 3,
+            activePage: 1,
             allObjs : [],
+            reviews:[]
         };
+        this.handlePageChange()
 
-       this.fun1=this.fun1.bind(this)
       }
      
-      handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        this.setState({activePage: pageNumber});
-
-
-        fetch('https://jsonplaceholder.typicode.com/todos')
-          .then(response => response.json())
-          .then((json) => {
-              let aray;
-             aray =  json.slice((this.state.activePage*10)-10,this.state.activePage*10)
-             console.log(aray);
-             aray.map((rev)=>{
-                //  this.setState({ allObjs: this.state.allObjs.push(rev) })
-                 this.setState({ allObjs: [...this.state.allObjs, rev] })
-                 
-             })
-             console.log(this.allObjs);
+      handlePageChange() {
+        fetch(`/api/courses/getReviews/${localStorage.course_id}`)
+        .then(response=>response.json())
+        .then(AllReviewed=>{
+            if(AllReviewed){
+               this.setState({reviews:AllReviewed})
+                
+                // console.log(this.state);
             }
-              )
+        })
+
+        // fetch('')
+        //   .then(response => response.json())
+        //   .then((json) => {
+        //       let aray;
+        //      aray =  json.slice((this.state.activePage*10)-10,this.state.activePage*10)
+        //      console.log(aray);
+        //      aray.map((rev)=>{
+        //         //  this.setState({ allObjs: this.state.allObjs.push(rev) })
+        //          this.setState({ allObjs: [...this.state.allObjs, rev] })
+                 
+        //      })
+        //      console.log(this.allObjs);
+        //     }
+        //       )
       }
       
-    fun1(){
-          fetch('https://jsonplaceholder.typicode.com/todos')
-          .then(response => response.json())
-          .then((json) => {
+    // fun1(){
+    //       fetch('https://jsonplaceholder.typicode.com/todos')
+    //       .then(response => response.json())
+    //       .then((json) => {
               
-              console.log(json)
+    //           console.log(json)
               
-              let aray;
-             json.map((a)=>{
-              //    console.log(a);
-             })
-             aray =  json.slice((this.state.activePage*10)-10,this.state.activePage*10)
-             console.log(aray);}
+    //           let aray;
+    //          json.map((a)=>{
+    //           //    console.log(a);
+    //          })
+    //          aray =  json.slice((this.state.activePage*10)-10,this.state.activePage*10)
+    //          console.log(aray);}
               
-              )
-      }
+    //           )
+    //   }
     render() {
+        let res
 
-        let allObjs =[]
-
-        
+       
         return (
 
             <>
-            <button onClick={this.fun1}>aa</button>
             <h2 className="mt-3">Reviews</h2>
-            
-            {/* 1-10   1
-            11-20    2
-            21-30   3
-            arr.slice((activepage*10)-9,activepage*10) */}
-abc
-            {this.state.allObjs.map((obj)=>{
-                <div>{obj.id}a</div>
-                console.log({obj.id} + 'hello');
-            })}
-anc
-            <div className="AllReviews">
+            {JSON.stringify( this.state.reviews[0])}
+            {console.log(JSON.stringify( this.state.reviews[0]))}
+            {/* <div className="AllReviews">
                 <EachReview></EachReview>
                 <EachReview></EachReview>
                 <EachReview></EachReview>
@@ -93,7 +89,7 @@ anc
                 pageRangeDisplayed={5}
                 onChange={this.handlePageChange.bind(this)}
                 />
-                </div>
+                </div> */}
             </>
         );
     }
