@@ -143,7 +143,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
 
       router.get("/api/tutor/getCourseByTitle/:id",(req,res)=>{
 
-        Course.find({title:{ $regex: req.params.id, $options: 'i' }},{img:0},(err,obj)=>{
+        Course.find({title:{ $regex: req.params.id, $options: 'i' }},(err,obj)=>{
             if(err) {console.log(err);
                  return res.status(400).json({message:"cannot find Course" ,success : false});}
                 

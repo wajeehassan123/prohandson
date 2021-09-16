@@ -51,8 +51,9 @@ export class SearchResults extends React.Component {
                     
                 {
                     this.state.courses.map(eachSearch=>{
-                            // <Card key={eachSearch._id} {...eachSearch} />
-                            <h1>{eachSearch.title}</h1>
+                        return(    
+                        <Card key={eachSearch._id} {...eachSearch} />
+                        )
                     })
                 }
                     

@@ -10,17 +10,17 @@ class EachReview extends Component {
     render() {
         return (
             <div className="EachReview_container">
-                <h5 className="fw-bold">Name</h5>
+                <h5 className="fw-bold">{this.props.reviews.student_id.first_name+this.props.reviews.student_id.last_name}</h5>
                 <ReactStars
                     count={5}
-                    value={4} //Ider ayen gy k kitny stars han
+                    value={this.props.reviews.rate} //Ider ayen gy k kitny stars han
                     edit = {false}
                     size={30}
                     activeColor="#ffd700"
                     classNames="starsReview"
                 />
                 <p className="eachReviewPara fw-smaller">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim quidem officia sequi corporis? Voluptate cupiditate exercitationem, et autem, obcaecati rem perferendis, cumque natus consectetur quia quis! Dolor blanditiis debitis ullam/
+            {this.props.reviews.message}
                 </p>
                 <hr/>
                 

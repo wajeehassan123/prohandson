@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Reviews from '../components/Reviews';
 import { TutorHeader } from './TutorHeader'
-import AllReviews from '../components/AllReviews';
+import {AllReviews} from '../components/AllReviews';
 
 export class EachCourse extends React.Component {
     constructor(props){
@@ -9,7 +9,7 @@ export class EachCourse extends React.Component {
         // if(!props.data){
         //     window.location.href="/logintutor";
         // }
-        this.state={course:{},imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false,completed:false};
+        this.state={course:{},reviews:[],isReviewed:false,imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false,completed:false};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
@@ -39,6 +39,16 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                 
             this.setState({isEnroll:false});
             this.setState({completed:true});
+            fetch(`/api/courses/getReviews/${id}`)
+            .then(response2=>response2.json())
+            .then(AllReviewed=>{
+                if(AllReviewed){
+                    this.setState({isReviewed:true});
+                    this.setState({reviews:AllReviewed});
+                    console.log(this.state)
+                }
+            })
+
             }
         console.log(allEnrolled);
         console.log(data);
@@ -164,9 +174,15 @@ render() {
     ):(
 <div></div>
     )
-}
+} 
 
-<AllReviews allObjs={allObjs}></AllReviews>
+{
+    this.state.reviews.map(eachReview=>{
+return(        
+<AllReviews {...eachReview} key={eachReview._id} />
+)
+})
+}
             <div className="eachCourseDetails">
                 <h4 className="eachCourseDetailsHeading">
                     What you'll learn
