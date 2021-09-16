@@ -10,15 +10,7 @@ body{
  #mainP{
     font-weight: 600;
 }
-#searchLabel{
-    /* margin: 10px; */
-} 
 
-#searchForm{
-    /* display: inline; */
-    /* background-color: red; */
-    /* padding: 5px; */
-}
 
 #searchInput{
     margin: 10px;
@@ -60,8 +52,6 @@ body{
 
 .CategoryBtns{
     margin: 0px 100px;
-    // justify-content: space-between;
-    // flex-wrap: wrap;
     white-space: nowrap;
     overflow-x: scroll;
 

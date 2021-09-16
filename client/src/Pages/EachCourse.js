@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Reviews from '../components/Reviews';
 import { TutorHeader } from './TutorHeader'
+import AllReviews from '../components/AllReviews';
 
 export class EachCourse extends React.Component {
     constructor(props){
@@ -14,6 +15,7 @@ export class EachCourse extends React.Component {
         this.LoadCourse();
         
     }
+    
     LoadCourse(){
         var id=localStorage.getItem("course_id");
         
@@ -106,9 +108,9 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
       })
 
 }
-  
 
-    render() {
+render() {
+        let allObjs=[]
         return (
            <>
            <TutorHeader></TutorHeader>
@@ -163,6 +165,8 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 <div></div>
     )
 }
+
+<AllReviews allObjs={allObjs}></AllReviews>
             <div className="eachCourseDetails">
                 <h4 className="eachCourseDetailsHeading">
                     What you'll learn

@@ -44,6 +44,7 @@ this.setState({rating:newRating});
                     <p>Give the stars</p>
                 <ReactStars
                     count={5}
+                    
                     onChange={ratingChanged}
                     size={36}
                     activeColor="#ffd700"
