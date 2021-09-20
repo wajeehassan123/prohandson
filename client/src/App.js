@@ -33,6 +33,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {SearchResults} from "./Pages/SearchResults";
+import { SetAvailability } from "./Pages/SetAvailability";
 
 function App() {
   var isloggedin=false;
@@ -135,6 +136,9 @@ theme= "colored"
       </Route>
       <Route path="/changepassword">
         <ChangePassword data={isloggedin}/>
+      </Route>
+      <Route path="/set">
+        <SetAvailability />
       </Route>
 
 
