@@ -2,7 +2,7 @@ const jwt=require('jsonwebtoken');
 const User=require('./../models/user');
 
 module.exports =(req,res,next)=>{
-    console.log(req.headers);
+    
     try{
         var token=req.headers.authorization.split(" ")[1];
         var decode=jwt.verify(token,'longer-secret-is-better');

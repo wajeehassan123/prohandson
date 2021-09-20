@@ -9,16 +9,22 @@ export class SearchResults extends React.Component {
             data: '',courses:[]
         }
         this.handleCallback=this.handleCallback.bind(this);
+        this.searchCourses=this.searchCourses.bind(this);
+        this.fetchData=this.fetchData.bind(this);
+        this.searchCourses();
 
     }
 
-   // getData(val){
-        // do not forget to bind getData in constructor
-     //   console.log(val);
-    //}
-    handleCallback = (childData) =>{
-        this.setState({data: childData});
-        fetch(`/api/tutor/getCourseByTitle/${childData}`)
+    searchCourses(){
+        if(localStorage.search){
+        this.setState({data:localStorage.search});
+        this.fetchData(localStorage.search);
+        }
+    }
+
+
+    fetchData(data){
+        fetch(`/api/tutor/getCourseByTitle/${data}`)
         .then(response => response.json())
         .then(data=>{
             this.setState({courses:data.data});
@@ -32,19 +38,32 @@ export class SearchResults extends React.Component {
         // })
 
         })
+    }
+
+   // getData(val){
+        // do not forget to bind getData in constructor
+     //   console.log(val);
+    //}
+    handleCallback = (childData) =>{
+        //this.setState({data: childData});
+        this.fetchData(childData);
+       
 
 
 
     }
 
-    
+    EachCoursePage(id){
+   
+        localStorage.setItem("course_id",id);
+        window.location.href="/eachcourse";
+    }
 
     render() {
-        const {data} = this.state.courses;
         return (
             <>
                 <Header parentCallback = {this.handleCallback}/>
-                {data}
+                
                     <h2 className="my-4 fw-bolder ">Search Results</h2>
                     <h3 className="searchHeading">Searched Value</h3>
                 <div className="searchresults_cards">
@@ -52,7 +71,9 @@ export class SearchResults extends React.Component {
                 {
                     this.state.courses.map(eachSearch=>{
                         return(    
+                            <div className="card_body  mrg"  onClick={()=>this.EachCoursePage(eachSearch._id)}>
                         <Card key={eachSearch._id} {...eachSearch} />
+                        </div>
                         )
                     })
                 }

@@ -14,6 +14,7 @@ export class ChangePassword extends React.Component {
         this.handlePassword = this.handlePassword.bind(this);
         this.handlePassword2=this.handlePassword2.bind(this);
 this.handleOldPassword=this.handleOldPassword.bind(this);
+this.handleSubmit=this.handleSubmit.bind(this);
     }   
 
     handlePassword(event){
@@ -30,16 +31,19 @@ this.handleOldPassword=this.handleOldPassword.bind(this);
         this.setState({oldpassword:event.target.value});
       }
 
-      handleSubmit(){
+      handleSubmit(event){
+          event.preventDefault();
         
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+myHeaders.append("Content-Type", "application/json");
 const requestOptions = {
-    method: 'POST',
+    method: 'PUT',
     headers:myHeaders,
     body: JSON.stringify({oldpassword:this.state.oldpassword,password:this.state.password,password2:this.state.password2})
   };
-          fetch(`/api//changePassword/${localStorage.getItem("tutor_id")}`,requestOptions)
+  if(localStorage.tutor_id){
+          fetch(`/api/changePassword/${localStorage.getItem("tutor_id")}`,requestOptions)
           .then(response => response.json())
           .then(data => 
               {
@@ -49,6 +53,19 @@ window.location.href="/tutorpanel"
                   }
                   alert(data.message);
               })
+            }
+            else if(localStorage.student_id){
+                fetch(`/api/changeStudentPassword/${localStorage.getItem("student_id")}`,requestOptions)
+          .then(response => response.json())
+          .then(data => 
+              {
+                  if(data.success){
+alert(data.message);
+window.location.href="/changepassword"
+                  }
+                  alert(data.message);
+              })
+            }
       }
 
     render() {

@@ -1,5 +1,8 @@
 import React from 'react'
 import { Header } from './Header';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 //export const LoginPage = () => {
 export class LoginTutor extends React.Component{
     constructor(props) {
@@ -20,19 +23,32 @@ export class LoginTutor extends React.Component{
       
       }
     
-      handleSubmit(event) {
+     handleSubmit(event) {
+
           event.preventDefault();
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email:this.state.username,password:this.state.password })
         };
+      //   const response = await toast.promise(
+      //     fetch('/api/tutor/login', requestOptions),
+      //     {
+      //       pending: 'Promise is pending',
+      //       success: 'Promise resolved 👌',
+      //       error: 'Promise rejected 🤯'
+      //     }
+      // );
+      // console.log(response)
+      
+      const loading = toast.loading("Please wait...");
+      toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
         fetch('/api/tutor/login', requestOptions)
             .then(response => response.json())
             .then(data => 
                 {
                     if(data.success){
-                    alert(data.message);
+                      toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
                     localStorage.setItem("token",data.token);
                     localStorage.setItem("tutor_id",data.msg._id);
                     var name=data.msg.first_name+" "+data.msg.last_name;
@@ -42,7 +58,7 @@ export class LoginTutor extends React.Component{
 
                     }
                     else{
-                        alert("Invalid Email or Password");
+                      toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
                     }
                 });
       }
@@ -78,6 +94,7 @@ export class LoginTutor extends React.Component{
         
         <>
         <Header></Header>
+        
         <div id="main-login">
           <h2 id="form-heading">Log In as Tutor</h2>
           <form id="main-form">

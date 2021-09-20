@@ -333,8 +333,13 @@ router.put("/api/tutorUpdate/:id",upload.single('file'),auth,(req,res)=>{
 
 
 
-router.put("/api/StudentUpdate/:id",(req,res)=>{
-    Student.findOneAndUpdate({_id:req.params.id},req.body,{new: true},(err,obj)=>{
+router.put("/api/StudentUpdate/:id",upload.single('file'),auth,(req,res)=>{
+    Student.findOneAndUpdate({_id:req.params.id},{ first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        city:req.body.city,
+        country:req.body.country,
+       img:req.file.filename},{new: true},(err,obj)=>{
         if(err) {console.log(err);
             return res.status(400).json({message:"Failed to update " ,success : false});}
      
@@ -347,7 +352,7 @@ router.put("/api/StudentUpdate/:id",(req,res)=>{
     })
 })
 
-router.post("/api/changePassword/:id",auth, (req, res, next) => {
+router.put("/api/changePassword/:id",auth, (req, res, next) => {
     let getUser;
     Tutor.findOne({_id:req.params.id})
     .then(user => {
@@ -387,7 +392,58 @@ getUser.save((err,doc)=>{
     }).catch(err => {
         return res.status(401).json({
             message: "Authentication failed",
-            success:false
+            success:false,
+            error:err
+        });
+    })
+
+
+})
+
+
+
+router.put("/api/changeStudentPassword/:id",auth, (req, res, next) => {
+    let getUser;
+    Student.findOne({_id:req.params.id})
+    .then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "User not found",
+                success:false
+            });
+        }
+        getUser = user;
+        return bcrypt.compare(req.body.oldpassword, user.password);
+    }).then(response => {
+        if (!response) {
+            return res.status(401).json({
+                message: "Old password is not correct",
+                success:false
+            });
+        }
+        if(req.body.password!=req.body.password2)return res.status(400).json({message: "password not match"});
+ 
+        bcrypt.hash(req.body.password, 10).then((hash) => {
+            console.log(getUser);
+            getUser.password=hash;
+getUser.save((err,doc)=>{
+    if(err) {console.log(err);
+        return res.status(400).json({ success : false});}
+    res.status(200).json({
+        success:true,
+        message :"password updated successfully!",
+        user : doc
+    });
+
+        })
+
+    })
+       
+    }).catch(err => {
+        return res.status(401).json({
+            message: "Authentication failed",
+            success:false,
+            error:err
         });
     })
 

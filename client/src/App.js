@@ -29,6 +29,8 @@ import { LoginTutor } from "./Pages/LoginTutor";
 import { EditProfile } from "./Pages/EditProfile"; 
 import jwt from 'jsonwebtoken';
 import { ChangePassword } from "./Pages/ChangePassword";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {SearchResults} from "./Pages/SearchResults";
 
@@ -83,6 +85,20 @@ function App() {
   return (
 
    <>
+   <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme= "colored"
+/>
+{/* Same as */}
+<ToastContainer />
     <Switch>
       <Route exact path="/">
         <HomePage studentLoginVal={studentLogin} data={isloggedin} studentCourses={mycourses}/>

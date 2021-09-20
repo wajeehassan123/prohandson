@@ -95,6 +95,15 @@ getStudentCourse(){
         )
 
 }
+handleCallback = (childData) =>{
+    localStorage.setItem("search",childData);
+    window.location.href="/searchresults";
+
+    
+
+
+
+}
 
 
     // if(localStorage.getItem("token")){
@@ -118,7 +127,7 @@ getStudentCourse(){
     {
         this.props.studentLoginVal&&this.props.data?(
             
-            <HeaderLogginIn/>
+            <HeaderLogginIn parentCallback = {this.handleCallback}/>
         ): (
             <Header parentCallback = {this.handleCallback}></Header>
         )

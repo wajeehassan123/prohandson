@@ -29,6 +29,7 @@ export class EditProfile extends React.Component {
         this.getUser();
     }
     getUser(){
+        if(localStorage.tutor_id){
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
@@ -47,6 +48,23 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
 
         console.log(this.state.imageStr);
         console.log(this.state.img);
+    }
+    else if(localStorage.student_id){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+        myHeaders.append("Content-Type", "application/json");
+        
+        fetch(`/api/student/${localStorage.student_id}`,{headers:myHeaders})
+        .then(response => response.json())
+        .then(data=>{
+this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img})
+console.log(this.state)
+        })
+        
+
+
+
+    }
     }
 
     handleEmail(event) {
@@ -89,6 +107,11 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
       handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
+        
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+
+if(localStorage.tutor_id){
     const tutor_id=localStorage.getItem("tutor_id");
 formData.append("file",this.state.file,this.state.file.name);
 formData.append("first_name",this.state.first_name);
@@ -97,8 +120,6 @@ formData.append("email",this.state.email);
 formData.append("city",this.state.city);
 formData.append("country",this.state.country);
      
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         
       const requestOptions = {
           method: 'PUT',
@@ -118,7 +139,35 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                   }
               });
 
-
+            }
+            else if(localStorage.student_id){
+                const student_id=localStorage.getItem("student_id");
+formData.append("file",this.state.file,this.state.file.name);
+formData.append("first_name",this.state.first_name);
+formData.append("last_name",this.state.last_name);
+formData.append("email",this.state.email);
+formData.append("city",this.state.city);
+formData.append("country",this.state.country);
+     
+        
+      const requestOptions = {
+          method: 'PUT',
+          headers:myHeaders,
+          body: formData
+      };
+      fetch(`/api/StudentUpdate/${student_id}`, requestOptions)
+          .then(response => response.json())
+          .then(data => 
+              {
+                  if(data.success){
+                alert(data.message);
+                  window.location.href="/editprofile";
+                  }
+                  else{
+                      alert(data.message);
+                  }
+              });
+            }
 
 //alert(this.state.username+ "hello"+ this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.password2);
             

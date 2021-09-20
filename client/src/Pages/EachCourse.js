@@ -39,23 +39,31 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                 
             this.setState({isEnroll:false});
             this.setState({completed:true});
-            fetch(`/api/courses/getReviews/${id}`)
-            .then(response2=>response2.json())
-            .then(AllReviewed=>{
-                if(AllReviewed){
-                    this.setState({isReviewed:true});
-                    this.setState({reviews:AllReviewed});
-                    console.log(this.state)
-                }
-            })
-
-            }
+                        }
         console.log(allEnrolled);
         console.log(data);
         }
     })
 
 }
+fetch(`/api/courses/getReviews/${id}`)
+            .then(response2=>response2.json())
+            .then(AllReviewed=>{
+                if(AllReviewed){
+                    if(this.props.data){
+                    AllReviewed.map(eachRev=>{
+                        if(eachRev.student_id._id==localStorage.student_id && eachRev.course_id==id){
+
+                            this.setState({isReviewed:true});
+                        }
+                    })
+                }
+                    this.setState({reviews:AllReviewed});
+                    
+                }
+            })
+
+
  
     })
 
@@ -169,7 +177,7 @@ render() {
                 </div>
             </div>
 {
-    this.state.completed?(
+    this.state.completed && !this.state.isReviewed?(
 <Reviews/>
     ):(
 <div></div>
