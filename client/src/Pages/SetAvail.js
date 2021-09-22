@@ -14,12 +14,26 @@ export class SetAvail extends React.Component {
       loading: false,
       continuousLoading: false,
       SelectedDates: [],
+      dateIDS:[],
       dateTime:{}
     };
     this.addAppointmentCallback=this.addAppointmentCallback.bind(this);
     this.addAppointmentCallbackContinuousCase=this.addAppointmentCallbackContinuousCase.bind(this);
     this.removeAppointmentCallback=this.removeAppointmentCallback.bind(this);
     this.removeAppointmentCallbackContinuousCase=this.removeAppointmentCallbackContinuousCase.bind(this);
+    this.getAppointmentDates=this.getAppointmentDates.bind(this);
+    this.getAppointmentDates();
+  }
+
+
+  getAppointmentDates(){
+
+    fetch(`/api/getAppointment/${this.props.tutor_id}`)
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data);
+      this.setState({dateIDS:data.data.id});
+    })
   }
   
 
@@ -144,7 +158,7 @@ this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserve
     dayArr.map(ele =>{
       ele.map(element =>{
         // console.log(element.id);
-        sArr.forEach(e=>{
+        this.state.dateIDS.forEach(e=>{
           if(e == element.id){
             console.log(e + 'we won mr stark');
             element.isReserved = false;

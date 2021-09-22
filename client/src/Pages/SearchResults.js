@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Card } from './../components/Card'
 import { Header } from './Header'
 import Pagination from "react-js-pagination";
-import ReactPaginate from 'react-paginate';
 import $ from 'jquery';
 
 export class SearchResults extends React.Component {

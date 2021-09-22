@@ -11,7 +11,7 @@ export class EditCourse extends React.Component {
         }
         this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
         email:'',country:'',city:'',
-        selectValue:'',imageStr:'./uploads/profiles/',img:''
+        selectValue:'',imageStr:'./uploads/profiles/',img:'',tutor_id:''
     };
         
         this.handleEmail = this.handleEmail.bind(this);

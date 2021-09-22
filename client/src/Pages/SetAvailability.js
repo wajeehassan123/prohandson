@@ -17,6 +17,7 @@ export class SetAvailability extends React.Component {
       loading: false,
       continuousLoading: false,
       SelectedDates: [],
+      ids:[],
       dateTime:{}
     };
     this.addAppointmentCallback=this.addAppointmentCallback.bind(this);
@@ -47,6 +48,7 @@ export class SetAvailability extends React.Component {
       }
     );
     console.log(time);
+    this.state.ids.push(id)
 this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserved:true}
     this.state.SelectedDates.push(this.state.dateTime)
     this.state.SelectedDates.forEach(element => {
@@ -79,20 +81,21 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 
 myHeaders.append("Content-Type", "application/json");
 
-    this.state.SelectedDates.map(eachDateTime=>{
 
       const requestOptions = {
         method: 'POST',
         headers:myHeaders,
-        body:JSON.stringify({date:eachDateTime.date,time:eachDateTime.time,tutor_id:localStorage.tutor_id,isReserved:true}) 
+        body:JSON.stringify({id:this.state.ids,tutor_id:localStorage.tutor_id}) 
       };
-      fetch('/api/tutor/appointment',requestOptions)
-      .then(response=>response.json)
+      fetch('/api/setAppointment',requestOptions)
+      .then(response=>response.json())
       .then(data=>{
         console.log(data);
+        alert(data.message);
+        window.location.href="/set";
         
       })
-    })
+    
   }
 
   addAppointmentCallbackContinuousCase = ({

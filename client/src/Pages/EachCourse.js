@@ -12,14 +12,16 @@ export class EachCourse extends React.Component {
         // if(!props.data){
         //     window.location.href="/logintutor";
         // }
-        this.state = {
-            showModal: false
-          };
+        
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
 
 
-        this.state={course:{},reviews:[],isReviewed:false,imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false,completed:false};
+        this.state={course:{},reviews:[],isReviewed:false,
+        imageStr:'./uploads/',profileImg:'./uploads/profiles/',
+        isEnroll:false,completed:false,
+        showModal: false,
+    tutor_id:''};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
@@ -43,8 +45,9 @@ export class EachCourse extends React.Component {
     //console.log(data);
     this.setState({course:data.data});
     
-if(this.props.data){
+    this.setState({tutor_id:data.data.tutor_id._id})
     
+if(this.props.data){
     var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     fetch(`/api/enroll/getStudentCourse/${localStorage.student_id}/${id}`,{headers:myHeaders})
@@ -193,7 +196,7 @@ render() {
                         contentLabel="Minimal Modal Example"
                         >
                         <button onClick={this.handleCloseModal} className="btn btn-danger">Close Modal</button>
-                        <SetAvail/>
+                        <SetAvail tutor_id={this.state.tutor_id}/>
                     </ReactModal>
                 </div>
 

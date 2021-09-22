@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 
 const Enroll=require('./../models/enroll');
 
+const Appointment=require('./../models/appointments');
+
 var fs = require('fs');
 var path = require('path');
 const Course=require('./../models/courses');
@@ -96,6 +98,35 @@ router.put("/api/enroll/markAsComplete/:id/:course_id",auth,(req,res)=>{
                 data : doc
             })
 
+    })
+})
+
+
+router.post("/api/setAppointment",auth,(req,res)=>{
+    const newqt=new Appointment(req.body);
+    newqt.save((err,doc)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"error failed" ,success : false});}
+
+        res.status(200).json({
+            succes:true,
+            message :"Dates added successfully!",
+            data : doc
+        });
+    })
+
+})
+
+router.get("/api/getAppointment/:id",(req,res)=>{
+    Appointment.findOne({tutor_id:req.params.id},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"error failed" ,success : false});}
+
+        res.status(200).json({
+            succes:true,
+            message :"Dates id get successfully!",
+            data : obj
+        });
     })
 })
 
