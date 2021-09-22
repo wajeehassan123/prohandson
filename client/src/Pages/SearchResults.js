@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import { Card } from './../components/Card'
 import { Header } from './Header'
+import Pagination from "react-js-pagination";
+import ReactPaginate from 'react-paginate';
+import $ from 'jquery';
 
 export class SearchResults extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            data: '',courses:[]
+            data: '',courses:[],
+            activePage: 1,
         }
         this.handleCallback=this.handleCallback.bind(this);
         this.searchCourses=this.searchCourses.bind(this);
@@ -31,8 +35,6 @@ export class SearchResults extends React.Component {
             //window.location.href="/searchresults"
 
         //     this.state.data.map(searchData=>{
-               
-            
             console.log(this.state.courses);
         
         // })
@@ -48,9 +50,6 @@ export class SearchResults extends React.Component {
         //this.setState({data: childData});
         this.fetchData(childData);
        
-
-
-
     }
 
     EachCoursePage(id){
@@ -59,13 +58,19 @@ export class SearchResults extends React.Component {
         window.location.href="/eachcourse";
     }
 
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+      }
+
+
     render() {
         return (
             <>
                 <Header parentCallback = {this.handleCallback}/>
                 
                     <h2 className="my-4 fw-bolder ">Search Results</h2>
-                    <h3 className="searchHeading">Searched Value</h3>
+                    {/* <h3 className="searchHeading">Searched Value</h3> */}
                 <div className="searchresults_cards">
                     
                 {
@@ -78,7 +83,18 @@ export class SearchResults extends React.Component {
                     })
                 }
                     
+                {/* <Pagination
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    activePage={this.state.activePage}
+                    itemsCountPerPage={2}
+                    totalItemsCount={5}
+                    pageRangeDisplayed={2}
+                    onChange={this.handlePageChange.bind(this)}
+                /> */}
+
                 </div>
+
             </>
         )
     }

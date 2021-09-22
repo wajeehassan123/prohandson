@@ -126,7 +126,7 @@ theme= "colored"
         <SearchResults data={isloggedin}/>
       </Route>
       <Route path="/addcourse">
-        <AddCourse data={isloggedin}/>
+        <AddCourse  data={isloggedin}/>
       </Route>
       <Route path="/eachcourse">
         <EachCourse data={isloggedin}/>
@@ -138,7 +138,7 @@ theme= "colored"
         <ChangePassword data={isloggedin}/>
       </Route>
       <Route path="/set">
-        <SetAvailability data={isloggedin}/>
+        <SetAvailability studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
 
 

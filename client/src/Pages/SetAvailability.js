@@ -9,7 +9,10 @@ export class SetAvailability extends React.Component {
     super(props);
     if(!props.data){
       window.location.href="/logintutor";
-  }
+    }
+    if(this.props.studentLoginVal){
+      window.location.href="/logintutor";
+    }
     this.state = {
       loading: false,
       continuousLoading: false,
@@ -142,80 +145,17 @@ myHeaders.append("Content-Type", "application/json");
   
   
   render() {
-      //   let days1 = [][]
-    //   for (let index = 0; index < 7; index++) {
-    //       for (let j = 0; j < 48; j++) {
-    //           days1[i][j]
-              
-    //       }
-          
-    //   }
-   
-    const days = [
-      
-      [
-          { id: 11, number: 1,  },
-          { id: 12, number: 2 },
-          { id: 13, number: 3, },
-          { id: 14, number: 4 },
-          { id: 15, number: 5 },
-          { id: 16, number: 6 },
-          { id: 17, number: 7 },
-          { id: 18, number: 8 },
-          
-      ],
-      [
-        { id: 21, number: 1, },
-        { id: 22, number: 2,  },
-        { id: 23, number: 3, },
-        { id: 24, number: 4 },
-        { id: 11, number: 5 },
-        { id: 12, number: 6 }
-      ],
-      [
-        { id: 13, number: 1 },
-        { id: 14, number: 2 },
-        { id: 15, number: 3,  },
-        { id: 16, number: '4' },
-        { id: 17, number: 5 },
-        { id: 18, number: 6 }
-      ],
-      [
-        { id: 19, number: 1 },
-        { id: 20, number: 2 },
-        { id: 21, number: 3 },
-        { id: 22, number: '4' },
-        { id: 23, number: 5 },
-        { id: 24, number: 6 }
-      ],
-      [
-        { id: 25, number: 1,  },
-        { id: 26, number: 2 },
-        { id: 27, number: '3',  },
-        { id: 28, number: '4' },
-        { id: 29, number: 5 },
-        { id: 30, number: 6,  }
-      ],
-      [
-        { id: 31, number: 1,  },
-        // { id: 32, number: 2, },
-        // { id: 33, number: '3',  },
-        // { id: 34, number: '4',  },
-        { id: 35, number: 5,  isReserved : true},
-        { id: 36, number: 6, }
-      ]
-    ];
-    days.map((ele, i) =>{
-      ele.map((element, index) =>{
-        element.id = index;
-        console.log(element.id);
-      })
-    })
+
+    // days.map((ele, i) =>{
+    //   ele.map((element, index) =>{
+    //     element.id = index;
+    //     console.log(element.id);
+    //   })
+    // })
     const { loading, continuousLoading } = this.state;
     const date=new Date()
     date.setHours(8,0,0,0)
-    // var date1 = new Date(dateTime.getTime());
-    // date1.setHours(0, 0, 0, 0);
+    
     let dayArr = []
     
     let inc = 1;
@@ -247,6 +187,8 @@ myHeaders.append("Content-Type", "application/json");
 
     
     return (
+
+      
       <div>
         <TutorHeader/>
         {/* <h1 className="my-4">Choose your availability </h1> */}

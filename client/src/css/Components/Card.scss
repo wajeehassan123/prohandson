@@ -1,28 +1,27 @@
 .card_body{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    // width: 20%;
-    margin: 10px;
-    overflow: hidden;
+    
+    margin: 5px;
+    // overflow: hidden;
     height: 320px;
-    // padding-right: 40px !important;
 }
 
+.card_inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 
 .card_img{
     img{
         height: 140px;
-        width: 100%;
+        width: 200px;
     }
     height: 50%;
     margin-bottom: 5px;
 }
 
-.card_heading{
-    text-align: left;
-}
+
 
 .card_reviews{
     color: orange;

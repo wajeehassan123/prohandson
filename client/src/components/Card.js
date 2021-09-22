@@ -13,7 +13,8 @@ export const Card = (props) => {
     var imageStr = "./uploads/"+props.img;
     
     return (
-        <div >
+        <div className="card_inner">
+            
           
             <div className="card_img">
                 <img src={imageStr ? imageStr : 'dp.jpg'} alt="card-pic"/>
