@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 
 import { AppointmentPicker } from 'react-appointment-picker';
+import { TutorHeader } from './TutorHeader';
 
 export class SetAvailability extends React.Component {
-  state = {
-    loading: false,
-    continuousLoading: false
-  };
 
-  SelectedDates = []
+  constructor(props){
+    super(props);
+    if(!props.data){
+      window.location.href="/logintutor";
+  }
+    this.state = {
+      loading: false,
+      continuousLoading: false,
+      SelectedDates: [],
+      dateTime:{}
+    };
+    this.addAppointmentCallback=this.addAppointmentCallback.bind(this);
+    this.addAppointmentCallbackContinuousCase=this.addAppointmentCallbackContinuousCase.bind(this);
+    this.removeAppointmentCallback=this.removeAppointmentCallback.bind(this);
+    this.removeAppointmentCallbackContinuousCase=this.removeAppointmentCallbackContinuousCase.bind(this);
+    this.HandleSubmit=this.HandleSubmit.bind(this);
+  }
+  
+
+  
 
   addAppointmentCallback = ({
     addedAppointment: { day, number, time, id },
@@ -27,9 +43,12 @@ export class SetAvailability extends React.Component {
         this.setState({ loading: false });
       }
     );
-    this.SelectedDates.push(day)
-    this.SelectedDates.forEach(element => {
+    console.log(time);
+this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserved:true}
+    this.state.SelectedDates.push(this.state.dateTime)
+    this.state.SelectedDates.forEach(element => {
         console.log(element);
+        
         })
   };
 
@@ -48,6 +67,30 @@ export class SetAvailability extends React.Component {
       }
     );
   };
+
+
+  HandleSubmit(){
+    
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+
+myHeaders.append("Content-Type", "application/json");
+
+    this.state.SelectedDates.map(eachDateTime=>{
+
+      const requestOptions = {
+        method: 'POST',
+        headers:myHeaders,
+        body:JSON.stringify({date:eachDateTime.date,time:eachDateTime.time,tutor_id:localStorage.tutor_id,isReserved:true}) 
+      };
+      fetch('/api/tutor/appointment',requestOptions)
+      .then(response=>response.json)
+      .then(data=>{
+        console.log(data);
+        
+      })
+    })
+  }
 
   addAppointmentCallbackContinuousCase = ({
     addedAppointment: { day, number, time, id },
@@ -107,20 +150,25 @@ export class SetAvailability extends React.Component {
     //       }
           
     //   }
+   
     const days = [
+      
       [
-          { id: 1, number: 1,  },
-          { id: 2, number: 2 },
-          { id: 3, number: '3', },
-          { id: 4, number: '4' },
-          { id: 5, number: 5 },
-          { id: 6, number: 6 }
+          { id: 11, number: 1,  },
+          { id: 12, number: 2 },
+          { id: 13, number: 3, },
+          { id: 14, number: 4 },
+          { id: 15, number: 5 },
+          { id: 16, number: 6 },
+          { id: 17, number: 7 },
+          { id: 18, number: 8 },
+          
       ],
       [
-        { id: 7, number: 1, },
-        { id: 8, number: 2,  },
-        { id: 9, number: '3', },
-        { id: 10, number: '4' },
+        { id: 21, number: 1, },
+        { id: 22, number: 2,  },
+        { id: 23, number: 3, },
+        { id: 24, number: 4 },
         { id: 11, number: 5 },
         { id: 12, number: 6 }
       ],
@@ -150,27 +198,66 @@ export class SetAvailability extends React.Component {
       ],
       [
         { id: 31, number: 1,  },
-        { id: 32, number: 2, },
-        { id: 33, number: '3',  },
-        { id: 34, number: '4',  },
-        { id: 35, number: 5,  },
+        // { id: 32, number: 2, },
+        // { id: 33, number: '3',  },
+        // { id: 34, number: '4',  },
+        { id: 35, number: 5,  isReserved : true},
         { id: 36, number: 6, }
       ]
     ];
+    days.map((ele, i) =>{
+      ele.map((element, index) =>{
+        element.id = index;
+        console.log(element.id);
+      })
+    })
     const { loading, continuousLoading } = this.state;
+    const date=new Date()
+    date.setHours(8,0,0,0)
     // var date1 = new Date(dateTime.getTime());
     // date1.setHours(0, 0, 0, 0);
+    let dayArr = []
+    
+    let inc = 1;
+    for (let index = 0; index < 7; index++) {
+      dayArr.push([])
+    }
+    dayArr.map((e)=>{
+     for (let j = 0; j < 48; j++) {
+       e.push( {
+         id: inc,
+         number : j,
+         isReserved : true,
+         
+       })
+       inc++;
+     }
+    })
+    console.log(dayArr);
+    // let sArr = [3,4,5]  
+    
+    dayArr.map(ele =>{
+      ele.map(element =>{
+        // console.log(element.id);
+       element.isReserved = false;
+          
+        })
+      })
+
+
     
     return (
       <div>
-        <h1>Appointment Picker</h1>
-        <AppointmentPicker
+        <TutorHeader/>
+        {/* <h1 className="my-4">Choose your availability </h1> */}
+      <div className=" set_container">
+        <h3 className="fw-bolder my-3">Select your Available Time</h3>
+        <h5 className="fw-lighter mb-3">All times listed are in your local timezone</h5>
+      <AppointmentPicker
           addAppointmentCallback={this.addAppointmentCallback}
           removeAppointmentCallback={this.removeAppointmentCallback}
-          initialDay={new Date(2018, 11, 24, 8, 0, 0, 0)}
-        //   initialDay={new Date(2018, 11, 24, 8, 0, 0, 0)}
-        //   initialDay={date1}
-          days={days}
+          initialDay={date}
+          days={dayArr}
           maxReservableAppointments={99}
           alpha = {true}
           alpha = {false}
@@ -179,22 +266,9 @@ export class SetAvailability extends React.Component {
           loading={loading}
           unitTime ={18000_00}
         />
-        {/* <h1>Appointment Picker Continuous Case</h1>
-        <AppointmentPicker
-          addAppointmentCallback={this.addAppointmentCallbackContinuousCase}
-          removeAppointmentCallback={
-            this.removeAppointmentCallbackContinuousCase
-          }
-          initialDay={new Date(2018, 11, 24, 10, 33, 30, 0)}
-          days={days}
-          maxReservableAppointments={2}
-          alpha
-          visible
-          selectedByDefault
-          loading={continuousLoading}
-          continuous
-          
-        /> */}
+        
+      <button className="btn btn-primary my-3" onClick={this.HandleSubmit}> Set Times </button>
+      </div>
       </div>
     );
   }

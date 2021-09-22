@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Reviews from '../components/Reviews';
 import { TutorHeader } from './TutorHeader'
 import {AllReviews} from '../components/AllReviews';
+import ReactModal from 'react-modal';
+import { SetAvailability } from './SetAvailability';
+import {SetAvail} from './SetAvail'
 
 export class EachCourse extends React.Component {
     constructor(props){
@@ -9,12 +12,27 @@ export class EachCourse extends React.Component {
         // if(!props.data){
         //     window.location.href="/logintutor";
         // }
+        this.state = {
+            showModal: false
+          };
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+
+
         this.state={course:{},reviews:[],isReviewed:false,imageStr:'./uploads/',profileImg:'./uploads/profiles/',isEnroll:false,completed:false};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.LoadCourse();
         
     }
+
+    handleOpenModal () {
+        this.setState({ showModal: true });
+      }
+      
+      handleCloseModal () {
+        this.setState({ showModal: false });
+      }
     
     LoadCourse(){
         var id=localStorage.getItem("course_id");
@@ -164,12 +182,19 @@ render() {
                     </button>
                     </div>
                         ):(
-<button onClick={()=>this.handleEnroll(this.state.course._id)} className="eachCourseEnroll mt-3">
+<button onClick={this.handleOpenModal} className="eachCourseEnroll mt-3">
+{/* <button onClick={()=>this.handleEnroll(this.state.course._id)} className="eachCourseEnroll mt-3"> */}
                         Enroll Now
                     </button>
                         )
                     }
-                    
+                    <ReactModal 
+                        isOpen={this.state.showModal}
+                        contentLabel="Minimal Modal Example"
+                        >
+                        <button onClick={this.handleCloseModal} className="btn btn-danger">Close Modal</button>
+                        <SetAvail/>
+                    </ReactModal>
                 </div>
 
                 <div className="eachCouseBannerRightt">

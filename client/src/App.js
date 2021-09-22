@@ -138,7 +138,7 @@ theme= "colored"
         <ChangePassword data={isloggedin}/>
       </Route>
       <Route path="/set">
-        <SetAvailability />
+        <SetAvailability data={isloggedin}/>
       </Route>
 
 
