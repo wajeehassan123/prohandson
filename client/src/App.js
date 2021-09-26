@@ -7,7 +7,7 @@ import './css/App.scss'
 // import { Navbar } from './Pages/Navbar'
 // import { HomePage } from "./Pages/HomePage";
 import { Navbar } from "./Pages/Navbar";
-import { Footer } from "./Pages/Footer";
+import { Footer } from "./Pages/FooterAll";
 import { LoginPage } from "./Pages/LoginPage";
 import {
   BrowserRouter as Router,
@@ -34,6 +34,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {SearchResults} from "./Pages/SearchResults";
 import { SetAvailability } from "./Pages/SetAvailability";
+import {FooterAll} from "./Pages/FooterAll"
 
 function App() {
   var isloggedin=false;
@@ -105,45 +106,47 @@ theme= "colored"
         <HomePage studentLoginVal={studentLogin} data={isloggedin} studentCourses={mycourses}/>
       </Route>
       <Route path="/loginStudent">
-        <LoginPage />
+        <LoginPage data={isloggedin}/>
       </Route>
       <Route path="/loginTutor">
-        <LoginTutor />
+        <LoginTutor data={isloggedin}/>
       </Route>
       <Route path="/loginContainer">
-        <LoginContainer />
+        <LoginContainer  data={isloggedin}/>
       </Route>
       <Route path="/Signup">
-        <SignupPage />
+        <SignupPage data={isloggedin}/>
       </Route>
       <Route path="/Signuptutor">
-        <SignupTutor></SignupTutor>
+        <SignupTutor data={isloggedin}/>
       </Route>
       <Route path="/tutorPanel">
-        <TutorPanel data={isloggedin}/>
+        <TutorPanel studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/searchresults">
-        <SearchResults data={isloggedin}/>
+        <SearchResults studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/addcourse">
-        <AddCourse  data={isloggedin}/>
+        <AddCourse studentLoginVal={studentLogin}  data={isloggedin}/>
       </Route>
       <Route path="/eachcourse">
         <EachCourse data={isloggedin}/>
       </Route>
       <Route path="/editprofile">
-        <EditProfile data={isloggedin}/>
+        <EditProfile studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/changepassword">
-        <ChangePassword data={isloggedin}/>
+        <ChangePassword studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/set">
-        <SetAvailability studentLoginVal={studentLogin} data={isloggedin}/>
+        <SetAvailability studentLoginVal={studentLogin}  data={isloggedin}/>
       </Route>
 
 
       
     </Switch>
+
+    {/* <FooterAll/> */}
    </>
   );
 }

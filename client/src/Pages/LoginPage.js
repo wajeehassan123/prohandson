@@ -4,6 +4,10 @@ import { Header } from './Header';
 export class LoginPage extends React.Component{
   constructor(props) {
     super(props);
+
+    if(props.data){
+      window.location.href="/";
+    }
     this.state = {username: '',password:'',tutorName:''};
 
     this.handleEmail = this.handleEmail.bind(this);

@@ -38,7 +38,7 @@ class SearchInput extends Component {
                 onChange={this.handleSearch}
                 value={this.state.search}
                     type="search"
-                    placeholder="Search Courses"
+                    placeholder="Search Prohandson Courses"
                     className="mr-2 search_inputfield"
                     aria-label="Search"
                 />

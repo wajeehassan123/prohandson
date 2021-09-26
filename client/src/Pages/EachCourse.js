@@ -159,7 +159,7 @@ render() {
                         {this.state.course.title}
                     </h3>
                     <h5 className="eachCourseName  my-4">
-                    {this.state.course.description}
+                    {/* {this.state.course.description} */}
                     </h5>
                     <p className="bannerTutorDetail my-3">
                         <span >
@@ -224,7 +224,7 @@ return(
                     What you'll learn
                 </h4>
                 <p className="eachCourseDetailsPara">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis veniam minima aperiam alias vel, fugit laboriosam vitae consequuntur. Minima praesentium voluptatum vitae fuga quos totam, animi minus expedita aliquid facere.
+                {this.state.course.description}
                 </p>
             </div>
 

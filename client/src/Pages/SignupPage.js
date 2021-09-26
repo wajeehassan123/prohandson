@@ -5,8 +5,11 @@ import { Header } from './Header';
 
 
 export class SignupPage extends React.Component {
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
+        if(props.data){
+            window.location.href="/";
+          }
         this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
         email:'',country:'',city:'',
         selectValue:''

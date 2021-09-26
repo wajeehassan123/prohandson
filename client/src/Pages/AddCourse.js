@@ -13,6 +13,9 @@ export class AddCourse extends React.Component {
         if(!props.data){
             window.location.href="/logintutor";
         }
+        if(this.props.studentLoginVal){
+            window.location.href="/";
+          }
 
         this.handleTitle=this.handleTitle.bind(this);
         this.handlePrice=this.handlePrice.bind(this);
@@ -111,9 +114,9 @@ console.log(this.state);
                             <option>Select Category</option>
                             <option value="1">IT</option>
                             <option value="2">Music</option>
-                            <option value="2">Sports</option>
-                            <option value="2">Dance</option>
-                            <option value="2">Animal Care</option>
+                            <option value="3">Sports</option>
+                            <option value="4">Dance</option>
+                            <option value="5">Animal Care</option>
                         </Form.Select>
                         
             <div className="btn-r text-center ">

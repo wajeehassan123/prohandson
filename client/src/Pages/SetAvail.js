@@ -154,6 +154,10 @@ this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserve
     })
     console.log(dayArr);
     let sArr = [3,4,5]
+    console.log(this.state.dateIDS);
+    this.state.dateIDS.forEach(e=>{
+      console.log(e + 'you');
+    })
     
     dayArr.map(ele =>{
       ele.map(element =>{

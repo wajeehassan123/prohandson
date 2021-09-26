@@ -11,7 +11,7 @@ export class SetAvailability extends React.Component {
       window.location.href="/logintutor";
     }
     if(this.props.studentLoginVal){
-      window.location.href="/logintutor";
+      window.location.href="/";
     }
     this.state = {
       loading: false,
@@ -21,9 +21,9 @@ export class SetAvailability extends React.Component {
       dateTime:{}
     };
     this.addAppointmentCallback=this.addAppointmentCallback.bind(this);
-    this.addAppointmentCallbackContinuousCase=this.addAppointmentCallbackContinuousCase.bind(this);
+    // this.addAppointmentCallbackContinuousCase=this.addAppointmentCallbackContinuousCase.bind(this);
     this.removeAppointmentCallback=this.removeAppointmentCallback.bind(this);
-    this.removeAppointmentCallbackContinuousCase=this.removeAppointmentCallbackContinuousCase.bind(this);
+    // this.removeAppointmentCallbackContinuousCase=this.removeAppointmentCallbackContinuousCase.bind(this);
     this.HandleSubmit=this.HandleSubmit.bind(this);
   }
   
@@ -39,7 +39,7 @@ export class SetAvailability extends React.Component {
         loading: true
       },
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 200));
+        await new Promise((resolve) => setTimeout(resolve, 50));
         console.log(
           `Added appointment ${number}, day ${day}, time ${time}, id ${id}`
         );
@@ -49,12 +49,13 @@ export class SetAvailability extends React.Component {
     );
     console.log(time);
     this.state.ids.push(id)
-this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserved:true}
+    this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserved:true}
     this.state.SelectedDates.push(this.state.dateTime)
     this.state.SelectedDates.forEach(element => {
         console.log(element);
         
         })
+    console.log(this.state.ids);
   };
 
   removeAppointmentCallback = ({ day, number, time, id }, removeCb) => {
@@ -63,7 +64,7 @@ this.state.dateTime={date:day,time:time,tutor_id:localStorage.tutor_id,isReserve
         loading: true
       },
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 200));
+        await new Promise((resolve) => setTimeout(resolve, 50));
         console.log(
           `Removed appointment ${number}, day ${day}, time ${time}, id ${id}`
         );
@@ -97,55 +98,6 @@ myHeaders.append("Content-Type", "application/json");
       })
     
   }
-
-  addAppointmentCallbackContinuousCase = ({
-    addedAppointment: { day, number, time, id },
-    addCb,
-    removedAppointment: params,
-    removeCb
-  }) => {
-    this.setState(
-      {
-        continuousLoading: true
-      },
-      async () => {
-        if (removeCb) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log(
-            `Removed appointment ${params.number}, day ${params.day}, time ${params.time}, id ${params.id}`
-          );
-          removeCb(params.day, params.number);
-        }
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(
-          `Added appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        addCb(day, number, time, id);
-        this.setState({ continuousLoading: false });
-      }
-    );
-  };
-
-  removeAppointmentCallbackContinuousCase = (
-    { day, number, time, id },
-    removeCb
-  ) => {
-    this.setState(
-      {
-        continuousLoading: true
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(
-          `Removed appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        removeCb(day, number);
-        this.setState({ continuousLoading: false });
-      }
-    );
-  };
-
-  
   
   render() {
 
@@ -181,11 +133,15 @@ myHeaders.append("Content-Type", "application/json");
     
     dayArr.map(ele =>{
       ele.map(element =>{
-        // console.log(element.id);
        element.isReserved = false;
           
         })
       })
+
+      // this.state.dateIDS.forEach(e=>{
+      //   console.log(e + 'you');
+      // })
+    
 
 
     
@@ -203,7 +159,7 @@ myHeaders.append("Content-Type", "application/json");
           removeAppointmentCallback={this.removeAppointmentCallback}
           initialDay={date}
           days={dayArr}
-          maxReservableAppointments={99}
+          maxReservableAppointments={999}
           alpha = {true}
           alpha = {false}
           visible = {true}

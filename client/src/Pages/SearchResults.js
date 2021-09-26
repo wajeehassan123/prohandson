@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from './../components/Card'
 import { Header } from './Header'
+import {HeaderLogginIn} from './HeaderLoggedIn'
 import Pagination from "react-js-pagination";
 import $ from 'jquery';
 
@@ -66,7 +67,13 @@ export class SearchResults extends React.Component {
     render() {
         return (
             <>
-                <Header parentCallback = {this.handleCallback}/>
+                {
+                    this.props.studentLoginVal&&this.props.data?(
+                        <HeaderLogginIn parentCallback = {this.handleCallback}/>
+                    ): (
+                        <Header parentCallback = {this.handleCallback}></Header>
+                    )
+                }
                 
                     <h2 className="my-4 fw-bolder ">Search Results</h2>
                     {/* <h3 className="searchHeading">Searched Value</h3> */}

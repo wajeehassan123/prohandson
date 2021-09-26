@@ -117,21 +117,32 @@ handleCallback = (childData) =>{
             //        return <Header></Header>
             //     }
             // }
-            
+            let HeaderToShow;
+            if(this.props.studentLoginVal&&this.props.data)
+                HeaderToShow = <HeaderLogginIn parentCallback = {this.handleCallback}/>
+            else if(!this.props.studentLoginVal&&this.props.data)
+                HeaderToShow = <TutorHeader/>
+            else
+                HeaderToShow =  <Header parentCallback = {this.handleCallback}></Header>
     return (
        
         <>
           
-{/* {IsLogged()} */}
+{HeaderToShow}
 
     {
-        this.props.studentLoginVal&&this.props.data?(
+        // this.props.studentLoginVal&&this.props.data?(
             
-            <HeaderLogginIn parentCallback = {this.handleCallback}/>
-        ): (
-            <Header parentCallback = {this.handleCallback}></Header>
-        )
+        //     <HeaderLogginIn parentCallback = {this.handleCallback}/>
+        // ): (
+        //     <Header parentCallback = {this.handleCallback}></Header>
+        // )
+
+        
     }
+
+
+
            {/* HEADER1 */}
            <div className="HomeHeader1">
                 <div className="innerHomeHeader1 ">

@@ -16,6 +16,9 @@ export class TutorPanel extends React.Component {
       if(!props.data){
           window.location.href="/logintutor";
       }
+      if(this.props.studentLoginVal){
+        window.location.href="/";
+      }
       this.getCourses();
       this.getStudentCourse();
 }
@@ -95,9 +98,9 @@ AddCourse(){
                 <hr></hr>
                 </div>
                 <hr/>
-                <div className="tutorStudents">
+                {/* <div className="tutorStudents">
                 <h3 className="text-left float-left">All Students...</h3>
-                </div>
+                </div> */}
             </div>
         </div>
     )

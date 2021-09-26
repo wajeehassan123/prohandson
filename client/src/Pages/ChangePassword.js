@@ -9,6 +9,9 @@ export class ChangePassword extends React.Component {
         if(!props.data){
             window.location.href="/logintutor";
         }
+        if(this.props.studentLoginVal){
+            window.location.href="/";
+          }
         this.state = {password:'',password2:'',oldpassword:'' };
 
         this.handlePassword = this.handlePassword.bind(this);

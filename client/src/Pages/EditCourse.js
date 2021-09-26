@@ -9,6 +9,9 @@ export class EditCourse extends React.Component {
         if(!props.data){
             window.location.href="/logintutor";
         }
+        if(this.props.studentLoginVal){
+            window.location.href="/";
+          }
         this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
         email:'',country:'',city:'',
         selectValue:'',imageStr:'./uploads/profiles/',img:'',tutor_id:''
