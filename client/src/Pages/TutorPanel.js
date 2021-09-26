@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { Card } from '../components/Card'
-import { HeaderLogginIn } from './HeaderLoggedIn';
 import { TutorHeader } from './TutorHeader'
 
 export class TutorPanel extends React.Component {

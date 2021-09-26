@@ -2,22 +2,14 @@ import React from "react";
 // import bootstrap from 'bootstrap'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/App.scss'
-// import Button from 'react-bootstrap/Button';
-
-// import { Navbar } from './Pages/Navbar'
-// import { HomePage } from "./Pages/HomePage";
-import { Navbar } from "./Pages/Navbar";
-import { Footer } from "./Pages/FooterAll";
 import { LoginPage } from "./Pages/LoginPage";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { HomePage } from "./Pages/HomePage";
 import { SignupPage } from "./Pages/SignupPage";
-import { Header } from "./Pages/Header";
 import { SignupTutor } from "./Pages/SignupTutor";
 import { TutorPanel } from "./Pages/TutorPanel";
 import { AddCourse } from "./Pages/AddCourse";
@@ -25,7 +17,6 @@ import { AddCourse } from "./Pages/AddCourse";
 import { EachCourse } from "./Pages/EachCourse";
 import { LoginContainer } from "./Pages/LoginContainer";
 import { LoginTutor } from "./Pages/LoginTutor";
-// import { EditProfile } from "./Pages/EditProfile";
 import { EditProfile } from "./Pages/EditProfile"; 
 import jwt from 'jsonwebtoken';
 import { ChangePassword } from "./Pages/ChangePassword";
@@ -68,7 +59,6 @@ function App() {
       fetch(`/api/course/getEnrolled/${id}`,{headers:myHeaders})
       .then(response => response.json())
       .then(data => {
-          //console.log(data);
           data.map(eachData=>{
             if(eachData.student_id && eachData.course_id)
             {
@@ -88,17 +78,17 @@ function App() {
 
    <>
    <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme= "colored"
-/>
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme= "colored"
+    />
 {/* Same as */}
 <ToastContainer />
     <Switch>

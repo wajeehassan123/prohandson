@@ -85,19 +85,19 @@ router.get("/api/courses/getAll", ({}, res) => {
 
   router.get("/api/tutor/getCourse/:id",auth,(req,res)=>{
 
-Course.find({tutor_id:req.params.id},(err,obj)=>{
-    if(err) {console.log(err);
-         return res.status(400).json({message:"cannot find Course" ,success : false});}
+    Course.find({tutor_id:req.params.id},(err,obj)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({message:"cannot find Course" ,success : false});}
+            
+        console.log(obj);
+        res.status(200).json({
+                    succes:true,
+                    message :"Course get tutor/getCourse successfully!",
+                    data : obj
+                });
         
-    console.log(obj);
-    res.status(200).json({
-                succes:true,
-                message :"Course get successfully!",
-                data : obj
-            });
-    
 
-})
+    })
   })
 
 
@@ -111,7 +111,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
         console.log(obj);
         res.status(200).json({
                     succes:true,
-                    message :"Course get successfully!",
+                    message :"Course getCourse successfully!",
                     data : obj
                 });
         
@@ -119,22 +119,20 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
     }).populate("tutor_id")
       })
     
-      
-
-
-
   router.get("/api/tutor/getCourseByCategory/:id",(req,res)=>{
 
     Course.find({category:req.params.id},(err,obj)=>{
         if(err) {console.log(err);
              return res.status(400).json({message:"cannot find Course" ,success : false});}
             
-        console.log(obj);
+        console.log('hi');
+        console.log(obj + 'helo');
         res.status(200).json({
                     succes:true,
-                    message :"Course get successfully!",
+                    message :"Course category get successfully!",
                     data : obj
                 });
+        console.log(data);
         
     
     })
@@ -150,7 +148,7 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
             console.log(obj);
             res.status(200).json({
                         succes:true,
-                        message :"Course get successfully!",
+                        message :"Course title get successfully!",
                         data : obj
                     });
             

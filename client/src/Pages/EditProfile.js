@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import {Dropdown, Form} from 'react-bootstrap';
+import React from 'react'
+import { Form} from 'react-bootstrap';
 import { TutorHeader } from './TutorHeader'
 
 export class EditProfile extends React.Component {

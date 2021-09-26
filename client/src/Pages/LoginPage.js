@@ -1,6 +1,5 @@
 import React from 'react'
 import { Header } from './Header';
-//export const LoginPage = () => {
 export class LoginPage extends React.Component{
   constructor(props) {
     super(props);

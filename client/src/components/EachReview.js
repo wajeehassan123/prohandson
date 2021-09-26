@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
 
-import Pagination from "react-js-pagination";
-// require("bootstrap/less/bootstrap.less");
-
 class EachReview extends Component {
    
 

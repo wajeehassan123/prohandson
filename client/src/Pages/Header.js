@@ -1,6 +1,5 @@
-import React,{ useState, useEffect } from 'react'
-import { Button,Navbar,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
-import $ from 'jquery';
+import React from 'react'
+import { Navbar,Nav  } from 'react-bootstrap'
 import SearchInput from '../components/SearchInput';
 
 

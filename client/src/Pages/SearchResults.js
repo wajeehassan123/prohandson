@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Card } from './../components/Card'
 import { Header } from './Header'
 import {HeaderLogginIn} from './HeaderLoggedIn'
-import Pagination from "react-js-pagination";
-import $ from 'jquery';
+// import Pagination from "react-js-pagination";
+import  Pagination  from './../components/Pagination'
 
 export class SearchResults extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             data: '',courses:[],
-            activePage: 1,
+            currentPage: 1,
         }
         this.handleCallback=this.handleCallback.bind(this);
         this.searchCourses=this.searchCourses.bind(this);
@@ -58,13 +58,23 @@ export class SearchResults extends React.Component {
         window.location.href="/eachcourse";
     }
 
-    handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        this.setState({activePage: pageNumber});
-      }
+    // handlePageChange(pageNumber) {
+    //     console.log(`active page is ${pageNumber}`);
+    //     this.setState({activePage: pageNumber});
+    //   }
 
 
     render() {
+        const indexOfLastPost = this.state.currentPage * 2;
+        const indexOfFirstPost = indexOfLastPost - 2;
+        const currentPosts = this.state.courses.slice(indexOfFirstPost,indexOfLastPost)
+
+        const paginate = pageNumber =>{
+            return this.setState(
+                {currentPage:pageNumber}
+            )
+            // setCurrentPage(pageNumber)
+        };
         return (
             <>
                 {
@@ -80,7 +90,8 @@ export class SearchResults extends React.Component {
                 <div className="searchresults_cards">
                     
                 {
-                    this.state.courses.map(eachSearch=>{
+                    // this.state.courses.map(eachSearch=>{
+                    currentPosts.map(eachSearch=>{
                         return(    
                             <div className="card_body  mrg"  onClick={()=>this.EachCoursePage(eachSearch._id)}>
                         <Card key={eachSearch._id} {...eachSearch} />
@@ -88,6 +99,14 @@ export class SearchResults extends React.Component {
                         )
                     })
                 }
+
+                </div>  
+                <Pagination
+                        className="Pagination_component"
+                        postsPerPage={2}
+                        totalPosts={this.state.courses.length}
+                        paginate={paginate}
+                    />
                     
                 {/* <Pagination
                     itemClass="page-item"
@@ -99,7 +118,6 @@ export class SearchResults extends React.Component {
                     onChange={this.handlePageChange.bind(this)}
                 /> */}
 
-                </div>
 
             </>
         )

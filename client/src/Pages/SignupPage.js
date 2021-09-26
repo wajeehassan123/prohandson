@@ -1,8 +1,5 @@
 import React from 'react'
-// import { Dropdown } from 'bootstrap'
-import {Dropdown, Form} from 'react-bootstrap';
 import { Header } from './Header';
-
 
 export class SignupPage extends React.Component {
     constructor(props){

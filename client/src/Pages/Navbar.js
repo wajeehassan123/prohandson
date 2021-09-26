@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import { Button,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
-// import './../css/Navbar.css'
+import React from 'react'
 
 export class Navbar extends React.Component {
     constructor(props){
@@ -37,24 +35,8 @@ export class Navbar extends React.Component {
                     </div>  
 
                 </div>  
-                {/* <div className="nav_inner header">
-                   <div className="header_leftDiv">
-                       <h1>PROFESSIONAL HANDON</h1>
-                       <h2>LEARN LANGUAGE</h2>
-                       <p>I WANT TO SPEAK</p>
-                       <div className="headerBtns">
-                           <buttons className="btn btn-danger">Spanish</buttons>
-                           <buttons className="btn btn-primary">Get Started</buttons>
-                       </div>
-                   </div>
-                   <div></div>
-
-                </div>   */}
             </div>
-
-            
         </nav>
-         
      </>
     )
             }

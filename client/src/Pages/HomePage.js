@@ -1,10 +1,5 @@
 import React from 'react'
-import {Row, Form} from 'react-bootstrap';
-// import './../css/HomePage.css'
-
-import { Navbar } from './Navbar'
 import { Card } from '../components/Card'
-import { Cards } from '../components/Cards'
 import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
@@ -30,9 +25,9 @@ export class HomePage extends React.Component {
     //   this.fun();
 }
 
-componentWillMount() {
-    // this.fun=this.fun.bind(this);
-}
+// componentWillMount() {
+//     // this.fun=this.fun.bind(this);
+// }
 
 arrayBufferToBase64(buffer) {
     var binary = '';

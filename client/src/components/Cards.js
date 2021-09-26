@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from './Card'
-const logo = require('./pic1.jpg');
+// const logo = require('./pic1.jpg');
 export const Cards = () => {
     // let count=10
     // for (let index = 0; index < array.length; index++) {

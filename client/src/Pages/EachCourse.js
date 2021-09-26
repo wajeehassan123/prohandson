@@ -1,21 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Reviews from '../components/Reviews';
 import { TutorHeader } from './TutorHeader'
 import {AllReviews} from '../components/AllReviews';
 import ReactModal from 'react-modal';
-import { SetAvailability } from './SetAvailability';
 import {SetAvail} from './SetAvail'
 
 export class EachCourse extends React.Component {
     constructor(props){
         super(props);
-        // if(!props.data){
-        //     window.location.href="/logintutor";
-        // }
-        
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-
 
         this.state={course:{},reviews:[],isReviewed:false,
         imageStr:'./uploads/',profileImg:'./uploads/profiles/',
@@ -42,7 +36,6 @@ export class EachCourse extends React.Component {
         fetch(`/api/course/getCourse/${id}`)
 .then(response => response.json())
 .then(data => {
-    //console.log(data);
     this.setState({course:data.data});
     
     this.setState({tutor_id:data.data.tutor_id._id})
@@ -84,8 +77,6 @@ fetch(`/api/courses/getReviews/${id}`)
                 }
             })
 
-
- 
     })
 
 }
@@ -149,7 +140,6 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 }
 
 render() {
-        let allObjs=[]
         return (
            <>
            <TutorHeader></TutorHeader>

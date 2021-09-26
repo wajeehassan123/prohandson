@@ -12,25 +12,20 @@ export class EditCourse extends React.Component {
         if(this.props.studentLoginVal){
             window.location.href="/";
           }
-        this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
-        email:'',country:'',city:'',
+        this.state = {name: '',description:'',price:'',
         selectValue:'',imageStr:'./uploads/profiles/',img:'',tutor_id:''
     };
         
-        this.handleEmail = this.handleEmail.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
-        this.handleFirstName=this.handleFirstName.bind(this);
-        this.handleLastName=this.handleLastName.bind(this);
-        this.handleUsername=this.handleUsername.bind(this);
-        this.handlePassword2=this.handlePassword2.bind(this);
+        this.handleName = this.handleName.bind(this);
+        this.handlePrice=this.handlePrice.bind(this);
+        this.handleDescription=this.handleDescription.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleCity=this.handleCity.bind(this);
-        this.handleCountry=this.handleCountry.bind(this);
         this.handleFile=this.handleFile.bind(this);
         this.handleSelect=this.handleSelect.bind(this);
         this.getUser=this.getUser.bind(this);
         this.getUser();
     }
+
     getUser(){
 
         var myHeaders = new Headers();
@@ -40,7 +35,7 @@ export class EditCourse extends React.Component {
         fetch(`/api/tutor/${tutor_id}`,{headers:myHeaders})
         .then(response => response.json())
         .then(data=>{
-this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img})
+this.setState({name:data.data.name,description:data.data.description,price:data.data.price,img:data.data.img})
 
         })
         
@@ -52,39 +47,23 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
         console.log(this.state.img);
     }
 
-    handleEmail(event) {
-        this.setState({email: event.target.value});
+
+      handleName(event) {
+        this.setState({name: event.target.value});
       }
-      handlePassword(event){
-        this.setState({password:event.target.value});
+      handleDescription(event){
+        this.setState({name:event.target.value});
       
       }
-      handleUsername(event) {
-        this.setState({username: event.target.value});
-      }
-      handlePassword2(event){
-        this.setState({password2:event.target.value});
-      
-      }
-      handleFirstName(event){
+      handlePrice(event){
           
-        this.setState({first_name: event.target.value});
+        this.setState({name: event.target.value});
       }
 
-      handleLastName(event){
-          
-        this.setState({last_name: event.target.value});
-      }
       handleSelect(event){
           this.setState({selectValue:event.target.value});
       }
 
-      handleCountry(event){
-          this.setState({country:event.target.value});
-      }
-      handleCity(event){
-        this.setState({city:event.target.value});
-    }
     handleFile(event){
         this.setState({file:event.target.files[0]});
     }
@@ -92,16 +71,14 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
       handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
-    const tutor_id=localStorage.getItem("tutor_id");
-formData.append("file",this.state.file,this.state.file.name);
-formData.append("first_name",this.state.first_name);
-formData.append("last_name",this.state.last_name);
-formData.append("email",this.state.email);
-formData.append("city",this.state.city);
-formData.append("country",this.state.country);
-     
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+      const tutor_id=localStorage.getItem("tutor_id");    
+        formData.append("file",this.state.file,this.state.file.name);
+        formData.append("name",this.state.name);
+        formData.append("description",this.state.description);
+        formData.append("price",this.state.price);
+            
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         
       const requestOptions = {
           method: 'PUT',
@@ -135,7 +112,7 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
             <div className="EditProfile_top d-flex mt-4">
                 <div className="EditProfile_left">
                 <h4>
-                   <a href="/tutorPanel"> My Profile </a>
+                   <a href="/tutorPanel"> All Courses </a>
                 </h4>
                 <h4> &#62; </h4>
                 <h4>Edit Course</h4>
@@ -153,9 +130,9 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
                                 <Form.Label>Choose The Course Picture</Form.Label>
                                 <Form.Control onChange={this.handleFile} type="file" />
                         </Form.Group>
-                    <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="Course Name"  id ="courseName" htmlFor="courseName" />
-                    <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="Description" id ="lastName" htmlFor="lastName" />
-                    <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" />
+                    <input className="formInput" value={this.state.name} onChange={this.handleName}  placeholder="Course Name"  id ="courseName" htmlFor="courseName" />
+                    <input className="formInput" value={this.state.description} onChange={this.handleDescription} placeholder="Description" id ="description" htmlFor="lastName" />
+                    <input className="formInput" value={this.state.price} onChange={this.handlePrice} placeholder="Price"  id ="price" htmlFor="price" />
                     <Form.Select value={this.state.selectValue} onChange={this.handleSelect}  aria-label="Default select example" className="my-2">
                         <option>Select Category</option>
                         <option value="IT">IT</option>

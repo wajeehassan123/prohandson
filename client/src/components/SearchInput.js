@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,Navbar,Nav ,NavDropdown,Form, FormControl,Container } from 'react-bootstrap'
+import { Button,Form, FormControl } from 'react-bootstrap'
 
 const MyContext=React.createContext();
 class SearchInput extends Component {

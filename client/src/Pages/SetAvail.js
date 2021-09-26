@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { AppointmentPicker } from 'react-appointment-picker';
-import { TutorHeader } from './TutorHeader';
 
 export class SetAvail extends React.Component {
 

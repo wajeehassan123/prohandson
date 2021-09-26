@@ -8,7 +8,18 @@
     justify-content: left;
 }
 
+.pagination{
+    margin: 10px 50px;
+    cursor: pointer;
 
+    a{
+        cursor: pointer;
+    }
+}
+
+.Pagination_component{
+    margin: 10px auto;
+}
 @media (max-width:1450px) {
   
     .searchresults_cards{

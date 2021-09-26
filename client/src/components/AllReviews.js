@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import EachReview from './EachReview';
-import Pagination from "react-js-pagination";
 
 export const AllReviews = (props) => {
     // constructor(props) {
