@@ -9,12 +9,10 @@ export class EditProfile extends React.Component {
         if(!props.data){
             window.location.href="/logintutor";
         }
-        if(this.props.studentLoginVal){
-            window.location.href="/";
-          }
+        
         this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
         email:'',country:'',city:'',
-        selectValue:'',imageStr:'./uploads/profiles/',img:''
+        selectValue:'',imageStr:'./uploads/profiles/',img:'',file:null
     };
         
         this.handleEmail = this.handleEmail.bind(this);
@@ -61,7 +59,7 @@ this.setState({first_name:data.data.first_name,last_name:data.data.last_name,ema
         .then(response => response.json())
         .then(data=>{
 this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img})
-console.log(this.state)
+console.log(data);
         })
         
 
@@ -116,6 +114,7 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 
 if(localStorage.tutor_id){
     const tutor_id=localStorage.getItem("tutor_id");
+    if(this.state.file)
 formData.append("file",this.state.file,this.state.file.name);
 formData.append("first_name",this.state.first_name);
 formData.append("last_name",this.state.last_name);
@@ -145,6 +144,7 @@ formData.append("country",this.state.country);
             }
             else if(localStorage.student_id){
                 const student_id=localStorage.getItem("student_id");
+                if(this.state.file)
 formData.append("file",this.state.file,this.state.file.name);
 formData.append("first_name",this.state.first_name);
 formData.append("last_name",this.state.last_name);
@@ -213,14 +213,14 @@ formData.append("country",this.state.country);
                     <input className="formInput" value={this.state.password2} onChange={this.handlePassword2} placeholder="Confirm Password"  type="password" id ="confirmPassword" htmlFor="password" /> */}
                     <input className="formInput" value={this.state.country} onChange={this.handleCountry} placeholder="Country"  id ="country" htmlFor="country" />
                     <input className="formInput" placeholder="City" value={this.state.city} onChange={this.handleCity}  id ="city" htmlFor="city" />
-                    <Form.Select value={this.state.selectValue} onChange={this.handleSelect}  aria-label="Default select example" className="my-2">
+                    {/* <Form.Select value={this.state.selectValue} onChange={this.handleSelect}  aria-label="Default select example" className="my-2">
                         <option>Select Category</option>
                         <option value="IT">IT</option>
                         <option value="Music">Music</option>
                         <option value="Sports">Sports</option>
                         <option value="Dance">Dance</option>
                         <option value="Animal Care">Animal Care</option>
-                    </Form.Select>
+                    </Form.Select> */}
                     <div className="btn-r text-center ">
                         <button onClick={this.handleSubmit} id="btn">Update</button>
                     </div>

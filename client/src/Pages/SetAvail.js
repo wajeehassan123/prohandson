@@ -31,7 +31,9 @@ export class SetAvail extends React.Component {
     .then(response=>response.json())
     .then(data=>{
       console.log(data);
+      if(data.data){
       this.setState({dateIDS:data.data.id});
+      }
     })
   }
   

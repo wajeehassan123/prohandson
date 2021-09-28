@@ -112,11 +112,11 @@ console.log(this.state);
                         <textarea name="description" value={this.state.description} onChange={this.handleDescp} id="description" for ="description" placeholder="description" cols="30" rows="10"></textarea>
                         <Form.Select value={this.state.category} onChange={this.handleCategory} aria-label="Default select example" className="my-2">
                             <option>Select Category</option>
-                            <option value="1">IT</option>
-                            <option value="2">Music</option>
-                            <option value="3">Sports</option>
-                            <option value="4">Dance</option>
-                            <option value="5">Animal Care</option>
+                            <option value="IT">IT</option>
+                            <option value="Music">Music</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Dance">Dance</option>
+                            <option value="Animal Care">Animal Care</option>
                         </Form.Select>
                         
             <div className="btn-r text-center ">

@@ -1,33 +1,58 @@
 import React from 'react'
 
 
-export const Card = (props) => {
-    // var base64Flag = 'data:image/png;base64,';
-    // function arrayBufferToBase64(buffer) {
-    //     var binary = '';
-    //     var bytes = [].slice.call(new Uint8Array(buffer));
-    //     bytes.forEach((b) => binary += String.fromCharCode(b));
-    //     return window.btoa(binary);
-    // }
+export class Card extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={rating:'',imageStr:"./uploads/"+props.img,dataLoaded:false}
+        this.getReviews=this.getReviews.bind(this);
+        
+        
+    }
+    componentDidMount(){
+        this.getReviews()
+    }
 
-    var imageStr = "./uploads/"+props.img;
+    getReviews(){
+        fetch(`/api/courses/getReviews/${this.props._id}`)
+        .then(response => response.json())
+  .then(data => 
+      {
+          console.log(data);
+          var avg_rate;
+          if(data.length>0){
+            // for(var i=0;i<data.length;i++){
+            //     if(data[i+1]){}
+            //     avg_rate=(data[i].rate+data[i+1].rate)/(data.length+1);
+            // }
+          this.setState({rating:data[0].rate});
+          }
+          console.log(this.state.rating)
+
+      })
+    }
     
+    render(){
     return (
+        
+
+        
         <div className="card_inner">
             
           
             <div className="card_img">
-                <img src={imageStr ? imageStr : 'dp.jpg'} alt="card-pic"/>
+                <img src={this.state.imageStr ? this.state.imageStr : 'dp.jpg'} alt="card-pic"/>
             </div>
             <div className="card_heading mb-3">
-                <h5>{props.title}</h5>
+                <h5>{this.props.title}</h5>
             </div>
            
             <div className="card_author fw-bold">
-               {props.name}
+               {this.props.name}
             </div>
             <div className="card_reviews fw-light">
-                4.8
+
+            {this.state.rating}
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
@@ -36,11 +61,13 @@ export const Card = (props) => {
               
             </div>
             <div className="card_price fw-bold">
-               {props.price} $
+               {this.props.price} $
             </div>
             <div className="card_badge">
                 bestseller
             </div>
         </div>
     )
+        
+    }
 }

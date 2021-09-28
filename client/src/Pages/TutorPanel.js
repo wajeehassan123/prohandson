@@ -60,7 +60,7 @@ getStudentCourse(){
 
 EachCoursePage(id){
     localStorage.setItem("course_id",id);
-    window.location.href="/eachcourse";
+    window.location.href="/editcourse";
 }
 
 AddCourse(){

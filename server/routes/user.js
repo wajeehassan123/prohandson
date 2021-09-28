@@ -313,12 +313,31 @@ router.get("/api/student/:id",auth,(req,res)=>{
 });
 
 router.put("/api/tutorUpdate/:id",upload.single('file'),auth,(req,res)=>{
-    Tutor.findOneAndUpdate({_id:req.params.id},{ first_name: req.body.first_name,
+    let obj={};
+    if(req.file){
+obj={
+    first_name: req.body.first_name,
+        
+    last_name: req.body.last_name,
+    email: req.body.email,
+    city:req.body.city,
+    country:req.body.country,
+   img:req.file.filename
+}
+
+    }
+    else{
+        obj={
+        first_name: req.body.first_name,
+            
         last_name: req.body.last_name,
         email: req.body.email,
         city:req.body.city,
         country:req.body.country,
-       img:req.file.filename},{new: true},(err,obj)=>{
+        }
+    }
+    console.log(obj)
+    Tutor.findOneAndUpdate({_id:req.params.id},obj ,{new: true},(err,obj)=>{
         if(err) {console.log(err);
             return res.status(400).json({message:"Failed to update " ,success : false});}
      
@@ -334,12 +353,32 @@ router.put("/api/tutorUpdate/:id",upload.single('file'),auth,(req,res)=>{
 
 
 router.put("/api/StudentUpdate/:id",upload.single('file'),auth,(req,res)=>{
-    Student.findOneAndUpdate({_id:req.params.id},{ first_name: req.body.first_name,
+    let obj={};
+    if(req.file){
+obj={
+    first_name: req.body.first_name,
+        
+    last_name: req.body.last_name,
+    email: req.body.email,
+    city:req.body.city,
+    country:req.body.country,
+   img:req.file.filename
+}
+
+    }
+    else{
+        obj={
+        first_name: req.body.first_name,
+            
         last_name: req.body.last_name,
         email: req.body.email,
         city:req.body.city,
         country:req.body.country,
-       img:req.file.filename},{new: true},(err,obj)=>{
+        }
+    }
+    console.log(obj)
+    Student.findOneAndUpdate({_id:req.params.id},obj,{new: true},(err,obj)=>{
+        console.log(obj)
         if(err) {console.log(err);
             return res.status(400).json({message:"Failed to update " ,success : false});}
      

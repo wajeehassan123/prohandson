@@ -4,6 +4,8 @@ import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
 import { HeaderLogginIn } from './HeaderLoggedIn';
+//import {axios} from './../../node_modules/axios';
+const axios = require('axios');
 
 
 const MyContext=React.createContext();
@@ -12,7 +14,7 @@ export class HomePage extends React.Component {
 
     constructor(props){
         super(props);
-      this.state={courses:[],img:'',isLoggedIn:false,mycourses:[]}
+      this.state={courses:[],img:'',isLoggedIn:false,mycourses:[],rating:''}
       this.getCourses=this.getCourses.bind(this);
       this.getCourses();
       this.HandleCategories=this.HandleCategories.bind(this);
@@ -98,6 +100,41 @@ handleCallback = (childData) =>{
 
 
 
+}
+async getReviews(id){
+//     await fetch(`/api/courses/getReviews/${id}`)
+//     .then(response => response.json())
+// .then(data => 
+//   {
+//       console.log(data);
+//       if(data.length>0){
+//       this.state.rating=data[0].rate;
+//       return data[0].rate;
+//       }
+//       console.log(this.state.rating)
+
+//   })
+// try {
+//     const response = await axios.get(`/api/courses/getReviews/${id}`);
+//     console.log(response);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+axios.get(`/api/courses/getReviews/${id}`)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    return response.data[0].rate;
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+    console.log("always executed");
+  });
 }
 
 
@@ -189,9 +226,11 @@ handleCallback = (childData) =>{
             </div>
             <div className="homePageCards" >
             {this.state.courses.map(eachCourse=>{
+               //var rate= this.getReviews(eachCourse._id)
                 return (
+
                  <div className="card_body  mrg"  onClick={()=>this.EachCoursePage(eachCourse._id)}>   
-                <Card key={eachCourse._id} {...eachCourse} />
+                <Card key={eachCourse._id} {...eachCourse}  />
                 </div>
                 )
             })}

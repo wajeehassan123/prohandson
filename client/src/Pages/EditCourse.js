@@ -13,7 +13,7 @@ export class EditCourse extends React.Component {
             window.location.href="/";
           }
         this.state = {name: '',description:'',price:'',
-        selectValue:'',imageStr:'./uploads/profiles/',img:'',tutor_id:''
+        selectValue:'',imageStr:'./uploads/',img:'',tutor_id:''
     };
         
         this.handleName = this.handleName.bind(this);
@@ -22,17 +22,17 @@ export class EditCourse extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFile=this.handleFile.bind(this);
         this.handleSelect=this.handleSelect.bind(this);
-        this.getUser=this.getUser.bind(this);
-        this.getUser();
+        this.getCourse=this.getCourse.bind(this);
+        this.getCourse();
     }
 
-    getUser(){
+    getCourse(){
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
         var tutor_id=localStorage.getItem("tutor_id");
         if(tutor_id){
-        fetch(`/api/tutor/${tutor_id}`,{headers:myHeaders})
+        fetch(`/api/course/getCourse/${localStorage.course_id}`,{headers:myHeaders})
         .then(response => response.json())
         .then(data=>{
 this.setState({name:data.data.name,description:data.data.description,price:data.data.price,img:data.data.img})

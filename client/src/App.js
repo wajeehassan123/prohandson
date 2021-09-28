@@ -25,7 +25,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {SearchResults} from "./Pages/SearchResults";
 import { SetAvailability } from "./Pages/SetAvailability";
-import {FooterAll} from "./Pages/FooterAll"
+import {FooterAll} from "./Pages/FooterAll";
+import {EditCourse} from "./Pages/EditCourse";
 
 function App() {
   var isloggedin=false;
@@ -124,6 +125,9 @@ function App() {
       </Route>
       <Route path="/editprofile">
         <EditProfile studentLoginVal={studentLogin} data={isloggedin}/>
+      </Route>
+      <Route path="/editcourse">
+        <EditCourse studentLoginVal={studentLogin} data={isloggedin}/>
       </Route>
       <Route path="/changepassword">
         <ChangePassword studentLoginVal={studentLogin} data={isloggedin}/>

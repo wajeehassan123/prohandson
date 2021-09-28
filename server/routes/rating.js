@@ -43,6 +43,21 @@ router.use(bodyParser.urlencoded({
           .catch(function(err) {
               res.json(err);
             });
+  });
+
+
+  router.get("/api/getAllReviews",({},res)=>{
+Rating.find({}).populate("course_id").populate("student_id").then((users) => {
+  //console.log(users[0].img)
+  
+  // const b64 = Buffer.from(users[0].img.data.buffer).toString('base64');
+  // res.json(b64);
+  
+  res.json(users);
+}).catch(err => {
+  console.log(err);
+  res.status(400).json(err);
+});
   })
 
 
