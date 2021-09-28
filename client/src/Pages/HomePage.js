@@ -4,8 +4,6 @@ import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
 import { HeaderLogginIn } from './HeaderLoggedIn';
-//import {axios} from './../../node_modules/axios';
-const axios = require('axios');
 
 
 const MyContext=React.createContext();
@@ -121,20 +119,22 @@ async getReviews(id){
 //     console.error(error);
 //   }
 // }
-axios.get(`/api/courses/getReviews/${id}`)
-  .then(function (response) {
-    // handle success
-    console.log(response);
-    return response.data[0].rate;
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-    console.log("always executed");
-  });
+
+// axios.get(`/api/courses/getReviews/${id}`)
+//   .then(function (response) {
+//     // handle success
+//     console.log(response);
+//     return response.data[0].rate;
+//   })
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
+//   .then(function () {
+//     // always executed
+//     console.log("always executed");
+//   });
+
 }
 
 
