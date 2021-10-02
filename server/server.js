@@ -1,6 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+if(process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}
+const secretkey=process.env.STRIPE_SECRET_KEY
+const publickey=process.env.STRIPE_PUBLIC_KEY
+
+
+const stripe = require("stripe")(secretkey);
+
 const router = require('express').Router();
 var multer = require('multer');
 const cors = require('cors')

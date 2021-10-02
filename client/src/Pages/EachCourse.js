@@ -4,6 +4,7 @@ import { TutorHeader } from './TutorHeader'
 import {AllReviews} from '../components/AllReviews';
 import ReactModal from 'react-modal';
 import {SetAvail} from './SetAvail'
+import { loadStripe } from "@stripe/stripe-js";
 
 export class EachCourse extends React.Component {
     constructor(props){
@@ -15,9 +16,12 @@ export class EachCourse extends React.Component {
         imageStr:'./uploads/',profileImg:'./uploads/profiles/',
         isEnroll:false,completed:false,
         showModal: false,
-    tutor_id:''};
+    tutor_id:'',
+    stripePromise:loadStripe("pk_test_51JfrS5JYZfgfoVPyWJrvgJsQtYCWNKx3c41UFQVNbJdqVuUpsf5n2hyZ9RW4ynUyHfXFcQNQomyPiBwFrhnjTaKM00PSiZS6Mk")
+};
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
+        this.handlePayment=this.handlePayment.bind(this);
         this.LoadCourse();
         
     }
@@ -78,6 +82,34 @@ fetch(`/api/courses/getReviews/${id}`)
             })
 
     })
+
+}
+handlePayment=async(id)=>{
+    
+    const stripe = await this.state.stripePromise;
+    const response = await fetch(
+        "/create-checkout-session",
+        {
+          method: "POST",
+          body:JSON.stringify({price:this.state.course.price,title:this.state.course.title}),
+          headers:{"Content-Type":"application/json"}
+        }
+      );
+      const session = await response.json();
+      // When the customer clicks on the button, redirect them to Checkout.
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      })
+      console.log(result);
+      if (result.error) {
+          alert("error occured")
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `result.error.message`.
+      }
+      else{
+          this.handleEnroll(this.state.course._id)
+      }
 
 }
 
@@ -187,7 +219,8 @@ render() {
                         >
                         <button onClick={this.handleCloseModal} className="btn btn-danger">Close Modal</button>
                         <div>
-                        <button onClick={()=>this.handleEnroll(this.state.course._id)} className="btn btn-success" >Enroll</button>
+                        {/* <button onClick={()=>this.handleEnroll(this.state.course._id)} className="btn btn-success" >Enroll</button> */}
+                        <button onClick={()=>this.handlePayment(this.state.course._id)} className="btn btn-success" >Enroll</button>
                    
                         </div>
                         <SetAvail tutor_id={this.state.tutor_id}/>

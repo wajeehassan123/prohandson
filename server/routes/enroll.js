@@ -4,6 +4,11 @@ const Tutor=require('./../models/tutors');
 const Student=require('./../models/students');
 const bodyParser = require('body-parser')
 
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+  }
+  const secretkey=process.env.STRIPE_SECRET_KEY
+const stripe = require("stripe")(secretkey);
 const Enroll=require('./../models/enroll');
 
 const Appointment=require('./../models/appointments');
@@ -130,5 +135,58 @@ router.get("/api/getAppointment/:id",(req,res)=>{
     })
 })
 
+
+router.post("/create-checkout-session", async (req, res) => {
+    console.log(req.body);
+    const loginLink = await stripe.accounts.createLoginLink(
+        'acct_1Jg09OR7OhJlo8Cq'
+      );
+      console.log(loginLink)
+
+
+    // const account = await stripe.accounts.create({
+    //     type: 'custom',
+    //     country: "US",
+    //     email: req.body.email,
+    //     capabilities: {
+    //       card_payments: {requested: true},
+    //       transfers: {requested: true},
+    //     },
+    //   });
+    // const accountLink = await stripe.accountLinks.create({
+    //     account: 'acct_1Jg09OR7OhJlo8Cq',
+    //     refresh_url: 'https://example.com/reauth',
+    //     return_url: 'https://example.com/return',
+    //     type: 'account_onboarding',
+    //   });
+    const transfer = await stripe.transfers.create({
+        amount: 100,
+        currency: "usd",
+        destination: "acct_1Jg09OR7OhJlo8Cq",
+      });
+      console.log(transfer);
+    // const session = await stripe.checkout.sessions.create({
+    //   payment_method_types: ["card"],
+    //   line_items: [
+    //     {
+    //       price_data: {
+    //         currency: "usd",
+    //         product_data: {
+    //           name: req.body.title,
+    //         },
+    //         unit_amount: req.body.price*100,
+    //       },
+    //       quantity: 1,
+    //     },
+    //   ],
+    //   mode: "payment",
+    //   success_url: "http://localhost:3000/eachcourse",
+    //   cancel_url: "http://localhost:3000/stripepaymentcancel",
+    // }).catch(function(err) {
+    //     res.json(err);
+    //   });
+            
+    // res.json({ id: session.id });
+  });
 
 module.exports = router;

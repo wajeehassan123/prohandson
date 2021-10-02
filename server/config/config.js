@@ -5,7 +5,7 @@ const config={
     },
     default : {
         SECRET: 'mysecretkey',
-        DATABASE: 'mongodb://localhost/prohandson'
+        DATABASE: 'mongodb+srv://prohandson:prohandson@cluster0.nwthj.mongodb.net/prohandson?retryWrites=true&w=majority'
     }
 }
 
