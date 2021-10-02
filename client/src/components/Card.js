@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactStars from "react-rating-stars-component";
 
 
 export class Card extends React.Component {
@@ -19,20 +20,26 @@ export class Card extends React.Component {
   .then(data => 
       {
           console.log(data);
-          var avg_rate;
-          if(data.length>0){
-            // for(var i=0;i<data.length;i++){
-            //     if(data[i+1]){}
-            //     avg_rate=(data[i].rate+data[i+1].rate)/(data.length+1);
-            // }
-          this.setState({rating:data[0].rate});
-          }
-          console.log(this.state.rating)
+          let avg_rate
+          let  sum=0
+          data.forEach(element => {
+              sum += element.rate
+          });
+          let len = data.length
+         avg_rate = sum/len
+          this.setState({rating:avg_rate});
+          
+          console.log(this.state.rating + "is the rating")
 
       })
     }
     
     render(){
+        console.log(this.state.rating + 'bro');
+
+        let nos = this.state.rating
+        console.log(nos + 'nos');
+        let bro = 4
     return (
         
 
@@ -48,16 +55,31 @@ export class Card extends React.Component {
             </div>
            
             <div className="card_author fw-bold">
-               {this.props.tutor_id.first_name+this.props.tutor_id.last_name}
-            </div>
+               {this.props.name}
+ {this.props.tutor_id.first_name + ' ' + this.props.tutor_id.last_name}
+                        </div>
             <div className="card_reviews fw-light">
 
-            {this.state.rating}
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+         
+        {this.state.rating?
+        <div className="rating_stars">
+        {this.state.rating?this.state.rating:<p>No rating</p>}
+         
+         <ReactStars
+                 // count={this.state.rating}
+                 value={1}
+                 count={1}
+                 // value={3}
+                 
+                 size={18}
+                 isHalf = {true}
+                 edit = {false}
+                 activeColor="#ffd700"
+                 classNames="stars"
+             />
+        </div>:
+        <div>No ratings Yet</div>}
+           
               
             </div>
             <div className="card_price fw-bold">

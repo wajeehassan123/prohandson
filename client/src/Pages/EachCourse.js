@@ -217,7 +217,7 @@ render() {
                         isOpen={this.state.showModal}
                         contentLabel="Minimal Modal Example"
                         >
-                        <button onClick={this.handleCloseModal} className="btn btn-danger">Close Modal</button>
+                        <button onClick={this.handleCloseModal} className="btn btn-danger">Close</button>
                         <div>
                         {/* <button onClick={()=>this.handleEnroll(this.state.course._id)} className="btn btn-success" >Enroll</button> */}
                         <button onClick={()=>this.handlePayment(this.state.course._id)} className="btn btn-success" >Enroll</button>

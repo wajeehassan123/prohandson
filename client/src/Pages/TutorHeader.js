@@ -29,6 +29,7 @@ export const TutorHeader = () => {
                     <Dropdown.Item href="/tutorpanel">My Courses</Dropdown.Item>
                     <Dropdown.Item href="/editprofile">Edit Profile</Dropdown.Item>
                     <Dropdown.Item href="/changepassword">Change Password</Dropdown.Item>
+                    <Dropdown.Item href="/set">Set Availability</Dropdown.Item>
                     <Dropdown.Item onClick={logout} >Log Out</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>
