@@ -56,7 +56,7 @@ export class Card extends React.Component {
            
             <div className="card_author fw-bold">
                
- {this.props.tutor_id.first_name + ' ' + this.props.tutor_id.last_name}
+ {/* {this.props.tutor_id.first_name + ' ' + this.props.tutor_id.last_name} */}
                         </div>
             <div className="card_reviews fw-light">
 

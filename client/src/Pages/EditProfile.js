@@ -179,7 +179,7 @@ formData.append("country",this.state.country);
     
     render() {
         return (
-            <div>
+            <div className="mb-4">
             <TutorHeader></TutorHeader>
             <div className="EditProfile_top d-flex mt-4">
                 <div className="EditProfile_left">

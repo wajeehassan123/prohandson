@@ -65,8 +65,8 @@ export class SearchResults extends React.Component {
 
 
     render() {
-        const indexOfLastPost = this.state.currentPage * 2;
-        const indexOfFirstPost = indexOfLastPost - 2;
+        const indexOfLastPost = this.state.currentPage * 12;
+        const indexOfFirstPost = indexOfLastPost - 12;
         const currentPosts = this.state.courses.slice(indexOfFirstPost,indexOfLastPost)
 
         const paginate = pageNumber =>{
@@ -103,7 +103,7 @@ export class SearchResults extends React.Component {
                 </div>  
                 <Pagination
                         className="Pagination_component"
-                        postsPerPage={2}
+                        postsPerPage={12}
                         totalPosts={this.state.courses.length}
                         paginate={paginate}
                     />
