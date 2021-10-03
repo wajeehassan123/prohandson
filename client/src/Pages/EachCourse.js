@@ -257,14 +257,17 @@ render() {
                             this.state.showPaymentPage?(
                                 <div>
                                     <h1>Card</h1>
-                                    <form id="payment-form">
+                                    {/* <form id="payment-form"> */}
                                         <label htmlFor="card-element">Card</label>
-                                      
-                                        <CardElement id="card-element" />
+{/*                                       
+                                        <CardElement id="card-element" /> */}
+                                        <Elements stripe={this.state.stripePromise}>
+                                        <CheckoutForm />
+                                        </Elements>
+                                        
                                         
                                        
-                                        <button>Pay</button>
-                                    </form>
+                                    {/* </form> */}
 
                                 </div>
                             ):(
