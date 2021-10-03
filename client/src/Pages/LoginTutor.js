@@ -33,15 +33,7 @@ export class LoginTutor extends React.Component{
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email:this.state.username,password:this.state.password })
         };
-      //   const response = await toast.promise(
-      //     fetch('/api/tutor/login', requestOptions),
-      //     {
-      //       pending: 'Promise is pending',
-      //       success: 'Promise resolved 👌',
-      //       error: 'Promise rejected 🤯'
-      //     }
-      // );
-      // console.log(response)
+     
       
       const loading = toast.loading("Please wait...");
       toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})

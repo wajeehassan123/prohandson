@@ -1,5 +1,8 @@
 import React from 'react'
 import { Header } from './Header';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export class LoginPage extends React.Component{
   constructor(props) {
     super(props);
@@ -7,7 +10,9 @@ export class LoginPage extends React.Component{
     if(props.data){
       window.location.href="/";
     }
-    this.state = {username: '',password:'',tutorName:''};
+    this.state = {username: '',password:'',tutorName:'', nameError: "",
+    emailError: "",
+    passwordError: ""};
 
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -30,12 +35,15 @@ export class LoginPage extends React.Component{
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email:this.state.username,password:this.state.password })
     };
+
+    const loading = toast.loading("Please wait...");
+      toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
     fetch('/api/student/login', requestOptions)
         .then(response => response.json())
         .then(data => 
             {
                 if(data.success){
-                alert(data.message);
+                  toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
                 localStorage.setItem("token",data.token);
                 localStorage.setItem("student_id",data.msg._id);
                 var name=data.msg.first_name+" "+data.msg.last_name;
@@ -45,10 +53,31 @@ export class LoginPage extends React.Component{
 
                 }
                 else{
-                    alert("Invalid Email or Password");
+                  toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
                 }
             });
   }
+
+  validate = () => {
+    let nameError = "";
+    let emailError = "";
+    // let passwordError = "";
+
+    if (!this.state.name) {
+      nameError = "name cannot be blank";
+    }
+
+    if (!this.state.email.includes("@")) {
+      emailError = "invalid email";
+    }
+
+    if (emailError || nameError) {
+      this.setState({ emailError, nameError });
+      return false;
+    }
+
+    return true;
+  };
 
   GotoSignup(event){
     event.preventDefault();
