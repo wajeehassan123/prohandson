@@ -68,6 +68,9 @@ type:String
     is_active:{
         type:Boolean,
 
+    },
+    cust_id:{
+        type:String
     }
 });
 

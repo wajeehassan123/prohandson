@@ -22,6 +22,12 @@ const tutorSchema=mongoose.Schema({
         trim: true,
         unique: 1
     },
+    stripe_id:{
+        type:String
+    },
+    stripe_payment_verified:{
+        type:Boolean
+    },
     city:{
         type: String,
         //required: true,

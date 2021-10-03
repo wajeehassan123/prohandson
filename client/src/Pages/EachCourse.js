@@ -4,7 +4,10 @@ import { TutorHeader } from './TutorHeader'
 import {AllReviews} from '../components/AllReviews';
 import ReactModal from 'react-modal';
 import {SetAvail} from './SetAvail'
-import { loadStripe } from "@stripe/stripe-js";
+import {CardElement,Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+import CheckoutForm from './../components/CheckoutForm';
 
 export class EachCourse extends React.Component {
     constructor(props){
@@ -16,14 +19,21 @@ export class EachCourse extends React.Component {
         imageStr:'./uploads/',profileImg:'./uploads/profiles/',
         isEnroll:false,completed:false,
         showModal: false,
+        showPaymentPage:false,
+        cust_id:'',
     tutor_id:'',
     stripePromise:loadStripe("pk_test_51JfrS5JYZfgfoVPyWJrvgJsQtYCWNKx3c41UFQVNbJdqVuUpsf5n2hyZ9RW4ynUyHfXFcQNQomyPiBwFrhnjTaKM00PSiZS6Mk")
 };
         this.LoadCourse=this.LoadCourse.bind(this);
         this.handleEnroll=this.handleEnroll.bind(this);
         this.handlePayment=this.handlePayment.bind(this);
-        this.LoadCourse();
+        this.getStudentData=this.getStudentData.bind(this);
         
+        
+    }
+    componentDidMount(){
+        this.LoadCourse();
+        this.getStudentData();
     }
 
     handleOpenModal () {
@@ -84,32 +94,56 @@ fetch(`/api/courses/getReviews/${id}`)
     })
 
 }
-handlePayment=async(id)=>{
-    
-    const stripe = await this.state.stripePromise;
-    const response = await fetch(
-        "/create-checkout-session",
-        {
-          method: "POST",
-          body:JSON.stringify({price:this.state.course.price,title:this.state.course.title}),
-          headers:{"Content-Type":"application/json"}
-        }
-      );
-      const session = await response.json();
-      // When the customer clicks on the button, redirect them to Checkout.
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
+
+getStudentData(){
+    if(localStorage.student_id){
+               
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+        fetch(`/api/student/${localStorage.student_id}`,{headers:myHeaders})
+        .then(response => response.json())
+  .then(data => 
+      {
+          console.log(data);
+          if(data.success){
+              
+            this.setState({cust_id:data.data.cust_id})
+ 
+              
+
+          }
       })
-      console.log(result);
-      if (result.error) {
-          alert("error occured")
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer
-        // using `result.error.message`.
-      }
-      else{
-          this.handleEnroll(this.state.course._id)
-      }
+ 
+    }
+}
+
+handlePayment=async(id)=>{
+    this.setState({showPaymentPage:true})
+    
+    // const stripe = await this.state.stripePromise;
+    // const response = await fetch(
+    //     "/create-checkout-session",
+    //     {
+    //       method: "POST",
+    //       body:JSON.stringify({price:this.state.course.price,title:this.state.course.title,cust_id:this.state.cust_id}),
+    //       headers:{"Content-Type":"application/json"}
+    //     }
+    //   );
+    //   const session = await response.json();
+    //   // When the customer clicks on the button, redirect them to Checkout.
+    //   const result = await stripe.redirectToCheckout({
+    //     sessionId: session.id,
+    //   })
+    //   console.log(result);
+    //   if (result.error) {
+    //       alert("error occured")
+    //     // If `redirectToCheckout` fails due to a browser or network
+    //     // error, display the localized error message to your customer
+    //     // using `result.error.message`.
+    //   }
+    //   else{
+    //       this.handleEnroll(this.state.course._id)
+    //   }
 
 }
 
@@ -218,12 +252,33 @@ render() {
                         contentLabel="Minimal Modal Example"
                         >
                         <button onClick={this.handleCloseModal} className="btn btn-danger">Close</button>
-                        <div>
+                        
+                        {
+                            this.state.showPaymentPage?(
+                                <div>
+                                    <h1>Card</h1>
+                                    <form id="payment-form">
+                                        <label htmlFor="card-element">Card</label>
+                                      
+                                        <CardElement id="card-element" />
+                                        
+                                       
+                                        <button>Pay</button>
+                                    </form>
+
+                                </div>
+                            ):(
+                                <div>
+ <div>
                         {/* <button onClick={()=>this.handleEnroll(this.state.course._id)} className="btn btn-success" >Enroll</button> */}
                         <button onClick={()=>this.handlePayment(this.state.course._id)} className="btn btn-success" >Enroll</button>
                    
                         </div>
                         <SetAvail tutor_id={this.state.tutor_id}/>
+                                </div>
+                            )
+                        }
+                       
                         
                          </ReactModal>
                 </div>

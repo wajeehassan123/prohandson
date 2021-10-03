@@ -8,7 +8,7 @@ export class AddCourse extends React.Component {
 
     constructor(props){
         super(props);
-        this.state={title:'',price:'',description:'',category:'',file:null,img:''};
+        this.state={title:'',price:'',paymentId:'',description:'',category:'',file:null,img:'',paymentVerified:false};
 
         if(!props.data){
             window.location.href="/logintutor";
@@ -23,6 +23,36 @@ export class AddCourse extends React.Component {
         this.handleCategory=this.handleCategory.bind(this);
         this.handleFile=this.handleFile.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleStripe=this.handleStripe.bind(this);
+    }
+    componentDidMount(){
+        this.StripeAccountVerified();
+    }
+
+    StripeAccountVerified(){
+        
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+        fetch(`/api/tutor/${localStorage.tutor_id}`,{headers:myHeaders})
+        .then(response => response.json())
+  .then(data => 
+      {
+          console.log(data);
+          if(data.success){
+              
+            this.setState({paymentId:data.data.stripe_id})
+            console.log(this.state.paymentVerified)
+              fetch(`/api/stripeRetriveAccount/${data.data.stripe_id}`)
+              .then(response1=>response1.json())
+              .then(data1=>{
+                  if(data1.details_submitted && data1.payouts_enabled){
+
+                    this.setState({paymentVerified:true})
+                  }
+              })
+
+          }
+      })
     }
 
     arrayBufferToBase64(buffer) {
@@ -46,6 +76,17 @@ export class AddCourse extends React.Component {
     }
     handleFile(event){
         this.setState({file:event.target.files[0]});
+    }
+
+
+    handleStripe(){
+        fetch(`/api/stripeAccountVerified/${this.state.paymentId}`)
+        .then(response => response.json())
+  .then(data => 
+      {
+          console.log(data);
+          window.location.href=data.url;
+      })
     }
 
     handleSubmit(event){
@@ -98,10 +139,19 @@ console.log(this.state);
     
     render(){
     return (
-        <div>
 
+        <div>
+            
 <TutorHeader></TutorHeader>
-            <h1>Add Course</h1>
+{
+    !this.state.paymentVerified?(
+<div>
+    <h1>Account not verified</h1>
+    <button onClick={this.handleStripe}>Click here to verify your account to receive payments</button>
+</div>
+    ):(
+        <div>
+<h1>Add Course</h1>
             <form className="add-form">
                         <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Choose The Course Banner</Form.Label>
@@ -125,6 +175,10 @@ console.log(this.state);
             </div>
 
                 </form>
+                </div>
+    )
+}
+            
         </div>
     )
     }

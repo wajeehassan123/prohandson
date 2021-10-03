@@ -138,35 +138,66 @@ router.get("/api/getAppointment/:id",(req,res)=>{
 
 router.post("/create-checkout-session", async (req, res) => {
     console.log(req.body);
-    const loginLink = await stripe.accounts.createLoginLink(
-        'acct_1Jg09OR7OhJlo8Cq'
-      );
-      console.log(loginLink)
+    // const loginLink = await stripe.accounts.createLoginLink(
+    //     req.params.id
+    //   );
+    //   console.log(loginLink)
+    //   res.send(loginLink)
 
 
     // const account = await stripe.accounts.create({
-    //     type: 'custom',
+    //     type: 'express',
     //     country: "US",
     //     email: req.body.email,
+    //     business_profile:{
+    //         name:"my business",
+    //         product_description:"descriptionsad",
+    //         url:"www.wajeeh.com"
+            
+    //     },
+    //     business_type:"company",
     //     capabilities: {
     //       card_payments: {requested: true},
     //       transfers: {requested: true},
     //     },
-    //   });
+    //   }).catch(function(err) {
+    //      res.json(err);
+    //        });
+    //   console.log(account);
+
+
+
+
     // const accountLink = await stripe.accountLinks.create({
-    //     account: 'acct_1Jg09OR7OhJlo8Cq',
+    //     account: 'acct_1JgNrrQpDLAI94Jm',
     //     refresh_url: 'https://example.com/reauth',
     //     return_url: 'https://example.com/return',
     //     type: 'account_onboarding',
     //   });
-    const transfer = await stripe.transfers.create({
-        amount: 100,
-        currency: "usd",
-        destination: "acct_1Jg09OR7OhJlo8Cq",
+    //   res.send(accountLink);
+    // const transfer = await stripe.transfers.create({
+    //     amount: 100,
+    //     currency: "usd",
+    //     destination: req.body.acct_id,
+    //   });
+    //   console.log(transfer);
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: req.body.price*100,
+        currency: 'usd',
+        customer:req.body.cust_id,
+        setup_future_usage: 'off_session',
+        receipt_email: req.body.email,
+        // Verify your integration in this guide by including this parameter
+        metadata: {integration_check: 'accept_a_payment'},
       });
-      console.log(transfer);
+      res.send({client_secret:paymentIntent.client_secret})
     // const session = await stripe.checkout.sessions.create({
     //   payment_method_types: ["card"],
+    //   customer:req.body.cust_id,
+    //   payment_intent_data: {
+    //     setup_future_usage: 'off_session',
+    //   },
     //   line_items: [
     //     {
     //       price_data: {
@@ -184,9 +215,11 @@ router.post("/create-checkout-session", async (req, res) => {
     //   cancel_url: "http://localhost:3000/stripepaymentcancel",
     // }).catch(function(err) {
     //     res.json(err);
+    //     console.log(err)
     //   });
             
-    // res.json({ id: session.id });
+    // res.json({ id: session.id,success:true });
+    // console.log("success");
   });
 
 module.exports = router;

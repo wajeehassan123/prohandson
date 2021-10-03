@@ -7,6 +7,12 @@ var imgModel = require('./../models/profile');
 const auth =require('./../middleware/auth');
 
 
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+  }
+  const secretkey=process.env.STRIPE_SECRET_KEY
+  console.log(secretkey);
+const stripe = require("stripe")(secretkey);
 
 var multer = require('multer');
 router.use(express.static(__dirname+"./../client/public"))
@@ -45,54 +51,93 @@ const bcrypt = require("bcrypt");
 var fs = require('fs');
 var path = require('path');
 
-router.post('/api/tutor/signup',function(req,res){
-
+router.post('/api/tutor/signup',async (req,res)=>{
+let stripeId;
   const newuser=new Tutor(req.body);
   
  if(newuser.password!=newuser.password2)return res.status(400).json({message: "password not match"});
   
-  Tutor.findOne({email:newuser.email},function(err,user){
+  Tutor.findOne({email:newuser.email},async (err,user)=>{
       if(user) return res.status(400).json({ auth : false, message :"email exits"});
       
-      bcrypt.hash(req.body.password, 10).then((hash) => {
-        const user1 = new Tutor({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
+      bcrypt.hash(req.body.password, 10).then(async (hash) => {
+        const account = await stripe.accounts.create({
+            type: 'express',
+            country: "US",
             email: req.body.email,
-            city:req.body.city,
-            country:req.body.country,
-            password: hash,
-            type:req.body.type,
-            is_active:0,
-            is_admin:0,
-
-        });
-        user1.save((err,doc)=>{
-          if(err) {console.log(err);
-              return res.status(400).json({ success : false,error:err});}
-          res.status(200).json({
-              success:true,
-              message :"Tutor created successfully!",
-              user : doc
-          });
-      });
-      })
+            
+            capabilities: {
+              card_payments: {requested: true},
+              transfers: {requested: true},
+            },
+        }).catch((err)=>{
+            console.log(err);
+                  })
+                  stripeId=account.id;
+                  console.log(stripeId);
+                  const user1 = new Tutor({
+                    
+                    stripe_id:stripeId,
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    city:req.body.city,
+                    country:req.body.country,
+                    password: hash,
+                    type:req.body.type,
+                    is_active:0,
+                    is_admin:0,
+                    stripe_payment_verified:false
+        
+                });
+                user1.save((err,doc)=>{
+                  if(err) {console.log(err);
+                      return res.status(400).json({ success : false,error:err});}
+                      
+                  
+                      res.status(200).json({
+                      success:true,
+                      message :"Tutor created successfully!",
+                      user : doc
+                  });
+                });
+                })
+        //   }).then(stripeId=account.id).then(()=>{
+        //            console.log("Account")
+                   
+        //            console.log(stripeId)
+               
+        //       });
+        //        }).catch(function(err) {
+        //         res.json(err);
+        //           });
+        
+      
       
   });
 });
 
-router.post('/api/student/signup',function(req,res){
+router.post('/api/student/signup',async function(req,res){
 
     const newuser=new Student(req.body);
     
    if(newuser.password!=newuser.password2)return res.status(400).json({message: "password not match"});
     
-    Student.findOne({email:newuser.email},function(err,user){
+    Student.findOne({email:newuser.email},async function(err,user){
         if(user) return res.status(400).json({ auth : false, message :"email exits"});
         
-        bcrypt.hash(req.body.password, 10).then((hash) => {
+        bcrypt.hash(req.body.password, 10).then(async (hash) => {
+            const customer = await stripe.customers.create({
+                email: req.body.email,
+                name:req.body.first_name+req.body.last_name
+              }).catch(function(err){
+                  res.send(err);
+              });
+              console.log(customer);
+              console.log(customer.id);
           const user1 = new Student({
-              first_name: req.body.first_name,
+            cust_id:customer.id,
+            first_name: req.body.first_name,
               last_name: req.body.last_name,
 
               email: req.body.email,
@@ -487,6 +532,23 @@ getUser.save((err,doc)=>{
     })
 
 
+})
+
+router.get("/api/stripeAccountVerified/:id",async (req,res)=>{
+    const accountLink = await stripe.accountLinks.create({
+        account: req.params.id,
+        refresh_url: 'http://localhost:3000/',
+        return_url: 'http://localhost:3000/addcourse',
+        type: 'account_onboarding',
+      });
+      res.send(accountLink);
+})
+
+router.get("/api/stripeRetriveAccount/:id",async (req,res)=>{
+    const account = await stripe.accounts.retrieve(
+        req.params.id
+      );
+      res.send(account);
 })
 
 
