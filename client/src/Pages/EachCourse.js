@@ -285,12 +285,15 @@ render() {
                                 </div>
                             ):(
                                 <div>
- <div>
+                        <div>
                         {/* <button onClick={()=>this.handleEnroll(this.state.course._id)} className="btn btn-success" >Enroll</button> */}
                         <button onClick={()=>this.handlePayment(this.state.course._id)} className="btn btn-success" >Enroll</button>
                    
-                        </div>
+                        </div >
+                        <div className="modal_Setavail">
+
                         <SetAvail tutor_id={this.state.tutor_id}/>
+                        </div>
                                 </div>
                             )
                         }

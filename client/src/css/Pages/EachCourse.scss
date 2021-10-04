@@ -109,9 +109,28 @@ $accentColor : #cec0fc;
     .eachCourseTutor{
         margin: 20px;
     }
+
+    .modal_Setavail{
+        .set_container{
+
+            left: 5%;
+            transform: translateX(0%);
+
+            h5{
+                display: none;
+            }
+        }
+    }
+
+    .ReactModal__Content {
+        width: 97vw;
+        inset: 8px !important;
+    }
+
 }
 
 @media (max-width:450px) {
+    
     .eachCourseBanner{
         padding-left: 20px;
         padding-right: 20px;
