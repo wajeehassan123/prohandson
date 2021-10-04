@@ -11,7 +11,7 @@ const Course=require('./../models/courses');
 
 const auth =require('./../middleware/auth');
 
-router.use(express.static(__dirname+"./../client/public"))
+router.use(express.static(__dirname+"./../client/build"))
 
 var multer = require('multer');
 const imageFilter = function(req, file, cb) {

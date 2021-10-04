@@ -15,7 +15,7 @@ if(process.env.NODE_ENV !== 'production'){
 const stripe = require("stripe")(secretkey);
 
 var multer = require('multer');
-router.use(express.static(__dirname+"./../client/public"))
+router.use(express.static(__dirname+"./../client/build"))
 
 var multer = require('multer');
 const imageFilter = function(req, file, cb) {
