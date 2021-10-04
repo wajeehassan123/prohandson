@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   CardElement,
   useStripe,
@@ -18,18 +21,19 @@ export default function CheckoutForm(props) {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window
-      .fetch("/create-payment-intent", {
+      .fetch("/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
+        body: JSON.stringify({price:props.price,cust_id:props.cust_id,email:props.tutor_id.email})
       })
       .then(res => {
         return res.json();
       })
       .then(data => {
-        setClientSecret(data.clientSecret);
+        setClientSecret(data.client_secret);
+        console.log(data);
       });
   }, []);
 
@@ -59,9 +63,12 @@ export default function CheckoutForm(props) {
   };
 
   const handleSubmit = async ev => {
+    
+    const loading = toast.loading("Please wait...");
     ev.preventDefault();
     setProcessing(true);
 console.log(props)
+console.log(clientSecret);
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement)
@@ -75,6 +82,32 @@ console.log(props)
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+      myHeaders.append("Content-Type", "application/json");
+    
+      const requestOptions = {
+        method: 'POST',
+        contentType:'application/json',
+        headers:myHeaders,
+        body: JSON.stringify({course_id:localStorage.course_id,student_id:localStorage.student_id,tutor_id:props.tutor_id._id,is_active:false})
+      };
+          fetch('/api/student/enroll',requestOptions)
+          .then(response => response.json())
+        .then(data => 
+            {
+                if(data.succes)
+                {
+                  toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+               
+                    window.location.href="/";
+                }
+                else 
+                toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
+             
+      
+            })
+      
     }
   };
 
@@ -101,13 +134,7 @@ console.log(props)
       )}
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a
-          href={`https://dashboard.stripe.com/test/payments`}
-        >
-          {" "}
-          Stripe dashboard.
-        </a> Refresh the page to pay again.
+        Payment succeeded, You are now successfully enrolled in that course
       </p>
     </form>
   );

@@ -3,6 +3,8 @@ import React from 'react'
 import { Form} from 'react-bootstrap';
 
 import { TutorHeader } from './TutorHeader'
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class AddCourse extends React.Component {
 
@@ -33,13 +35,16 @@ export class AddCourse extends React.Component {
         
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+
+
+       
         fetch(`/api/tutor/${localStorage.tutor_id}`,{headers:myHeaders})
         .then(response => response.json())
   .then(data => 
       {
           console.log(data);
           if(data.success){
-              
+            
             this.setState({paymentId:data.data.stripe_id})
             console.log(this.state.paymentVerified)
               fetch(`/api/stripeRetriveAccount/${data.data.stripe_id}`)
@@ -52,6 +57,8 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
               })
 
           }
+
+          
       })
     }
 
@@ -116,6 +123,9 @@ const requestOptions = {
   headers:myHeaders,
   body: formData
 };
+
+const loading = toast.loading("Please wait...");
+toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
 fetch('/api/tutor/addCourse',requestOptions)
   .then(response => response.json())
   .then(data => 
@@ -127,10 +137,16 @@ fetch('/api/tutor/addCourse',requestOptions)
         //     img: base64Flag + imageStr
         // })
           if(data.success){
-              console.log(data)
+            // toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+            window.location.href="/tutorpanel";
+
+            //   console.log(data)
           }
           else{
-              alert(data.message);
+            //   alert(data.message);
+              toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+              window.location.href="/tutorpanel";
+
           }
       });
 
@@ -147,7 +163,7 @@ console.log(this.state);
     !this.state.paymentVerified?(
 <div>
     <h1>Account not verified</h1>
-    <button onClick={this.handleStripe}>Click here to verify your account to receive payments</button>
+    <button className="btn btn-primary" onClick={this.handleStripe}>Click here to verify your account to receive payments</button>
 </div>
     ):(
         <div>
@@ -157,7 +173,7 @@ console.log(this.state);
                                 <Form.Label>Choose The Course Banner</Form.Label>
                                 <Form.Control  onChange={this.handleFile} type="file" />
                         </Form.Group>
-                        <input className="formInput" value={this.state.title} onChange={this.handleTitle} placeholder="Course Name"  id ="courseName" for="courseName" />
+                        <input className="formInput" value={this.state.title} onChange={this.handleTitle} placeholder="skill Name"  id ="courseName" for="courseName" />
                         <input className="formInput" value={this.state.price} onChange={this.handlePrice} placeholder="Price $" id ="Price" for="Price" />
                         <textarea name="description" value={this.state.description} onChange={this.handleDescp} id="description" for ="description" placeholder="description" cols="30" rows="10"></textarea>
                         <Form.Select value={this.state.category} onChange={this.handleCategory} aria-label="Default select example" className="my-2">
@@ -170,7 +186,7 @@ console.log(this.state);
                         </Form.Select>
                         
             <div className="btn-r text-center ">
-            <button onClick={this.handleSubmit}  id="btn">Add Course</button>
+            <button onClick={this.handleSubmit}  id="btn">Add skill</button>
                 
             </div>
 

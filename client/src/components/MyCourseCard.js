@@ -3,6 +3,7 @@ import React from 'react'
 export class MyCourseCard extends React.Component {
     
     render() {
+        console.log(this.props)
         return (
             <div className="myCourseCard d-flex">
                 <div className="myCourseCard_pic">

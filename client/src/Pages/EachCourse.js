@@ -37,7 +37,14 @@ export class EachCourse extends React.Component {
     }
 
     handleOpenModal () {
+        if(this.props.data){
         this.setState({ showModal: true });
+        }
+        else{
+            
+        alert("please login to continue");
+        window.location.href="/loginstudent";
+        }
       }
       
       handleCloseModal () {
@@ -255,14 +262,14 @@ render() {
                         
                         {
                             this.state.showPaymentPage?(
-                                <div>
-                                    <h1>Card</h1>
+                                <div className="modal_payment">
+                                    <h1>Enter your Credit Card Info</h1>
                                     {/* <form id="payment-form"> */}
-                                        <label htmlFor="card-element">Card</label>
+                                        <label htmlFor="card-element">Enter your credit card information so that the course can be enrolled. Prohandson provide secure payment through stripe</label>
 {/*                                       
                                         <CardElement id="card-element" /> */}
-                                        <Elements stripe={this.state.stripePromise}>
-                                        <CheckoutForm price={this.state.course.price} cust_id={this.state.cust_id} />
+                                        <Elements className="modal_payment_inner" stripe={this.state.stripePromise}>
+                                        <CheckoutForm price={this.state.course.price} cust_id={this.state.cust_id} tutor_id={this.state.course.tutor_id}  />
                                         </Elements>
                                         
                                         

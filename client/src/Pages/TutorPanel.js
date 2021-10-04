@@ -76,11 +76,11 @@ AddCourse(){
             
             <TutorHeader/>
             <div className="tutorHeading mt-3">
-                <h1>Welcome Tutor</h1>
+                <h1>Welcome Mentor</h1>
             </div>
             <div className="tutorMain">
                 
-            <h3 className="text-left float-left">All courses...</h3>
+            <h3 className="text-left float-left">All skills...</h3>
                 <div className="tutorCourses">
                
             {this.state.courses.map(eachCourse=>{
