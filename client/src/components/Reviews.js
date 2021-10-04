@@ -1,6 +1,9 @@
 import ReactStars from "react-rating-stars-component";
 import React, { Component } from 'react';
 
+
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Reviews extends Component {
     constructor(props){
         super(props);
@@ -13,6 +16,7 @@ class Reviews extends Component {
     }
     submitReview(){
         
+    const loading = toast.loading("Please wait...");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     myHeaders.append("Content-Type","application/json")
@@ -26,7 +30,8 @@ class Reviews extends Component {
         }),method:'POST'}).then(response=>response.json())
         .then(data=>{
             console.log(data);
-            alert(data.message)
+            toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+       
         })
     }
     render() {

@@ -7,6 +7,9 @@ import {SetAvail} from './SetAvail'
 import {CardElement,Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import CheckoutForm from './../components/CheckoutForm';
 
 export class EachCourse extends React.Component {
@@ -195,6 +198,7 @@ const requestOptions = {
 
 MarkAsComplete(id){
     
+    const loading = toast.loading("Please wait...");
     var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     fetch(`/api/enroll/markAsComplete/${localStorage.student_id}/${id}`,{headers:myHeaders,method:'PUT'})
@@ -202,11 +206,13 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
   .then(data => 
       {
           if(data.success)
-          {
-              alert(data.message);
+          { 
+               toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+           window.location.href="/eachcourse"
           }
           else
-          alert(data.message);
+          toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
+             
 
       })
 
