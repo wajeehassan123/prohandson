@@ -6,7 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import "./../css/Components/CheckoutForm.scss"
 
-export default function CheckoutForm() {
+export default function CheckoutForm(props) {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -61,7 +61,7 @@ export default function CheckoutForm() {
   const handleSubmit = async ev => {
     ev.preventDefault();
     setProcessing(true);
-
+console.log(props)
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement)

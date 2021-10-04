@@ -262,7 +262,7 @@ render() {
 {/*                                       
                                         <CardElement id="card-element" /> */}
                                         <Elements stripe={this.state.stripePromise}>
-                                        <CheckoutForm />
+                                        <CheckoutForm price={this.state.course.price} cust_id={this.state.cust_id} />
                                         </Elements>
                                         
                                         
