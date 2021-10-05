@@ -157,5 +157,33 @@ Course.find({tutor_id:req.params.id},(err,obj)=>{
         
         })
           })
+
+
+          router.put("/api/EditCourse/:id",auth,(req,res)=>{
+            Course.findOneAndUpdate({_id:req.params.id},req.body ,{new: true},(err,obj)=>{
+                if(err) {console.log(err);
+                    return res.status(400).json({message:"Failed to update " ,success : false});}
+             
+                    res.status(200).json({
+                        success:true,
+                        message :"Course updated successfully!",
+                        data : obj
+                    })
+        
+            })
+          })
+
+          router.delete("/api/deleteCourse/:id",auth,(req,res)=>{
+            Course.findOneAndDelete({_id:req.params.id},(err,obj)=>{
+                if(err) {console.log(err);
+                    return res.status(400).json({message:"Failed to Delete " ,success : false});}
+             
+                    res.status(200).json({
+                        success:true,
+                        message :"Course Deleted successfully!",
+                        data : obj
+                    })
+            })
+          })
   
 module.exports = router;

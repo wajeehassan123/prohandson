@@ -2,6 +2,7 @@ import React from 'react'
 import { Header } from './Header';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FooterAll } from './FooterAll';
 
 export class LoginTutor extends React.Component{
     constructor(props) {
@@ -111,6 +112,7 @@ export class LoginTutor extends React.Component{
           </form>
             
         </div>
+        <FooterAll/>
         </>
 
 

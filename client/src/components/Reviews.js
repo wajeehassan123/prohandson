@@ -31,7 +31,7 @@ class Reviews extends Component {
         .then(data=>{
             console.log(data);
             toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
-       
+            window.location.href="/eachcourse"
         })
     }
     render() {

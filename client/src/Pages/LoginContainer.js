@@ -1,5 +1,6 @@
 import React from 'react'
 import { Header } from './Header'
+import { FooterAll } from './FooterAll';
 export const LoginContainer = () => {
     return (
         <>
@@ -15,7 +16,9 @@ export const LoginContainer = () => {
                     Login as Mentor
                 </a>
             </button>
+            <FooterAll/>
         </div>
+        
         </>
     )
 }

@@ -4,6 +4,7 @@ import { Header } from './Header';
 import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
 import { HeaderLogginIn } from './HeaderLoggedIn';
+import { FooterAll } from './FooterAll';
 
 
 const MyContext=React.createContext();
@@ -249,8 +250,11 @@ async getReviews(id){
                     Whether you are comfortable with third party sharing device or in-built screen sharing tools.
                 </div>
             </div>
+            <FooterAll/>
         </>
+    
     )
+    
     // }
     // else{
     //     window.location.href="/login";

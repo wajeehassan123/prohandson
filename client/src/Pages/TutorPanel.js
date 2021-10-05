@@ -2,6 +2,7 @@
 import React from 'react'
 import { Card } from '../components/Card'
 import { TutorHeader } from './TutorHeader'
+import { FooterAll } from './FooterAll';
 
 export class TutorPanel extends React.Component {
 
@@ -101,6 +102,7 @@ AddCourse(){
                 <h3 className="text-left float-left">All Students...</h3>
                 </div> */}
             </div>
+            <FooterAll/>
         </div>
     )
      

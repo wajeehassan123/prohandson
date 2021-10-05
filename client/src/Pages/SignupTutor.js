@@ -3,7 +3,7 @@ import React from 'react'
 // import { Dropdown } from 'bootstrap'
 import { Form} from 'react-bootstrap';
 import { Header } from './Header';
-
+import { FooterAll } from './FooterAll';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -243,6 +243,7 @@ console.log(data);
                 </form>
 
             </div>
+            <FooterAll/>
         </>
     )
     }

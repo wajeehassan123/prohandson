@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Form} from 'react-bootstrap';
 import SimpleFileUpload from 'react-simple-file-upload'
-
+import { FooterAll } from './FooterAll';
 import { TutorHeader } from './TutorHeader'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -245,8 +245,11 @@ toast.update(loading, { render: "please fill all inputs", type: "error", isLoadi
                 </div>
     )
 }
-            
+<FooterAll/>
         </div>
+    
+    
     )
+
     }
 }

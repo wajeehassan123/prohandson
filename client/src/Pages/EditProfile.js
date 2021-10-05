@@ -4,6 +4,7 @@ import { TutorHeader } from './TutorHeader'
 
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FooterAll } from './FooterAll';
 
 import SimpleFileUpload from 'react-simple-file-upload'
 export class EditProfile extends React.Component {
@@ -43,7 +44,7 @@ export class EditProfile extends React.Component {
         fetch(`/api/tutor/${tutor_id}`,{headers:myHeaders})
         .then(response => response.json())
         .then(data=>{
-this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img})
+this.setState({first_name:data.data.first_name,last_name:data.data.last_name,email:data.data.email,country:data.data.country,city:data.data.city,img:data.data.img,file:data.data.img})
 
         })
         
@@ -132,7 +133,7 @@ let data=JSON.stringify({
     last_name:this.state.last_name,
     email:this.state.email,
     city:this.state.city,
-    coumtry:this.state.country,
+    country:this.state.country,
     img:this.state.file,
     
 });
@@ -168,7 +169,7 @@ let data=JSON.stringify({
                     last_name:this.state.last_name,
                     email:this.state.email,
                     city:this.state.city,
-                    coumtry:this.state.country,
+                    country:this.state.country,
                     img:this.state.file,
                     
                 });
@@ -251,8 +252,11 @@ let data=JSON.stringify({
                         <button onClick={this.handleSubmit} id="btn">Update</button>
                     </div>
             </form>
+            
+        <FooterAll/>
         </div>
         )
+        
     }
 }
 

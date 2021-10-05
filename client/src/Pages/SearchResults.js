@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from './../components/Card'
 import { Header } from './Header'
 import {HeaderLogginIn} from './HeaderLoggedIn'
+import { FooterAll } from './FooterAll';
 // import Pagination from "react-js-pagination";
 import  Pagination  from './../components/Pagination'
 
@@ -118,7 +119,7 @@ export class SearchResults extends React.Component {
                     onChange={this.handlePageChange.bind(this)}
                 /> */}
 
-
+<FooterAll/>
             </>
         )
     }

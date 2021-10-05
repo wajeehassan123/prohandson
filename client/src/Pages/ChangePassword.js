@@ -1,7 +1,7 @@
 import React from 'react'
 import {Form} from 'react-bootstrap';
 import { TutorHeader } from './TutorHeader'
-
+import { FooterAll } from './FooterAll';
 export class ChangePassword extends React.Component {
 
     constructor(props){
@@ -103,7 +103,9 @@ window.location.href="/changepassword"
                         <button onClick={this.handleSubmit} id="btn">Update</button>
                     </div>
             </form>
+            <FooterAll/>
         </div>
         )
+        
     }
 }

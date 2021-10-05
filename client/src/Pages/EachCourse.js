@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import {SetAvail} from './SetAvail'
 import {CardElement,Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-
+import { FooterAll } from './FooterAll';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -225,8 +225,10 @@ render() {
            <div className="container-fluid eachCourseBanner text-white d-flex ">
                 <div className="eachCouseBannerLeft col-lg-6">
                     <h3 className="eachCourseCategory fw-bolder mb-3">
-                        {this.state.course.title}
+                      {this.state.course.title}
                     </h3>
+                    
+                    <h6>Price : {this.state.course.price} $</h6>
                     <h5 className="eachCourseName  my-4">
                     {/* {this.state.course.description} */}
                     </h5>
@@ -242,6 +244,8 @@ render() {
         )
                     }</span>
                         <span>{this.state.course.name}</span>
+                        
+                        <span>{this.state.course.price}</span>
                     </p>
                     {
                         this.state.isEnroll?(
@@ -349,7 +353,9 @@ return(
                     </div>
                 </div>
             </div>
+            <FooterAll/>
            </>
         )
+        
     }
 }

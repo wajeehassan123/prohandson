@@ -2,7 +2,7 @@ import React from 'react'
 import { Header } from './Header';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { FooterAll } from './FooterAll';
 const initialState = {username: '',password:'',first_name:'',last_name:'',password2:'',
 email:'',country:'',city:'',
 errorFName:'',errorLName:'',errorPass:'',errorPass2:'',errorEmail:'',errorCountry:'',errorCity:'',
@@ -200,6 +200,7 @@ console.log(data);
 
                 </form>
             </div>
+            <FooterAll/>
             </>
     )
     }

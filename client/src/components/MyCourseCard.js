@@ -7,7 +7,7 @@ export class MyCourseCard extends React.Component {
         return (
             <div className="myCourseCard d-flex">
                 <div className="myCourseCard_pic">
-                    <img src={"/uploads/"+this.props.course_id.img} alt="card_pic" />
+                    <img src={this.props.course_id.img} alt="card_pic" />
                 </div>
                 <div className="myCourseCard_details">
                     <h3>Skill: {this.props.course_id.title}</h3>
