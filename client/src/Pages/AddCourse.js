@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Form} from 'react-bootstrap';
+import SimpleFileUpload from 'react-simple-file-upload'
 
 import { TutorHeader } from './TutorHeader'
 import {  toast } from 'react-toastify';
@@ -81,8 +82,9 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     handleCategory(event){
         this.setState({category:event.target.value});
     }
-    handleFile(event){
-        this.setState({file:event.target.files[0]});
+    handleFile(url){
+        console.log(url)
+        this.setState({file:url});
     }
 
 
@@ -100,28 +102,32 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 event.preventDefault();
 const formData = new FormData();
     const tutor_id=localStorage.getItem("tutor_id");
-formData.append("file",this.state.file,this.state.file.name);
-formData.append("title",this.state.title);
-formData.append("price",this.state.price);
-formData.append("description",this.state.description);
-formData.append("category",this.state.category);
-formData.append("tutor_id",tutor_id);
-formData.append("name",localStorage.getItem("tutor_name"));
-// let data=JSON.stringify({
-//     title:this.state.title,
-//     price:this.state.price,
-//     description:this.state.description,
-//     category:this.state.category,
+// formData.append("img",this.state.file);
+// formData.append("title",this.state.title);
+// formData.append("price",this.state.price);
+// formData.append("description",this.state.description);
+// formData.append("category",this.state.category);
+// formData.append("tutor_id",tutor_id);
+// formData.append("name",localStorage.getItem("tutor_name"));
+let data=JSON.stringify({
+    title:this.state.title,
+    price:this.state.price,
+    description:this.state.description,
+    category:this.state.category,
+    tutor_id:tutor_id,
+    name:localStorage.tutor_name,
+    img:this.state.file
     
-// });
+});
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+myHeaders.append("Content-Type","application/json")
 
 const requestOptions = {
   method: 'POST',
   headers:myHeaders,
-  body: formData
+  body: data
 };
 
 const loading = toast.loading("Please wait...");
@@ -169,10 +175,14 @@ console.log(this.state);
         <div>
 <h1>Add Course</h1>
             <form className="add-form">
-                        <Form.Group controlId="formFile" className="mb-3">
+                        {/* <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Choose The Course Banner</Form.Label>
                                 <Form.Control  onChange={this.handleFile} type="file" />
-                        </Form.Group>
+                        </Form.Group> */}
+                        <SimpleFileUpload
+    apiKey="56496b1e70884f791c7b2427cd9cf2eb"
+    onSuccess={this.handleFile}
+  />
                         <input className="formInput" value={this.state.title} onChange={this.handleTitle} placeholder="skill Name"  id ="courseName" for="courseName" />
                         <input className="formInput" value={this.state.price} onChange={this.handlePrice} placeholder="Price $" id ="Price" for="Price" />
                         <textarea name="description" value={this.state.description} onChange={this.handleDescp} id="description" for ="description" placeholder="description" cols="30" rows="10"></textarea>

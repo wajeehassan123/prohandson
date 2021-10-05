@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 export class Card extends React.Component {
     constructor(props){
         super(props);
-        this.state={rating:'',imageStr:"./uploads/"+props.img,dataLoaded:false}
+        this.state={rating:'',imageStr:props.img,dataLoaded:false}
         this.getReviews=this.getReviews.bind(this);
         
         
@@ -29,17 +29,12 @@ export class Card extends React.Component {
          avg_rate = sum/len
           this.setState({rating:avg_rate});
           
-          console.log(this.state.rating + "is the rating")
 
       })
     }
     
     render(){
-        console.log(this.state.rating + 'bro');
 
-        let nos = this.state.rating
-        console.log(nos + 'nos');
-        let bro = 4
     return (
         
 

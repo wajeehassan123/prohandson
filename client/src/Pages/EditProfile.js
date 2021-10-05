@@ -2,6 +2,10 @@ import React from 'react'
 import { Form} from 'react-bootstrap';
 import { TutorHeader } from './TutorHeader'
 
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import SimpleFileUpload from 'react-simple-file-upload'
 export class EditProfile extends React.Component {
 
     constructor(props){
@@ -101,73 +105,91 @@ console.log(data);
       handleCity(event){
         this.setState({city:event.target.value});
     }
-    handleFile(event){
-        this.setState({file:event.target.files[0]});
+    handleFile(url){
+        console.log(url)
+        this.setState({file:url});
     }
-
       handleSubmit(event) {
+          
+    const loading = toast.loading("Please wait...");
         event.preventDefault();
-        const formData = new FormData();
         
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+myHeaders.append("Content-Type","application/json")
 
 if(localStorage.tutor_id){
     const tutor_id=localStorage.getItem("tutor_id");
-    if(this.state.file)
-formData.append("file",this.state.file,this.state.file.name);
-formData.append("first_name",this.state.first_name);
-formData.append("last_name",this.state.last_name);
-formData.append("email",this.state.email);
-formData.append("city",this.state.city);
-formData.append("country",this.state.country);
+//     if(this.state.file)
+// formData.append("file",this.state.file,this.state.file.name);
+// formData.append("first_name",this.state.first_name);
+// formData.append("last_name",this.state.last_name);
+// formData.append("email",this.state.email);
+// formData.append("city",this.state.city);
+// formData.append("country",this.state.country);
+let data=JSON.stringify({
+    first_name:this.state.first_name,
+    last_name:this.state.last_name,
+    email:this.state.email,
+    city:this.state.city,
+    coumtry:this.state.country,
+    img:this.state.file,
+    
+});
+
      
         
       const requestOptions = {
           method: 'PUT',
           headers:myHeaders,
-          body: formData
+          body: data
       };
       fetch(`/api/tutorUpdate/${tutor_id}`, requestOptions)
           .then(response => response.json())
           .then(data => 
               {
                   if(data.success){
-                alert(data.message);
+                    toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+               
                   window.location.href="/editprofile";
                   }
                   else{
-                      alert(data.message);
+                    toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
+           
                   }
               });
 
             }
             else if(localStorage.student_id){
                 const student_id=localStorage.getItem("student_id");
-                if(this.state.file)
-formData.append("file",this.state.file,this.state.file.name);
-formData.append("first_name",this.state.first_name);
-formData.append("last_name",this.state.last_name);
-formData.append("email",this.state.email);
-formData.append("city",this.state.city);
-formData.append("country",this.state.country);
-     
+               
+                let data=JSON.stringify({
+                    first_name:this.state.first_name,
+                    last_name:this.state.last_name,
+                    email:this.state.email,
+                    city:this.state.city,
+                    coumtry:this.state.country,
+                    img:this.state.file,
+                    
+                });
         
       const requestOptions = {
           method: 'PUT',
           headers:myHeaders,
-          body: formData
+          body: data
       };
       fetch(`/api/StudentUpdate/${student_id}`, requestOptions)
           .then(response => response.json())
           .then(data => 
               {
                   if(data.success){
-                alert(data.message);
+                    toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
+               
                   window.location.href="/editprofile";
                   }
                   else{
-                      alert(data.message);
+                    toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });
+           
                   }
               });
             }
@@ -200,12 +222,16 @@ formData.append("country",this.state.country);
 
             <form id="main-form" className="editProfile_form">
             <div className="eachCouseBannerRight">
-                    <img className="bannerTutorPic" src={this.state.img ? this.state.imageStr+this.state.img : 'dp.jpg'} alt="coursepic" />
+                    <img className="bannerTutorPic" src={this.state.img ? this.state.img : 'dp.jpg'} alt="coursepic" />
                 </div>
-            <Form.Group controlId="formFile" className="mb-3">
+            {/* <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Choose The Profile Picture</Form.Label>
                                 <Form.Control onChange={this.handleFile} type="file" />
-                        </Form.Group>
+                        </Form.Group> */}
+                        <SimpleFileUpload
+    apiKey="56496b1e70884f791c7b2427cd9cf2eb"
+    onSuccess={this.handleFile}
+  />
                     <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" />
                     <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" />
                     <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" />

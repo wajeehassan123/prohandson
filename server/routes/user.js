@@ -357,9 +357,9 @@ router.get("/api/student/:id",auth,(req,res)=>{
     })
 });
 
-router.put("/api/tutorUpdate/:id",upload.single('file'),auth,(req,res)=>{
-    let obj={};
-    if(req.file){
+router.put("/api/tutorUpdate/:id",auth,(req,res)=>{
+    // let obj={};
+    // if(req.file){
 obj={
     first_name: req.body.first_name,
         
@@ -367,20 +367,20 @@ obj={
     email: req.body.email,
     city:req.body.city,
     country:req.body.country,
-   img:req.file.filename
+   img:req.body.img
 }
 
-    }
-    else{
-        obj={
-        first_name: req.body.first_name,
+    // }
+    // else{
+    //     obj={
+    //     first_name: req.body.first_name,
             
-        last_name: req.body.last_name,
-        email: req.body.email,
-        city:req.body.city,
-        country:req.body.country,
-        }
-    }
+    //     last_name: req.body.last_name,
+    //     email: req.body.email,
+    //     city:req.body.city,
+    //     country:req.body.country,
+    //     }
+    // }
     console.log(obj)
     Tutor.findOneAndUpdate({_id:req.params.id},obj ,{new: true},(err,obj)=>{
         if(err) {console.log(err);
@@ -397,29 +397,15 @@ obj={
 
 
 
-router.put("/api/StudentUpdate/:id",upload.single('file'),auth,(req,res)=>{
-    let obj={};
-    if(req.file){
-obj={
-    first_name: req.body.first_name,
-        
-    last_name: req.body.last_name,
-    email: req.body.email,
-    city:req.body.city,
-    country:req.body.country,
-   img:req.file.filename
-}
-
-    }
-    else{
-        obj={
+router.put("/api/StudentUpdate/:id",auth,(req,res)=>{
+    obj={
         first_name: req.body.first_name,
             
         last_name: req.body.last_name,
         email: req.body.email,
         city:req.body.city,
         country:req.body.country,
-        }
+       img:req.body.img
     }
     console.log(obj)
     Student.findOneAndUpdate({_id:req.params.id},obj,{new: true},(err,obj)=>{

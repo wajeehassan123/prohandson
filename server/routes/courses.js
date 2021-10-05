@@ -43,14 +43,14 @@ const bcrypt = require("bcrypt");
 
 
 
-router.post("/api/tutor/addCourse",upload.single('file'),auth,(req,res)=>{
-
+router.post("/api/tutor/addCourse",auth,(req,res)=>{
+console.log(req.body)
     const newqt=new Course();
     newqt.title=req.body.title;
     newqt.price=req.body.price;
     newqt.description=req.body.description;
     newqt.category=req.body.category;
-    newqt.img = req.file.filename;
+    newqt.img = req.body.img;
     newqt.tutor_id=req.body.tutor_id;
     newqt.name=req.body.name;
     newqt.is_active=0;
