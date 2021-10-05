@@ -98,7 +98,7 @@ export class LoginTutor extends React.Component{
         <Header></Header>
         
         <div id="main-login">
-          <h2 id="form-heading">Log In as Tutor</h2>
+          <h2 id="form-heading">Log In as Mentor</h2>
           <form id="main-form">
           <input className="formInput" type="text" value={this.state.username} onChange={this.handleEmail} placeholder="Email" id ="email" htmlFor="email" />
           <input className="formInput" type="password" value={this.state.password} onChange={this.handlePassword}  placeholder="Password" id ="password" htmlFor="password" />

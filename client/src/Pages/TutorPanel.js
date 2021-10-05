@@ -103,10 +103,6 @@ AddCourse(){
             </div>
         </div>
     )
-        // }
-        // else{
-        //     window.location.href="/";
-
-        // }
+     
     }
 }

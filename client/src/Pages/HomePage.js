@@ -201,7 +201,7 @@ async getReviews(id){
             {this.props.studentLoginVal&&this.props.data?(
             
             <div className="Home_MyCourses">
-                        <h2 className="your_courses">Your Courses</h2>
+                        <h2 className="your_courses">Your Skills</h2>
                         
                         {this.state.mycourses.map(eachCourse=>{
                 return (
@@ -214,7 +214,7 @@ async getReviews(id){
             )}
 
             {/* CATEGORY BUTTONS */}
-            <h2 className="fw-left">Choose Courses</h2>
+            <h2 className="fw-left">Choose Skills</h2>
             <div className="CategoryBtns ">
                 
             <button onClick={this.getCourses} className="btn text-white ">Popular</button>

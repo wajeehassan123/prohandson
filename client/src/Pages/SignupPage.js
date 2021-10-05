@@ -96,12 +96,13 @@ export class SignupPage extends React.Component {
         errorCity = "city cannot be blank";
       }
   
-      if (!this.state.email.includes("@")) {
-        errorEmail = "invalid email";
-      }
+      // if (!this.state.email.includes("@")) {
+      //   errorEmail = "invalid email";
+      // }
   
       if (errorFname || errorLname || errorPass || errorPass2 || errorEmail || errorCountry || errorCity) {
         this.setState({ errorFname, errorLname, errorPass, errorPass2 ,errorCity , errorCountry, errorEmail });
+        // toast.update(loading, { render: data.message, type: "danger", isLoading: false,theme: "colored" });
         return false;
       }
   
@@ -150,6 +151,12 @@ export class SignupPage extends React.Component {
 
 
 console.log(data);
+            }
+
+            else{
+              const loading = toast.loading("Please wait...");
+              // toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
+              toast.update(loading, { render: "please fill all inputs", type: "error", isLoading: false,theme: "colored" });
             }
 
 //alert(this.state.username+ "hello"+ this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.password2);

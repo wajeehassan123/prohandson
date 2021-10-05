@@ -42,8 +42,6 @@ export class HeaderLogginIn extends React.Component {
 
                 <Dropdown.Menu> 
                     <Dropdown.Item href="/">Home</Dropdown.Item>
-                    {/* <Dropdown.Item href="/editprofile">Edit Profile</Dropdown.Item>
-                    <Dropdown.Item href="/changepassword">Change Password</Dropdown.Item> */}
                     <Dropdown.Item onClick={this.logout} >Log Out</Dropdown.Item>
                 </Dropdown.Menu>
                 </Dropdown>
