@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { FooterAll } from './FooterAll';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { HeaderSearchless } from './HeaderSeachless';
 
 const initialState = {username: '',password:'',first_name:'',last_name:'',password2:'',
 email:'',country:'',city:'',
@@ -213,7 +214,7 @@ console.log(data);
 //         </div>
 
         <>
-            <Header></Header>
+            <HeaderSearchless/>
             <div id="main-login">
             <h3 id="form-heading">Sign Up as a Mentor</h3>
                 <form id="main-form">

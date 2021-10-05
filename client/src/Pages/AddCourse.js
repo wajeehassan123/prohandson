@@ -220,10 +220,12 @@ toast.update(loading, { render: "please fill all inputs", type: "error", isLoadi
                                 <Form.Label>Choose The Skill Banner</Form.Label>
                                 <Form.Control  onChange={this.handleFile} type="file" />
                         </Form.Group> */}
+                         <div className="addCoursebtn">
                         <SimpleFileUpload
     apiKey="56496b1e70884f791c7b2427cd9cf2eb"
     onSuccess={this.handleFile}
   />
+  </div>
                         <input className="formInput" value={this.state.title} onChange={this.handleTitle} placeholder="skill Name"  id ="courseName" for="courseName" />
                         <input className="formInput" value={this.state.price} onChange={this.handlePrice} placeholder="Price $" id ="Price" for="Price" />
                         <textarea name="description" value={this.state.description} onChange={this.handleDescp} id="description" for ="description" placeholder="description" cols="30" rows="10"></textarea>

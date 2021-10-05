@@ -37,11 +37,7 @@ export class Card extends React.Component {
 
     return (
         
-
-        
         <div className="card_inner">
-            
-          
             <div className="card_img">
                 <img src={this.state.imageStr ? this.state.imageStr : 'dp.jpg'} alt="card-pic"/>
             </div>
@@ -64,8 +60,6 @@ export class Card extends React.Component {
                  // count={this.state.rating}
                  value={1}
                  count={1}
-                 // value={3}
-                 
                  size={18}
                  isHalf = {true}
                  edit = {false}

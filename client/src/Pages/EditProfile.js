@@ -5,6 +5,8 @@ import { TutorHeader } from './TutorHeader'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FooterAll } from './FooterAll';
+import { HeaderSearchless } from './HeaderSeachless';
+import { HeaderLogginInSearchless } from './HeaderLogginInSearchless';
 
 import SimpleFileUpload from 'react-simple-file-upload'
 export class EditProfile extends React.Component {
@@ -201,9 +203,16 @@ let data=JSON.stringify({
 
     
     render() {
+        let HeaderToShow;
+        if(this.props.studentLoginVal&&this.props.data)
+            HeaderToShow = <HeaderLogginInSearchless parentCallback = {this.handleCallback}/>
+        else if(!this.props.studentLoginVal&&this.props.data)
+            HeaderToShow = <TutorHeader/>
+        else
+            HeaderToShow =  <HeaderSearchless parentCallback = {this.handleCallback}></HeaderSearchless>
         return (
             <div className="mb-4">
-            <TutorHeader></TutorHeader>
+            {HeaderToShow}
             <div className="EditProfile_top d-flex mt-4">
                 <div className="EditProfile_left">
                 <h4>
@@ -229,10 +238,12 @@ let data=JSON.stringify({
                                 <Form.Label>Choose The Profile Picture</Form.Label>
                                 <Form.Control onChange={this.handleFile} type="file" />
                         </Form.Group> */}
+                         <div className="addCoursebtn">
                         <SimpleFileUpload
     apiKey="56496b1e70884f791c7b2427cd9cf2eb"
     onSuccess={this.handleFile}
   />
+  </div>
                     <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" />
                     <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" />
                     <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" />

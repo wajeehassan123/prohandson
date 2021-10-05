@@ -4,6 +4,7 @@ import { Header } from './Header';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FooterAll } from './FooterAll';
+import { HeaderSearchless } from './HeaderSeachless';
 
 export class LoginPage extends React.Component{
   constructor(props) {
@@ -73,7 +74,7 @@ export class LoginPage extends React.Component{
       return(
    
         <>
-        <Header></Header>
+        <HeaderSearchless/>
 
         <div id="main-login">
           <h2 id="form-heading">Login to your Account</h2>

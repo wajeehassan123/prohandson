@@ -1,9 +1,8 @@
 import React from 'react'
 import { Navbar,Nav  } from 'react-bootstrap'
-import SearchInput from '../components/SearchInput';
 
 
-export class Header extends React.Component {
+export class HeaderSearchless extends React.Component {
 
     constructor(props){
         super(props);
@@ -15,13 +14,17 @@ export class Header extends React.Component {
         this.eachCourse=this.eachCourse.bind(this);
     }
 
+    
+
+
     handleSearch(event){
-        this.setState({search:event.target.value});
+this.setState({search:event.target.value});
     }
 
     SubmitSearch(childData){
+
         this.props.parentCallback(childData);
-    }
+        }
 
     eachCourse(id){
         alert(id);
@@ -59,7 +62,6 @@ export class Header extends React.Component {
             >
            
             </Nav>
-        <SearchInput Searchtext={this.SubmitSearch}/>
 
             <div className="nav_btns mt-lg-0 d-flex float-right justify-content-center">
                 

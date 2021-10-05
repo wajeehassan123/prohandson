@@ -1,10 +1,11 @@
 import React from 'react'
 import { Header } from './Header'
 import { FooterAll } from './FooterAll';
+import { HeaderSearchless } from './HeaderSeachless';
 export const LoginContainer = () => {
     return (
         <>
-        <Header></Header>
+        <HeaderSearchless/>
         <div className="loginContainer">
             <button className="loginBox leftBox">
                 <a href="/loginStudent">

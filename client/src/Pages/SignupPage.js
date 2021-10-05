@@ -3,6 +3,7 @@ import { Header } from './Header';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FooterAll } from './FooterAll';
+import { HeaderSearchless } from './HeaderSeachless';
 const initialState = {username: '',password:'',first_name:'',last_name:'',password2:'',
 email:'',country:'',city:'',
 errorFName:'',errorLName:'',errorPass:'',errorPass2:'',errorEmail:'',errorCountry:'',errorCity:'',
@@ -177,7 +178,7 @@ console.log(data);
 
 
             <>
-            <Header></Header>
+            <HeaderSearchless/>
             <div id="main-login">
                 <h3 id="form-heading">Sign Up as Student</h3>
                 <form id="main-form">

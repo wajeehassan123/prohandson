@@ -9,6 +9,8 @@ import {loadStripe} from '@stripe/stripe-js';
 import { FooterAll } from './FooterAll';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { HeaderSearchless } from './HeaderSeachless';
+import { HeaderLogginInSearchless } from './HeaderLogginInSearchless';
 
 import CheckoutForm from './../components/CheckoutForm';
 
@@ -219,9 +221,16 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
 }
 
 render() {
+    let HeaderToShow;
+        if(this.props.studentLoginVal&&this.props.data)
+            HeaderToShow = <HeaderLogginInSearchless parentCallback = {this.handleCallback}/>
+        else if(!this.props.studentLoginVal&&this.props.data)
+            HeaderToShow = <TutorHeader/>
+        else
+            HeaderToShow =  <HeaderSearchless parentCallback = {this.handleCallback}></HeaderSearchless>
         return (
            <>
-           <TutorHeader></TutorHeader>
+           {HeaderToShow}
            <div className="container-fluid eachCourseBanner text-white d-flex ">
                 <div className="eachCouseBannerLeft col-lg-6">
                     <h3 className="eachCourseCategory fw-bolder mb-3">

@@ -5,6 +5,8 @@ import { TutorHeader } from './TutorHeader';
 import { MyCourseCard } from '../components/MyCourseCard';
 import { HeaderLogginIn } from './HeaderLoggedIn';
 import { FooterAll } from './FooterAll';
+import { HeaderSearchless } from './HeaderSeachless';
+import { HeaderLogginInSearchless } from './HeaderLogginInSearchless';
 
 
 const MyContext=React.createContext();
@@ -157,6 +159,7 @@ async getReviews(id){
                 HeaderToShow = <TutorHeader/>
             else
                 HeaderToShow =  <Header parentCallback = {this.handleCallback}></Header>
+                
     return (
        
         <>

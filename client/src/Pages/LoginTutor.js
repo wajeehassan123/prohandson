@@ -3,6 +3,8 @@ import { Header } from './Header';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FooterAll } from './FooterAll';
+import { HeaderLogginInSearchless } from './HeaderLogginInSearchless';
+import { HeaderSearchless } from './HeaderSeachless';
 
 export class LoginTutor extends React.Component{
     constructor(props) {
@@ -96,8 +98,7 @@ export class LoginTutor extends React.Component{
           //         </div>
         
         <>
-        <Header></Header>
-        
+<HeaderSearchless/>
         <div id="main-login">
           <h2 id="form-heading">Log In as Mentor</h2>
           <form id="main-form">

@@ -176,10 +176,13 @@ this.setState({course_id:data.data._id,selectValue:data.data.category,title:data
                                 <Form.Label>Choose The Skill Picture</Form.Label>
                                 <Form.Control onChange={this.handleFile} type="file" />
                         </Form.Group> */}
+                        <div className="addCoursebtn">
+
                           <SimpleFileUpload
-    apiKey="56496b1e70884f791c7b2427cd9cf2eb"
-    onSuccess={this.handleFile}
-  />
+                            apiKey="56496b1e70884f791c7b2427cd9cf2eb"
+                            onSuccess={this.handleFile}
+                            />
+                        </div>
                     <input className="formInput" value={this.state.title} onChange={this.handleName}  placeholder="Course Name"  id ="courseName" htmlFor="courseName" />
                     <input className="formInput" value={this.state.description} onChange={this.handleDescription} placeholder="Description" id ="description" htmlFor="lastName" />
                     <input className="formInput" value={this.state.price} onChange={this.handlePrice} placeholder="Price"  id ="price" htmlFor="price" />
@@ -191,12 +194,12 @@ this.setState({course_id:data.data._id,selectValue:data.data.category,title:data
                         <option value="Dance">Dance</option>
                         <option value="Animal Care">Animal Care</option>
                     </Form.Select>
-                    <div className="btn-r text-center ">
-                        <button onClick={this.handleSubmit} id="btn">Update</button>
-                    </div>
-                    <div className="btn-l text-center ">
-                        <button onClick={this.handleDelete} id="btn" className="btn btn-danger">Delete</button>
-                    </div>
+                    {/* <div className="btn-r text-center "> */}
+                        <button onClick={this.handleSubmit} className="btn btn-info mb-2" >Update</button>
+                    {/* </div> */}
+                    {/* <div className=" text-center "> */}
+                        <button onClick={this.handleDelete}  className="btn btn-danger mb-2">Delete</button>
+                    {/* </div> */}
             </form>
             <FooterAll/>
         </div>
