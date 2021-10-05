@@ -10,11 +10,11 @@ export class MyCourseCard extends React.Component {
                     <img src={"/uploads/"+this.props.course_id.img} alt="card_pic" />
                 </div>
                 <div className="myCourseCard_details">
-                    <h3>Course: {this.props.course_id.title}</h3>
-                    <h4>Tutor: {this.props.tutor_id.first_name+" "+this.props.tutor_id.last_name}</h4>
+                    <h3>Skill: {this.props.course_id.title}</h3>
+                    <h4>Mentor: {this.props.tutor_id.first_name+" "+this.props.tutor_id.last_name}</h4>
                 </div>
                 <button className="myCourseCard_btn bg-primary fw-bolder text-white btn">
-                    View Course
+                    View Skill
                 </button>
             </div>
         )

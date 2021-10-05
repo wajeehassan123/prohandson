@@ -112,10 +112,10 @@ this.setState({name:data.data.name,description:data.data.description,price:data.
             <div className="EditProfile_top d-flex mt-4">
                 <div className="EditProfile_left">
                 <h4>
-                   <a href="/tutorPanel"> All Courses </a>
+                   <a href="/tutorPanel"> All Skills </a>
                 </h4>
                 <h4> &#62; </h4>
-                <h4>Edit Course</h4>
+                <h4>Edit Skill</h4>
                 </div>
             </div>
 
@@ -127,7 +127,7 @@ this.setState({name:data.data.name,description:data.data.description,price:data.
                     <img className="bannerTutorPic" src={this.state.img ? this.state.imageStr+this.state.img : 'dp.jpg'} alt="coursepic" />
                 </div>
             <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Choose The Course Picture</Form.Label>
+                                <Form.Label>Choose The Skill Picture</Form.Label>
                                 <Form.Control onChange={this.handleFile} type="file" />
                         </Form.Group>
                     <input className="formInput" value={this.state.name} onChange={this.handleName}  placeholder="Course Name"  id ="courseName" htmlFor="courseName" />

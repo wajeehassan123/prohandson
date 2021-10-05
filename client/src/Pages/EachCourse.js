@@ -234,10 +234,10 @@ render() {
                         <span >
                         {
                         this.state.course.tutor_id?(
-                            <img src={this.state.profileImg+this.state.course.tutor_id.img} alt="tutor pic" />
+                            <img src={this.state.course.tutor_id.img ? this.state.course.tutor_id.img : 'dp.jpg'} alt="tutor pic" />
                    
         ): (
-            <img src={this.state.profileImg+this.state.course.img} alt="tutor pic" />
+            <img src={this.state.course.img ? this.state.course.img : 'dp.jpg'} alt="tutor pic" />
                    
         )
                     }</span>
@@ -303,7 +303,8 @@ render() {
                 </div>
 
                 <div className="eachCouseBannerRightt">
-                    <img className="bannerTutorPic" src={this.state.imageStr+this.state.course.img} alt="coursepic" />
+                    <img className="bannerTutorPic" src={this.state.course.img ? this.state.course.img : 'dp.jpg'} alt="coursepic" />
+                    
                 </div>
             </div>
 {
@@ -331,14 +332,14 @@ return(
             </div>
 
             <div className="eachCourseTutor">
-                <h3 className="mb-3">Tutor</h3>
+                <h3 className="mb-3">Mentor</h3>
                 <div className="eachCourseTutorInner d-flex">
-                    {
+                {
                         this.state.course.tutor_id?(
-                            <img src={this.state.profileImg+this.state.course.tutor_id.img} alt="tutor pic" />
+                            <img src={this.state.course.tutor_id.img ? this.state.course.tutor_id.img : 'dp.jpg'} alt="tutor pic" />
                    
         ): (
-            <img src={this.state.profileImg+this.state.course.img} alt="tutor pic" />
+            <img src={this.state.course.img ? this.state.course.img : 'dp.jpg'} alt="tutor pic" />
                    
         )
                     }

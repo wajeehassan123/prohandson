@@ -12,7 +12,7 @@ export const LoginContainer = () => {
             </button>
             <button className="loginBox rightBox">
                 <a href="/loginTutor">
-                    Login as Tutor
+                    Login as Mentor
                 </a>
             </button>
         </div>

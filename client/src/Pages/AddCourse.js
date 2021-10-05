@@ -7,11 +7,12 @@ import { TutorHeader } from './TutorHeader'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const initialState = {title:'',price:'',paymentId:'',description:'',category:'',file:null,img:'',paymentVerified:false, errorTitle : '', errorPrice : '', errorDescription : ''};
 export class AddCourse extends React.Component {
 
     constructor(props){
         super(props);
-        this.state={title:'',price:'',paymentId:'',description:'',category:'',file:null,img:'',paymentVerified:false};
+        this.state={initialState}
 
         if(!props.data){
             window.location.href="/logintutor";
@@ -98,8 +99,40 @@ myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
       })
     }
 
+    
+    validate = () => {
+        let errorTitle= "";
+        let errorDescription = "";
+        let errorPrice = "";
+        
+    
+        if (!this.state.title) {
+          errorTitle = "title cannot be blank";
+        }
+        if (!this.state.description) {
+          errorDescription = "descriptionn cannot be blank";
+        }
+        if (!this.state.price) {
+          errorPrice = "price cannot be blank";
+        }
+      
+        if (errorTitle || errorDescription || errorPrice) {
+          this.setState({ errorTitle, errorDescription, errorPrice});
+          // toast.update(loading, { render: data.message, type: "danger", isLoading: false,theme: "colored" });
+          return false;
+        }
+    
+        return true;
+      };
+
     handleSubmit(event){
 event.preventDefault();
+
+const isValid = this.validate();
+        if (isValid) {
+            console.log(this.state);
+            // clear form
+            this.setState(initialState);
 const formData = new FormData();
     const tutor_id=localStorage.getItem("tutor_id");
 // formData.append("img",this.state.file);
@@ -157,6 +190,14 @@ fetch('/api/tutor/addCourse',requestOptions)
       });
 
 console.log(this.state);
+
+}
+
+else{
+const loading = toast.loading("Please wait...");
+// toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
+toast.update(loading, { render: "please fill all inputs", type: "error", isLoading: false,theme: "colored" });
+}
     }
     
     render(){
@@ -173,10 +214,10 @@ console.log(this.state);
 </div>
     ):(
         <div>
-<h1>Add Course</h1>
+<h1>Add Skill</h1>
             <form className="add-form">
                         {/* <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Choose The Course Banner</Form.Label>
+                                <Form.Label>Choose The Skill Banner</Form.Label>
                                 <Form.Control  onChange={this.handleFile} type="file" />
                         </Form.Group> */}
                         <SimpleFileUpload

@@ -4,6 +4,14 @@ import React from 'react'
 import { Form} from 'react-bootstrap';
 import { Header } from './Header';
 
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const initialState = {username: '',password:'',first_name:'',last_name:'',password2:'',
+email:'',country:'',city:'',
+errorFName:'',errorLName:'',errorPass:'',errorPass2:'',errorEmail:'',errorCountry:'',errorCity:'',
+selectValue:''
+};
 
 export class SignupTutor extends React.Component {
 
@@ -13,10 +21,7 @@ export class SignupTutor extends React.Component {
         if(props.data){
             window.location.href="/";
           }
-        this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
-        email:'',country:'',city:'',
-        selectValue:''
-    };
+        this.state = {initialState}
         
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
@@ -65,8 +70,59 @@ export class SignupTutor extends React.Component {
         this.setState({city:event.target.value});
     }
 
+    validate = () => {
+        let errorFname = "";
+        let errorLname = "";
+        let errorPass = "";
+        let errorPass2 = "";
+        let errorEmail = "";
+        let errorCountry = "";
+        let errorCity = "";
+        let emailError
+    
+        if (!this.state.first_name) {
+          errorFname = "name cannot be blank";
+        }
+        if (!this.state.last_name) {
+          errorLname = "name cannot be blank";
+        }
+        if (!this.state.password) {
+          errorPass = "password cannot be blank";
+        }
+        if (!this.state.password2) {
+          errorPass2 = "password cannot be blank";
+        }
+        if (!this.state.email) {
+          errorEmail = "email cannot be blank";
+        }
+        if (!this.state.country) {
+          errorCountry = "country cannot be blank";
+        }
+        if (!this.state.city) {
+          errorCity = "city cannot be blank";
+        }
+    
+        // if (!this.state.email.includes("@")) {
+        //   errorEmail = "invalid email";
+        // }
+    
+        if (errorFname || errorLname || errorPass || errorPass2 || errorEmail || errorCountry || errorCity) {
+          this.setState({ errorFname, errorLname, errorPass, errorPass2 ,errorCity , errorCountry, errorEmail });
+          // toast.update(loading, { render: data.message, type: "danger", isLoading: false,theme: "colored" });
+          return false;
+        }
+    
+        return true;
+      };
+
       handleSubmit(event) {
         event.preventDefault();
+
+        const isValid = this.validate();
+        if (isValid) {
+            console.log(this.state);
+            // clear form
+            this.setState(initialState);
         let data={
             first_name:this.state.first_name,
             last_name:this.state.last_name,
@@ -82,23 +138,32 @@ export class SignupTutor extends React.Component {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
       };
+
+      const loading = toast.loading("Please wait...");
+      toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
+
       fetch('/api/tutor/signup', requestOptions)
           .then(response => response.json())
           .then(data => 
               {
                   if(data.success){
-                  alert(data.message+"\nPlease Login to continue.");
+                    toast.update(loading, { render: data.message, type: "success", isLoading: false,theme: "colored" });
                   //localStorage.setItem("token",data.token);
                   window.location.href="/logintutor";
                   }
                   else{
-                      alert("error occured");
-                  }
+                    toast.update(loading, { render: data.message, type: "error", isLoading: false,theme: "colored" });                  }
               });
 
 
 console.log(data);
+                }
 
+                else{
+                const loading = toast.loading("Please wait...");
+                // toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
+                toast.update(loading, { render: "please fill all inputs", type: "error", isLoading: false,theme: "colored" });
+                }
 //alert(this.state.username+ "hello"+ this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.password2);
     }
 
@@ -150,7 +215,7 @@ console.log(data);
         <>
             <Header></Header>
             <div id="main-login">
-            <h3 id="form-heading">Sign Up as a Tutor</h3>
+            <h3 id="form-heading">Sign Up as a Mentor</h3>
                 <form id="main-form">
                         {/* <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Choose The Profile Picture</Form.Label>

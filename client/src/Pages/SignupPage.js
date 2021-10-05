@@ -15,10 +15,7 @@ export class SignupPage extends React.Component {
         if(props.data){
             window.location.href="/";
           }
-        this.state = {username: '',password:'',first_name:'',last_name:'',password2:'',
-        email:'',country:'',city:'',
-        errorFName:null,errorLName:'',errorPass:'',errorPass2:'',errorEmail:'',errorCountry:'',errorCity:'',
-        selectValue:''}
+        this.state = {initialState}
         
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
@@ -31,7 +28,6 @@ export class SignupPage extends React.Component {
         this.handleCountry=this.handleCountry.bind(this);
         this.GotoLogin=this.GotoLogin.bind(this);
         this.handleSelect=this.handleSelect.bind(this);
-        this.validate=this.validate.bind(this);
     }
 
     handleEmail(event) {
@@ -68,49 +64,49 @@ export class SignupPage extends React.Component {
         this.setState({city:event.target.value});
     }
 
-    validate(){
-      // let errorFname = "";
-      // let errorLname = "";
-      // let errorPass = "";
-      // let errorPass2 = "";
-      // let errorEmail = "";
-      // let errorCountry = "";
-      // let errorCity = "";
-      //let emailError;
+    validate = () => {
+      let errorFname = "";
+      let errorLname = "";
+      let errorPass = "";
+      let errorPass2 = "";
+      let errorEmail = "";
+      let errorCountry = "";
+      let errorCity = "";
+      let emailError
   
-      if (!this.state.first_name || this.state.first_name==="") {
-        this.setState({errorFname:'name cannot be blank'})
-        return false;
+      if (!this.state.first_name) {
+        errorFname = "name cannot be blank";
       }
-      // if (!this.state.last_name) {
-      //   errorLname = "name cannot be blank";
-      // }
-      // if (!this.state.password) {
-      //   errorPass = "password cannot be blank";
-      // }
-      // if (!this.state.password2) {
-      //   errorPass2 = "password cannot be blank";
-      // }
-      // if (!this.state.email) {
-      //   errorEmail = "email cannot be blank";
-      // }
-      // if (!this.state.country) {
-      //   errorCountry = "country cannot be blank";
-      // }
-      // if (!this.state.city) {
-      //   errorCity = "city cannot be blank";
-      // }
+      if (!this.state.last_name) {
+        errorLname = "name cannot be blank";
+      }
+      if (!this.state.password) {
+        errorPass = "password cannot be blank";
+      }
+      if (!this.state.password2) {
+        errorPass2 = "password cannot be blank";
+      }
+      if (!this.state.email) {
+        errorEmail = "email cannot be blank";
+      }
+      if (!this.state.country) {
+        errorCountry = "country cannot be blank";
+      }
+      if (!this.state.city) {
+        errorCity = "city cannot be blank";
+      }
   
       // if (!this.state.email.includes("@")) {
       //   errorEmail = "invalid email";
       // }
   
-      // if (errorFname || errorLname || errorPass || errorPass2 || errorEmail || errorCountry || errorCity) {
-      //   this.setState({ errorFname:errorFname });
-      //   return false;
-      // }
+      if (errorFname || errorLname || errorPass || errorPass2 || errorEmail || errorCountry || errorCity) {
+        this.setState({ errorFname, errorLname, errorPass, errorPass2 ,errorCity , errorCountry, errorEmail });
+        // toast.update(loading, { render: data.message, type: "danger", isLoading: false,theme: "colored" });
+        return false;
+      }
   
-       return true;
+      return true;
     };
 
       handleSubmit(event) {
@@ -119,7 +115,7 @@ export class SignupPage extends React.Component {
         if (isValid) {
           console.log(this.state);
           // clear form
-          //this.setState(initialState);
+          this.setState(initialState);
         
         let data={
             first_name:this.state.first_name,
@@ -157,6 +153,12 @@ export class SignupPage extends React.Component {
 console.log(data);
             }
 
+            else{
+              const loading = toast.loading("Please wait...");
+              // toast.update(loading,{render: "Loading...", type: "info", isLoading: true,theme: "colored"})
+              toast.update(loading, { render: "please fill all inputs", type: "error", isLoading: false,theme: "colored" });
+            }
+
 //alert(this.state.username+ "hello"+ this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.password2);
     }
 
@@ -168,7 +170,6 @@ console.log(data);
 
 
     render(){
-      console.log(this.state.errorFName)
         // if(localStorage.getItem("token")){
         //     window.location.href="/";
         // }
@@ -181,10 +182,9 @@ console.log(data);
                 <h3 id="form-heading">Sign Up as Student</h3>
                 <form id="main-form">
                 <input className="formInput" value={this.state.first_name} onChange={this.handleFirstName}  placeholder="FirstName"  id ="firstName" htmlFor="firstName" required />
-           
                 <div style={{ fontSize: 12, color: "red" }}>
-               <h1>   {this.state.errorFName}</h1>
-                </div>
+            {this.state.errorFName}
+          </div>
                         <input className="formInput" value={this.state.last_name} onChange={this.handleLastName} placeholder="LastName" id ="lastName" htmlFor="lastName" required />
                         <input className="formInput" value={this.state.email} onChange={this.handleEmail} placeholder="Email"  id ="email" htmlFor="email" required />
                         <input className="formInput" value={this.state.password} onChange={this.handlePassword} placeholder="Password" id ="password" type="password" htmlFor="password" required />

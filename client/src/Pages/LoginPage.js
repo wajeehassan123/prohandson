@@ -59,26 +59,7 @@ export class LoginPage extends React.Component{
             });
   }
 
-  validate = () => {
-    let nameError = "";
-    let emailError = "";
-    // let passwordError = "";
-
-    if (!this.state.name) {
-      nameError = "name cannot be blank";
-    }
-
-    if (!this.state.email.includes("@")) {
-      emailError = "invalid email";
-    }
-
-    if (emailError || nameError) {
-      this.setState({ emailError, nameError });
-      return false;
-    }
-
-    return true;
-  };
+  
 
   GotoSignup(event){
     event.preventDefault();
@@ -87,34 +68,11 @@ export class LoginPage extends React.Component{
 
 
   render(){
-      // if(localStorage.getItem("token")){
-      //     window.location.href="/";
-      // }
+     
       return(
-          // <div id="main-login">
-          //     <h3 id="form-heading">Login</h3>
-          //         <form id="main-form">
-          //                 <label className="formLabel">Email</label>
-          //                 <input className="formInput" type="text" value={this.state.username} onChange={this.handleEmail} id ="email" htmlFor="email" />
-
-          //                 <label className="formLabel">Password</label>
-          //                 <input className="formInput" type="password" value={this.state.password} onChange={this.handlePassword} id ="password" htmlFor="password" />
-          // <div className="btn-r">
-          // <button type="submit" onClick={this.handleSubmit} id="btn">login</button>
-          // <button type="submit" onClick={this.GotoSignup} id="btn" className="btn-l">Signup</button>
-                            
-          // </div>
-                                
-          //           </form>
-                      
-          //         </div>
-        
-
+   
         <>
-
-
         <Header></Header>
-
 
         <div id="main-login">
           <h2 id="form-heading">Login to your Account</h2>
@@ -131,37 +89,7 @@ export class LoginPage extends React.Component{
             
         </div>
         </>
-    
-
-
-
-
-
-
         
       );
   }
 }
-
-// export const LoginPage = () => {
-
-     
-
-//}
-//     return (
-//         <div id="main-login">
-//             <h3 id="form-heading">Login</h3>
-//                 <form id="main-form">
-//                         <label className="formLabel">Email</label>
-//                         <input className="formInput" id ="email" htmlFor="email" />
-
-//                         <label className="formLabel">Password</label>
-//                         <input className="formInput" id ="password" htmlFor="password" />
-
-//                         <button id="btn">login</button>
-                   
-//                 </form>
-            
-//         </div>
-//     )
-// }
